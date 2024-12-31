@@ -16,6 +16,8 @@ public class AeroplaneController : MonoBehaviour
     float angle_of_attack;
     float angle_of_attack_yaw;
 
+    [SerializeField] float lift_power;
+
     Vector3 velocity;
     Vector3 local_velocity;
     Vector3 last_velocity;
@@ -101,6 +103,11 @@ public class AeroplaneController : MonoBehaviour
         last_velocity = velocity;
     }
 
+    void calculateLift(float angle_of_attack, Vector3 right_axis, float lift_power, AnimationCurve angle_of_attack_curve)
+    {
+
+    }
+
     void updateThrust()
     {
         rb.AddRelativeForce(throttle * max_thrust * Vector3.forward);
@@ -131,6 +138,7 @@ public class AeroplaneController : MonoBehaviour
         rb.AddRelativeForce(drag); 
     }
 
+    
 
     public static Vector3 scale6
         (
