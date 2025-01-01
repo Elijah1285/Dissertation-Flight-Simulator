@@ -79,7 +79,6 @@ public class AeroplaneController : MonoBehaviour
                 throttle -= Time.deltaTime;
             }
         }
-        Debug.Log(throttle);
     }
 
     void calculateState(float dt)
@@ -158,7 +157,6 @@ public class AeroplaneController : MonoBehaviour
             );
 
         var drag = coefficient.magnitude * local_velocity_squared * -_local_velocity.normalized; //drag is opposite to direction of velocity
-        Debug.Log(drag);
 
         rb.AddRelativeForce(drag); 
     }
