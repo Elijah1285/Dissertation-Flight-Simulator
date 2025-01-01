@@ -73,11 +73,6 @@ public class AeroplaneController : MonoBehaviour
         updateDrag();
         updateLift();
         updateSteering(dt);
-
-        Debug.Log("Pitch: " + Input.GetAxis("Pitch"));
-        Debug.Log("Yaw: " + Input.GetAxis("Yaw"));
-        Debug.Log("Roll: " + Input.GetAxis("Roll"));
-        Debug.Log("Throttle: " + Input.GetAxis("Throttle"));
     }
 
     void getInput()
