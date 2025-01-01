@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AeroplaneController : MonoBehaviour
-{
-    float throttle = 0.0f;
+{  
     [SerializeField] float max_thrust;
 
     bool flaps_deployed;
@@ -44,16 +43,28 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve drag_top;
     [SerializeField] AnimationCurve drag_bottom;
 
+    [Header("Steering Settings")]
+    [SerializeField] Vector3 turn_speed;
+    [SerializeField] Vector3 turn_acceleration;
+    [SerializeField] AnimationCurve steering_curve;
+
+    //input
+    float throttle = 0.0f;
+    Vector3 control_surface_input = Vector3.zero;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
+    void Update()
+    {
+        getInput();
+    }
+
     void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
-
-        getInput();
 
         calculateState(dt);
         calculateAngleOfAttack();
@@ -61,10 +72,18 @@ public class AeroplaneController : MonoBehaviour
         updateThrust();
         updateDrag();
         updateLift();
+        updateSteering(dt);
+
+        Debug.Log("Pitch: " + Input.GetAxis("Pitch"));
+        Debug.Log("Yaw: " + Input.GetAxis("Yaw"));
+        Debug.Log("Roll: " + Input.GetAxis("Roll"));
+        Debug.Log("Throttle: " + Input.GetAxis("Throttle"));
     }
 
     void getInput()
     {
+        //keyboard / mouse
+        //throttle
         if (Input.GetKey("up"))
         {
             if (throttle < 1.0f)
@@ -79,6 +98,15 @@ public class AeroplaneController : MonoBehaviour
                 throttle -= Time.deltaTime;
             }
         }
+
+        //HOTAS (flight controllers)
+        //throttle
+        throttle = Input.GetAxis("Throttle");
+
+        //control surfaces
+        control_surface_input.x = -Input.GetAxis("Pitch");
+        control_surface_input.y = Input.GetAxis("Yaw");
+        control_surface_input.z = -Input.GetAxis("Roll");
     }
 
     void calculateState(float dt)
@@ -132,6 +160,14 @@ public class AeroplaneController : MonoBehaviour
         return lift + induced_drag;
     }
 
+    float calculateSteering(float dt, float angular_velocity, float target_angular_velocity, float angular_acceleration)
+    {
+        var error = target_angular_velocity - angular_velocity;
+        var _acceleration = angular_acceleration * dt;
+
+        return Mathf.Clamp(error, -_acceleration, _acceleration);
+    }
+
     void updateThrust()
     {
         rb.AddRelativeForce(throttle * max_thrust * Vector3.forward);
@@ -181,6 +217,24 @@ public class AeroplaneController : MonoBehaviour
 
         rb.AddRelativeForce(lift_force);
         rb.AddRelativeForce(yaw_force); 
+    }
+
+    void updateSteering(float dt)
+    {
+        var speed = Mathf.Max(0, local_velocity.z);
+        var steering_power = steering_curve.Evaluate(speed);
+
+        var target_angular_velocity = Vector3.Scale(control_surface_input, turn_speed * steering_power);
+        var angular_velocity = local_angular_velocity * Mathf.Rad2Deg;
+
+        var correction = new Vector3
+            (
+            calculateSteering(dt, angular_velocity.x, target_angular_velocity.x, turn_acceleration.x * steering_power),
+            calculateSteering(dt, angular_velocity.y, target_angular_velocity.y, turn_acceleration.y * steering_power),
+            calculateSteering(dt, angular_velocity.z, target_angular_velocity.z, turn_acceleration.z * steering_power)
+            );
+
+        rb.AddRelativeTorque(correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
     }
 
     public static Vector3 scale6
