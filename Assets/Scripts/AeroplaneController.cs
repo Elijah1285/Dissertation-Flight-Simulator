@@ -17,6 +17,11 @@ public class AeroplaneController : MonoBehaviour
     float angle_of_attack_yaw;
 
     [SerializeField] float lift_power;
+    [SerializeField] float induced_drag;
+    [SerializeField] float flaps_lift_power;
+    [SerializeField] float flaps_angle_of_attack_bias;
+
+    [SerializeField] float rudder_power;
 
     Vector3 velocity;
     Vector3 local_velocity;
@@ -27,6 +32,9 @@ public class AeroplaneController : MonoBehaviour
     Vector3 local_g_force;
 
     Rigidbody rb;
+
+    [SerializeField] AnimationCurve lift_angle_of_attack_curve;
+    [SerializeField] AnimationCurve rudder_angle_of_attack_curve;
 
     [Header("Drag Settings")]
     [SerializeField] AnimationCurve drag_forward;
@@ -52,6 +60,7 @@ public class AeroplaneController : MonoBehaviour
         calculateGForce(dt);
         updateThrust();
         updateDrag();
+        updateLift();
     }
 
     void getInput()
@@ -103,9 +112,25 @@ public class AeroplaneController : MonoBehaviour
         last_velocity = velocity;
     }
 
-    void calculateLift(float angle_of_attack, Vector3 right_axis, float lift_power, AnimationCurve angle_of_attack_curve)
+    Vector3 calculateLift(float angle_of_attack, Vector3 right_axis, float lift_power, AnimationCurve angle_of_attack_curve)
     {
+        var lift_velocity = Vector3.ProjectOnPlane(local_velocity, right_axis);
+        var lift_velocity_squared = lift_velocity.sqrMagnitude;
 
+        //coefficient varies with angle of attack
+        var lift_coefficient = angle_of_attack_curve.Evaluate(angle_of_attack * Mathf.Rad2Deg);
+        var lift_force = lift_velocity_squared * lift_coefficient * lift_power;
+
+        //lift is perpendicular to velocity
+        var lift_direction = Vector3.Cross(lift_velocity.normalized, right_axis);
+        var lift = lift_direction * lift_force;
+
+        //induced drag varies with square of lift coefficient
+        var drag_force = lift_coefficient * lift_coefficient * this.induced_drag;
+        var drag_direction = -lift_velocity.normalized;
+        var induced_drag = drag_direction * lift_velocity_squared * drag_force;
+
+        return lift + induced_drag;
     }
 
     void updateThrust()
@@ -138,7 +163,27 @@ public class AeroplaneController : MonoBehaviour
         rb.AddRelativeForce(drag); 
     }
 
-    
+    void updateLift()
+    {
+        if (local_velocity.sqrMagnitude < 1.0f)
+        {
+            return;
+        }
+
+        float _flaps_lift_power = flaps_deployed ? this.flaps_lift_power : 0;
+        float _flaps_angle_of_attack_bias = flaps_deployed ? this.flaps_angle_of_attack_bias : 0;
+
+        var lift_force = calculateLift
+            (
+            angle_of_attack + (_flaps_angle_of_attack_bias * Mathf.Deg2Rad), Vector3.right,
+            lift_power + _flaps_lift_power, lift_angle_of_attack_curve
+            );
+
+        var yaw_force = calculateLift(angle_of_attack_yaw, Vector3.up, rudder_power, rudder_angle_of_attack_curve);
+
+        rb.AddRelativeForce(lift_force);
+        rb.AddRelativeForce(yaw_force); 
+    }
 
     public static Vector3 scale6
         (
