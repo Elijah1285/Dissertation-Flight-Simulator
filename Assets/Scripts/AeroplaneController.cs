@@ -49,6 +49,7 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve steering_curve;
 
     //input
+    bool engine_running = false;
     float throttle = 0.0f;
     Vector3 control_surface_input = Vector3.zero;
 
@@ -78,6 +79,12 @@ public class AeroplaneController : MonoBehaviour
     void getInput()
     {
         //keyboard / mouse
+        //engine
+        if (Input.GetKeyDown("e"))
+        {
+            engine_running = !engine_running;
+        }
+
         //throttle
         if (Input.GetKey("up"))
         {
@@ -165,7 +172,10 @@ public class AeroplaneController : MonoBehaviour
 
     void updateThrust()
     {
-        rb.AddRelativeForce(throttle * max_thrust * Vector3.forward);
+        if (engine_running)
+        {
+            rb.AddRelativeForce(throttle * max_thrust * Vector3.forward);
+        }
     }
 
     void updateDrag()
