@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class AeroplaneController : MonoBehaviour
 {  
@@ -49,6 +50,10 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] Vector3 turn_acceleration;
     [SerializeField] AnimationCurve steering_curve;
 
+    [Header("UI objects")]
+    [SerializeField] TextMeshProUGUI engine_text;
+    [SerializeField] TextMeshProUGUI throttle_text;
+
     //input
     bool engine_running = false;
     float throttle_input = 0.0f;
@@ -66,11 +71,14 @@ public class AeroplaneController : MonoBehaviour
 
         //buttons
         aircraft_controls.Flight.Engine.performed += context => toggleEngine();
+        aircraft_controls.Flight.Engine.performed += context => updateEngineText();
 
         //axis
         aircraft_controls.Flight.Stick.performed += context => stick_input = context.ReadValue<Vector2>();
         aircraft_controls.Flight.Pedals.performed += context => pedals_input = context.ReadValue<float>();
+
         aircraft_controls.Flight.Throttle.performed += context => throttle_input = context.ReadValue<float>();
+        aircraft_controls.Flight.Throttle.performed += context => updateThrottleText();
     }
 
     void Start()
@@ -100,9 +108,9 @@ public class AeroplaneController : MonoBehaviour
     void getInput()
     {
         //joystick input
-        control_surface_input.x = stick_input.x;
-        control_surface_input.y = stick_input.y;
-        control_surface_input.z = pedals_input;
+        control_surface_input.x = stick_input.y; //pitch input
+        control_surface_input.y = pedals_input; //yaw input
+        control_surface_input.z = -stick_input.x; //roll input
     }
 
     void calculateState(float dt)
@@ -282,5 +290,22 @@ public class AeroplaneController : MonoBehaviour
     void toggleEngine()
     {
         engine_running = !engine_running;
+    }
+
+    void updateEngineText()
+    {
+        if (engine_running)
+        {
+            engine_text.text = "Engine: RUNNING";
+        }
+        else
+        {
+            engine_text.text = "Engine: STOPPED";
+        }
+    }
+
+    void updateThrottleText()
+    {
+        throttle_text.text = "Throttle: " + (throttle_input * 100.0f).ToString() + "%";
     }
 }
