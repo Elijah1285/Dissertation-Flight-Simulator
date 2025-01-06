@@ -2731,11 +2731,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 589812830151862689, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_Mass
-      value: 10000
+      value: 762
       objectReference: {fileID: 0}
     - target: {fileID: 589812830151862689, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_AngularDrag
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589812830151862689, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1566354529828185069, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_Name
@@ -3451,7 +3455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7036173496276965883, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.5
+      value: 6.55
       objectReference: {fileID: 0}
     - target: {fileID: 7036173496276965883, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z

@@ -51,7 +51,7 @@ public class AeroplaneController : MonoBehaviour
 
     //input
     bool engine_running = false;
-    float throttle = 0.0f;
+    float throttle_input = 0.0f;
     Vector3 control_surface_input = Vector3.zero;
 
     Vector2 stick_input;
@@ -61,10 +61,16 @@ public class AeroplaneController : MonoBehaviour
 
     void Awake()
     {
+        //initialise controls object
         aircraft_controls = new AircraftControls();
 
+        //buttons
+        aircraft_controls.Flight.Engine.performed += context => toggleEngine();
+
+        //axis
         aircraft_controls.Flight.Stick.performed += context => stick_input = context.ReadValue<Vector2>();
         aircraft_controls.Flight.Pedals.performed += context => pedals_input = context.ReadValue<float>();
+        aircraft_controls.Flight.Throttle.performed += context => throttle_input = context.ReadValue<float>();
     }
 
     void Start()
@@ -76,9 +82,6 @@ public class AeroplaneController : MonoBehaviour
     void Update()
     {
         getInput();
-
-        Debug.Log(stick_input);
-        Debug.Log(pedals_input);
     }
 
     void FixedUpdate()
@@ -96,37 +99,10 @@ public class AeroplaneController : MonoBehaviour
 
     void getInput()
     {
-        //keyboard / mouse
-        //engine
-        if (Input.GetKeyDown("e"))
-        {
-            engine_running = !engine_running;
-        }
-
-        //throttle
-        if (Input.GetKey("up"))
-        {
-            if (throttle < 1.0f)
-            {
-                throttle += Time.deltaTime;
-            }
-        }
-        if (Input.GetKey("down"))
-        {
-            if (throttle > 0.0f)
-            {
-                throttle -= Time.deltaTime;
-            }
-        }
-
-        //HOTAS (flight controllers)
-        //throttle
-        throttle = Input.GetAxis("Throttle");
-
-        //control surfaces
-        control_surface_input.x = -Input.GetAxis("Pitch");
-        control_surface_input.y = Input.GetAxis("Yaw");
-        control_surface_input.z = -Input.GetAxis("Roll");
+        //joystick input
+        control_surface_input.x = stick_input.x;
+        control_surface_input.y = stick_input.y;
+        control_surface_input.z = pedals_input;
     }
 
     void calculateState(float dt)
@@ -192,7 +168,7 @@ public class AeroplaneController : MonoBehaviour
     {
         if (engine_running)
         {
-            rb.AddRelativeForce(throttle * max_thrust * Vector3.forward);
+            rb.AddRelativeForce(throttle_input * max_thrust * Vector3.forward);
         }
     }
 
@@ -301,5 +277,10 @@ public class AeroplaneController : MonoBehaviour
         }
 
         return result;
+    }
+
+    void toggleEngine()
+    {
+        engine_running = !engine_running;
     }
 }
