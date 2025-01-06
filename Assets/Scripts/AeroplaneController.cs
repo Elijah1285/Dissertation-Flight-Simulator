@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AeroplaneController : MonoBehaviour
 {  
@@ -43,7 +44,7 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve drag_top;
     [SerializeField] AnimationCurve drag_bottom;
 
-    [Header("Steering Settings")]
+    [Header("Control Settings")]
     [SerializeField] Vector3 turn_speed;
     [SerializeField] Vector3 turn_acceleration;
     [SerializeField] AnimationCurve steering_curve;
@@ -53,14 +54,31 @@ public class AeroplaneController : MonoBehaviour
     float throttle = 0.0f;
     Vector3 control_surface_input = Vector3.zero;
 
+    Vector2 stick_input;
+    float pedals_input;
+
+    AircraftControls aircraft_controls;
+
+    void Awake()
+    {
+        aircraft_controls = new AircraftControls();
+
+        aircraft_controls.Flight.Stick.performed += context => stick_input = context.ReadValue<Vector2>();
+        aircraft_controls.Flight.Pedals.performed += context => pedals_input = context.ReadValue<float>();
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        aircraft_controls.Flight.Enable();
     }
 
     void Update()
     {
         getInput();
+
+        Debug.Log(stick_input);
+        Debug.Log(pedals_input);
     }
 
     void FixedUpdate()

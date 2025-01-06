@@ -1,0 +1,54 @@
+{
+    "name": "AircraftControls",
+    "maps": [
+        {
+            "name": "Flight",
+            "id": "c1659e76-9ff9-44ab-98c1-3bc19800678f",
+            "actions": [
+                {
+                    "name": "Stick",
+                    "type": "Value",
+                    "id": "55bed2ad-83dc-456c-a75a-0416526e0deb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Pedals",
+                    "type": "Value",
+                    "id": "70ac4fcb-963a-4b96-b3a8-8b02e30b4b44",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "29a72cb6-dac2-4da3-ac05-4ce663d9a88a",
+                    "path": "<Joystick>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "226140e9-47a8-44b6-a1a3-57fbd1601bac",
+                    "path": "<Joystick>/{Twist}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pedals",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
