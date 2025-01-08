@@ -339,6 +339,9 @@ MonoBehaviour:
   engine_text: {fileID: 0}
   throttle_text: {fileID: 0}
   brakes_text: {fileID: 0}
+  airspeed_text: {fileID: 0}
+  altitude_text: {fileID: 0}
+  rate_of_climb_text: {fileID: 0}
 --- !u!54 &589812830151862689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -967,7 +970,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4431215193394762521}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -975,7 +978,7 @@ Transform:
   - {fileID: 1719097921892706875}
   - {fileID: 457676526156275570}
   m_Father: {fileID: 7036173496276965883}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &4568221971752819966
 GameObject:
   m_ObjectHideFlags: 0

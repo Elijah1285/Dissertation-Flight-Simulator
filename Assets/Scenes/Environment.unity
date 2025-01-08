@@ -2731,7 +2731,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 589812830151862689, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_Mass
-      value: 20411
+      value: 830
       objectReference: {fileID: 0}
     - target: {fileID: 589812830151862689, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_AngularDrag
@@ -2759,7 +2759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: max_thrust
-      value: 222411
+      value: 3559
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: brakes_text
@@ -2790,6 +2790,14 @@ PrefabInstance:
       value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: airspeed_text
+      value: 
+      objectReference: {fileID: 7097584546513970417}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: altitude_text
+      value: 
+      objectReference: {fileID: 7097584546513970416}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: throttle_text
       value: 
       objectReference: {fileID: 869251782}
@@ -2797,6 +2805,10 @@ PrefabInstance:
       propertyPath: flaps_lift_power
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: rate_of_climb_text
+      value: 
+      objectReference: {fileID: 7097584546513970418}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: turn_acceleration.x
       value: 60
@@ -2839,7 +2851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_top.m_Curve.Array.data[1].time
@@ -3023,7 +3035,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].time
-      value: 200
+      value: 70.04627
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[2].time
+      value: 150.04071
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[3].time
+      value: 249.93639
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_bottom.m_Curve.Array.data[0].inWeight
@@ -3067,7 +3087,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].value
+      value: 0.865528
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[2].value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[3].value
+      value: 0.3961249
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_back.m_Curve.Array.data[0].tangentMode
@@ -3131,11 +3159,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[0].inSlope
-      value: 0
+      value: 0.012356518
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].inSlope
-      value: 0
+      value: 0.0070187673
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[2].inSlope
+      value: -0.0021820203
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[3].inSlope
+      value: -0.0060450574
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_bottom.m_Curve.Array.data[0].tangentMode
@@ -3155,11 +3191,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[0].inWeight
-      value: 0.33333334
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[0].outSlope
-      value: 0
+      value: 0.012356518
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].inWeight
@@ -3167,7 +3203,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].outSlope
-      value: 0
+      value: 0.0070187673
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[2].outSlope
+      value: -0.0021820203
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[3].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[3].outSlope
+      value: -0.0060450574
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_forward.m_Curve.Array.data[0].tangentMode
@@ -3190,16 +3242,28 @@ PrefabInstance:
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: rudder_angle_of_attack_curve.m_Curve.Array.size
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[0].tangentMode
-      value: 136
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].tangentMode
-      value: 136
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[3].tangentMode
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: induced_drag_curve.m_Curve.Array.data[0].inWeight
@@ -3874,6 +3938,39 @@ PrefabInstance:
 --- !u!114 &7097584546513970415 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8626175469166402443, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
+  m_PrefabInstance: {fileID: 7097584546513970414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7097584546513970416 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 313610452924206025, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
+  m_PrefabInstance: {fileID: 7097584546513970414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7097584546513970417 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3069901404034484291, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
+  m_PrefabInstance: {fileID: 7097584546513970414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7097584546513970418 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5183129665859899222, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
   m_PrefabInstance: {fileID: 7097584546513970414}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

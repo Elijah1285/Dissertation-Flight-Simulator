@@ -66,6 +66,9 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] TextMeshProUGUI engine_text;
     [SerializeField] TextMeshProUGUI throttle_text;
     [SerializeField] TextMeshProUGUI brakes_text;
+    [SerializeField] TextMeshProUGUI airspeed_text;
+    [SerializeField] TextMeshProUGUI altitude_text;
+    [SerializeField] TextMeshProUGUI rate_of_climb_text;
 
     //input
     bool engine_running = false;
@@ -105,6 +108,7 @@ public class AeroplaneController : MonoBehaviour
     void Update()
     {
         getInput();
+        updateUI();
     }
 
     void FixedUpdate()
@@ -228,6 +232,13 @@ public class AeroplaneController : MonoBehaviour
         }
 
         return result;
+    }
+
+    void updateUI()
+    {
+        airspeed_text.text = "Airspeed: " + Mathf.FloorToInt(rb.velocity.z * 1.944f).ToString() + " kt";
+        altitude_text.text = "Altitude: " + Mathf.FloorToInt(transform.position.y * 3.281f).ToString() + " ft";
+        rate_of_climb_text.text = "Rate of Climb: " + Mathf.FloorToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
     }
 
     void updateThrust()
