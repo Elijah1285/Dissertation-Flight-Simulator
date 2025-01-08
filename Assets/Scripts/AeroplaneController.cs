@@ -178,7 +178,7 @@ public class AeroplaneController : MonoBehaviour
         //induced drag varies with square of lift coefficient
         var drag_force = lift_coefficient * lift_coefficient;
         var drag_direction = -lift_velocity.normalized;
-        var induced_drag = drag_direction * lift_velocity_square_magnitude * drag_force * this.induced_drag* _induced_drag_curve.Evaluate(Mathf.Max(0, local_velocity.z));
+        var induced_drag = drag_direction * lift_velocity_square_magnitude * drag_force * this.induced_drag * _induced_drag_curve.Evaluate(Mathf.Max(0, local_velocity.z));
 
         return lift + induced_drag;
     }
@@ -236,7 +236,7 @@ public class AeroplaneController : MonoBehaviour
 
     void updateUI()
     {
-        airspeed_text.text = "Airspeed: " + Mathf.FloorToInt(rb.velocity.z * 1.944f).ToString() + " kt";
+        airspeed_text.text = "Airspeed: " + Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f).ToString() + " kt";
         altitude_text.text = "Altitude: " + Mathf.FloorToInt(transform.position.y * 3.281f).ToString() + " ft";
         rate_of_climb_text.text = "Rate of Climb: " + Mathf.FloorToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
     }
