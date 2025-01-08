@@ -46,18 +46,36 @@ public partial class @AircraftControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Throttle"",
-                    ""type"": ""Value"",
-                    ""id"": ""b2fe9505-fb6e-4831-a89f-e565e9721c7f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Engine"",
                     ""type"": ""Button"",
                     ""id"": ""823b6884-26a8-4ea3-b0f2-04cd64513aaf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ThrottleUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""ab176654-09f6-4b94-9d87-8aef5efd5fb3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ThrottleDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""82d6d6cc-3b2f-405c-8fa3-01ace2a2b0aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleBrakes"",
+                    ""type"": ""Button"",
+                    ""id"": ""29f59c38-ae4e-46a7-b518-b29d94c7e9d4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -88,39 +106,6 @@ public partial class @AircraftControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Arrows"",
-                    ""id"": ""4374457a-1e30-438f-8034-c6630887e73b"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Throttle"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""44e90b7a-7f71-4080-85fd-c9206e556150"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Throttle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""b87fc8f2-14d3-4021-bcac-1bf52d950d24"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Throttle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""6f7f4f06-6584-4c18-b68a-5fb0da95a0ef"",
                     ""path"": ""<Keyboard>/e"",
@@ -128,6 +113,39 @@ public partial class @AircraftControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Engine"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc430908-6d12-4fe5-b57f-6cd3e593b198"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrottleUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bcbad2b5-4764-4e99-9a27-970e6ba66241"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrottleDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8477716e-4722-46d6-b360-7d48abc605a0"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleBrakes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -140,8 +158,10 @@ public partial class @AircraftControls: IInputActionCollection2, IDisposable
         m_Flight = asset.FindActionMap("Flight", throwIfNotFound: true);
         m_Flight_Stick = m_Flight.FindAction("Stick", throwIfNotFound: true);
         m_Flight_Pedals = m_Flight.FindAction("Pedals", throwIfNotFound: true);
-        m_Flight_Throttle = m_Flight.FindAction("Throttle", throwIfNotFound: true);
         m_Flight_Engine = m_Flight.FindAction("Engine", throwIfNotFound: true);
+        m_Flight_ThrottleUp = m_Flight.FindAction("ThrottleUp", throwIfNotFound: true);
+        m_Flight_ThrottleDown = m_Flight.FindAction("ThrottleDown", throwIfNotFound: true);
+        m_Flight_ToggleBrakes = m_Flight.FindAction("ToggleBrakes", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,16 +225,20 @@ public partial class @AircraftControls: IInputActionCollection2, IDisposable
     private List<IFlightActions> m_FlightActionsCallbackInterfaces = new List<IFlightActions>();
     private readonly InputAction m_Flight_Stick;
     private readonly InputAction m_Flight_Pedals;
-    private readonly InputAction m_Flight_Throttle;
     private readonly InputAction m_Flight_Engine;
+    private readonly InputAction m_Flight_ThrottleUp;
+    private readonly InputAction m_Flight_ThrottleDown;
+    private readonly InputAction m_Flight_ToggleBrakes;
     public struct FlightActions
     {
         private @AircraftControls m_Wrapper;
         public FlightActions(@AircraftControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Stick => m_Wrapper.m_Flight_Stick;
         public InputAction @Pedals => m_Wrapper.m_Flight_Pedals;
-        public InputAction @Throttle => m_Wrapper.m_Flight_Throttle;
         public InputAction @Engine => m_Wrapper.m_Flight_Engine;
+        public InputAction @ThrottleUp => m_Wrapper.m_Flight_ThrottleUp;
+        public InputAction @ThrottleDown => m_Wrapper.m_Flight_ThrottleDown;
+        public InputAction @ToggleBrakes => m_Wrapper.m_Flight_ToggleBrakes;
         public InputActionMap Get() { return m_Wrapper.m_Flight; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -230,12 +254,18 @@ public partial class @AircraftControls: IInputActionCollection2, IDisposable
             @Pedals.started += instance.OnPedals;
             @Pedals.performed += instance.OnPedals;
             @Pedals.canceled += instance.OnPedals;
-            @Throttle.started += instance.OnThrottle;
-            @Throttle.performed += instance.OnThrottle;
-            @Throttle.canceled += instance.OnThrottle;
             @Engine.started += instance.OnEngine;
             @Engine.performed += instance.OnEngine;
             @Engine.canceled += instance.OnEngine;
+            @ThrottleUp.started += instance.OnThrottleUp;
+            @ThrottleUp.performed += instance.OnThrottleUp;
+            @ThrottleUp.canceled += instance.OnThrottleUp;
+            @ThrottleDown.started += instance.OnThrottleDown;
+            @ThrottleDown.performed += instance.OnThrottleDown;
+            @ThrottleDown.canceled += instance.OnThrottleDown;
+            @ToggleBrakes.started += instance.OnToggleBrakes;
+            @ToggleBrakes.performed += instance.OnToggleBrakes;
+            @ToggleBrakes.canceled += instance.OnToggleBrakes;
         }
 
         private void UnregisterCallbacks(IFlightActions instance)
@@ -246,12 +276,18 @@ public partial class @AircraftControls: IInputActionCollection2, IDisposable
             @Pedals.started -= instance.OnPedals;
             @Pedals.performed -= instance.OnPedals;
             @Pedals.canceled -= instance.OnPedals;
-            @Throttle.started -= instance.OnThrottle;
-            @Throttle.performed -= instance.OnThrottle;
-            @Throttle.canceled -= instance.OnThrottle;
             @Engine.started -= instance.OnEngine;
             @Engine.performed -= instance.OnEngine;
             @Engine.canceled -= instance.OnEngine;
+            @ThrottleUp.started -= instance.OnThrottleUp;
+            @ThrottleUp.performed -= instance.OnThrottleUp;
+            @ThrottleUp.canceled -= instance.OnThrottleUp;
+            @ThrottleDown.started -= instance.OnThrottleDown;
+            @ThrottleDown.performed -= instance.OnThrottleDown;
+            @ThrottleDown.canceled -= instance.OnThrottleDown;
+            @ToggleBrakes.started -= instance.OnToggleBrakes;
+            @ToggleBrakes.performed -= instance.OnToggleBrakes;
+            @ToggleBrakes.canceled -= instance.OnToggleBrakes;
         }
 
         public void RemoveCallbacks(IFlightActions instance)
@@ -273,7 +309,9 @@ public partial class @AircraftControls: IInputActionCollection2, IDisposable
     {
         void OnStick(InputAction.CallbackContext context);
         void OnPedals(InputAction.CallbackContext context);
-        void OnThrottle(InputAction.CallbackContext context);
         void OnEngine(InputAction.CallbackContext context);
+        void OnThrottleUp(InputAction.CallbackContext context);
+        void OnThrottleDown(InputAction.CallbackContext context);
+        void OnToggleBrakes(InputAction.CallbackContext context);
     }
 }

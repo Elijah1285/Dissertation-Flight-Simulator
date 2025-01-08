@@ -6,23 +6,11 @@ using TMPro;
 
 public class AeroplaneController : MonoBehaviour
 {  
-    [SerializeField] float max_thrust;
-
     bool flaps_deployed;
-    [SerializeField] float flaps_drag;
-
     bool airbrake_deployed;
-    [SerializeField] float airbrake_drag;
 
     float angle_of_attack;
     float angle_of_attack_yaw;
-
-    [SerializeField] float lift_power;
-    [SerializeField] float induced_drag;
-    [SerializeField] float flaps_lift_power;
-    [SerializeField] float flaps_angle_of_attack_bias;
-
-    [SerializeField] float rudder_power;
 
     Vector3 velocity;
     Vector3 local_velocity;
@@ -34,10 +22,22 @@ public class AeroplaneController : MonoBehaviour
 
     Rigidbody rb;
 
+    [Header("Engine/Thrust Settings")]
+    [SerializeField] float max_thrust;
+
+    [Header("Lift/Angle of Attack Settings")]
+    [SerializeField] float lift_power;
+    [SerializeField] float flaps_lift_power;
+    [SerializeField] float flaps_angle_of_attack_bias;
+
     [SerializeField] AnimationCurve lift_angle_of_attack_curve;
     [SerializeField] AnimationCurve rudder_angle_of_attack_curve;
 
-    [Header("Drag Settings")]
+    [Header("Drag/Friction Settings")]
+    [SerializeField] float induced_drag;
+    [SerializeField] float airbrake_drag;
+    [SerializeField] float flaps_drag;
+
     [SerializeField] AnimationCurve drag_forward;
     [SerializeField] AnimationCurve drag_back;
     [SerializeField] AnimationCurve drag_left;
@@ -48,17 +48,28 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve induced_drag_curve;
     [SerializeField] AnimationCurve rudder_induced_drag_curve;
 
+    [SerializeField] Collider left_main_gear_collider;
+    [SerializeField] Collider right_main_gear_collider;
+
+    [SerializeField] PhysicMaterial normal_gear_physics_material;
+    [SerializeField] PhysicMaterial braking_gear_physics_material;
+
     [Header("Control Settings")]
     [SerializeField] Vector3 turn_speed;
     [SerializeField] Vector3 turn_acceleration;
     [SerializeField] AnimationCurve steering_curve;
 
+    [Header("Misc")]
+    [SerializeField] float rudder_power;
+
     [Header("UI objects")]
     [SerializeField] TextMeshProUGUI engine_text;
     [SerializeField] TextMeshProUGUI throttle_text;
+    [SerializeField] TextMeshProUGUI brakes_text;
 
     //input
     bool engine_running = false;
+    bool brakes_active = true;
     float throttle_input = 0.0f;
     Vector3 control_surface_input = Vector3.zero;
 
@@ -74,14 +85,15 @@ public class AeroplaneController : MonoBehaviour
 
         //buttons
         aircraft_controls.Flight.Engine.performed += context => toggleEngine();
-        aircraft_controls.Flight.Engine.performed += context => updateEngineText();
+
+        aircraft_controls.Flight.ThrottleUp.performed += context => increaseThrottleInput();
+        aircraft_controls.Flight.ThrottleDown.performed += context => decreaseThrottleInput();
+        
+        aircraft_controls.Flight.ToggleBrakes.performed += context => toggleBrakes();
 
         //axis
         aircraft_controls.Flight.Stick.performed += context => stick_input = context.ReadValue<Vector2>();
         aircraft_controls.Flight.Pedals.performed += context => pedals_input = context.ReadValue<float>();
-
-        aircraft_controls.Flight.Throttle.performed += context => throttle_input = context.ReadValue<float>();
-        aircraft_controls.Flight.Throttle.performed += context => updateThrottleText();
     }
 
     void Start()
@@ -112,7 +124,7 @@ public class AeroplaneController : MonoBehaviour
     {
         //joystick input
         control_surface_input.x = stick_input.y; //pitch input
-        control_surface_input.y = pedals_input; //yaw input
+        control_surface_input.y = -pedals_input; //yaw input
         control_surface_input.z = -stick_input.x; //roll input
     }
 
@@ -173,6 +185,49 @@ public class AeroplaneController : MonoBehaviour
         var _acceleration = angular_acceleration * dt;
 
         return Mathf.Clamp(error, -_acceleration, _acceleration);
+    }
+
+    public static Vector3 scale6
+    (
+    Vector3 value,
+    float positive_x, float negative_x,
+    float positive_y, float negative_y,
+    float positive_z, float negative_z
+    )
+    {
+        Vector3 result = value;
+
+        //x
+        if (result.x > 0)
+        {
+            result.x *= positive_x;
+        }
+        else if (result.x < 0)
+        {
+            result.x *= negative_x;
+        }
+
+        //y
+        if (result.y > 0)
+        {
+            result.y *= positive_y;
+        }
+        else if (result.y < 0)
+        {
+            result.y *= negative_y;
+        }
+
+        //z
+        if (result.z > 0)
+        {
+            result.z *= positive_z;
+        }
+        else if (result.z < 0)
+        {
+            result.z *= negative_z;
+        }
+
+        return result;
     }
 
     void updateThrust()
@@ -247,54 +302,6 @@ public class AeroplaneController : MonoBehaviour
         rb.AddRelativeTorque(correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
     }
 
-    public static Vector3 scale6
-        (
-        Vector3 value,
-        float positive_x, float negative_x,
-        float positive_y, float negative_y,
-        float positive_z, float negative_z
-        )
-    {
-        Vector3 result = value;
-        
-        //x
-        if (result.x > 0)
-        {
-            result.x *= positive_x;
-        }
-        else if (result.x < 0)
-        {
-            result.x *= negative_x;
-        }
-
-        //y
-        if (result.y > 0)
-        {
-            result.y *= positive_y;
-        }
-        else if (result.y < 0)
-        {
-            result.y *= negative_y;
-        }
-
-        //z
-        if (result.z > 0)
-        {
-            result.z *= positive_z;
-        }
-        else if (result.z < 0)
-        {
-            result.z *= negative_z;
-        }
-
-        return result;
-    }
-
-    void toggleEngine()
-    {
-        engine_running = !engine_running;
-    }
-
     void updateEngineText()
     {
         if (engine_running)
@@ -309,6 +316,63 @@ public class AeroplaneController : MonoBehaviour
 
     void updateThrottleText()
     {
-        throttle_text.text = "Throttle: " + (throttle_input * 100.0f).ToString() + "%";
+        throttle_text.text = "Throttle: " + Mathf.FloorToInt(throttle_input * 100.0f).ToString() + "%";
+    }
+
+    void updateBrakesText()
+    {
+        if (brakes_active)
+        {
+            brakes_text.text = "Brakes: Engaged";
+        }
+        else
+        {
+            brakes_text.text = "Brakes: Disengaged";
+        }
+    }
+
+    void increaseThrottleInput()
+    {
+        if (throttle_input < 1.0f)
+        {
+            throttle_input += 0.1f;
+        }
+
+        updateThrottleText();
+    }
+
+    void decreaseThrottleInput()
+    {
+        if (throttle_input > 0.0f)
+        {
+            throttle_input -= 0.1f;
+        }
+
+        updateThrottleText();
+    }
+
+    void toggleEngine()
+    {
+        engine_running = !engine_running;
+
+        updateEngineText();
+    }
+
+    void toggleBrakes()
+    {
+        brakes_active = !brakes_active;
+
+        if (brakes_active)
+        {
+            left_main_gear_collider.material = braking_gear_physics_material;
+            right_main_gear_collider.material = braking_gear_physics_material;
+        }
+        else
+        {
+            left_main_gear_collider.material = normal_gear_physics_material;
+            right_main_gear_collider.material = normal_gear_physics_material;
+        }
+
+        updateBrakesText();
     }
 }

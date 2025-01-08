@@ -24,18 +24,36 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Throttle",
-                    "type": "Value",
-                    "id": "b2fe9505-fb6e-4831-a89f-e565e9721c7f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Engine",
                     "type": "Button",
                     "id": "823b6884-26a8-4ea3-b0f2-04cd64513aaf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThrottleUp",
+                    "type": "Button",
+                    "id": "ab176654-09f6-4b94-9d87-8aef5efd5fb3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThrottleDown",
+                    "type": "Button",
+                    "id": "82d6d6cc-3b2f-405c-8fa3-01ace2a2b0aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleBrakes",
+                    "type": "Button",
+                    "id": "29f59c38-ae4e-46a7-b518-b29d94c7e9d4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -66,39 +84,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Arrows",
-                    "id": "4374457a-1e30-438f-8034-c6630887e73b",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "44e90b7a-7f71-4080-85fd-c9206e556150",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "b87fc8f2-14d3-4021-bcac-1bf52d950d24",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "6f7f4f06-6584-4c18-b68a-5fb0da95a0ef",
                     "path": "<Keyboard>/e",
@@ -106,6 +91,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Engine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc430908-6d12-4fe5-b57f-6cd3e593b198",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrottleUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bcbad2b5-4764-4e99-9a27-970e6ba66241",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrottleDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8477716e-4722-46d6-b360-7d48abc605a0",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleBrakes",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

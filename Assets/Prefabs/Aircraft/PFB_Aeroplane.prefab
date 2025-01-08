@@ -257,13 +257,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_thrust: 0
-  flaps_drag: 0
-  airbrake_drag: 0
   lift_power: 0
-  induced_drag: 0
   flaps_lift_power: 0
   flaps_angle_of_attack_bias: 0
-  rudder_power: 0
   lift_angle_of_attack_curve:
     serializedVersion: 2
     m_Curve: []
@@ -276,6 +272,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  induced_drag: 0
+  airbrake_drag: 0
+  flaps_drag: 0
   drag_forward:
     serializedVersion: 2
     m_Curve: []
@@ -324,6 +323,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  left_main_gear_collider: {fileID: 3172480141798768951}
+  right_main_gear_collider: {fileID: 8532074203751908188}
+  normal_gear_physics_material: {fileID: 13400000, guid: 10247d77c46d7174db68077ca663a736, type: 2}
+  braking_gear_physics_material: {fileID: 13400000, guid: d1e901d409cef6b47adf87fa67b1b5f9, type: 2}
   turn_speed: {x: 0, y: 0, z: 0}
   turn_acceleration: {x: 0, y: 0, z: 0}
   steering_curve:
@@ -332,8 +335,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  rudder_power: 0
   engine_text: {fileID: 0}
   throttle_text: {fileID: 0}
+  brakes_text: {fileID: 0}
 --- !u!54 &589812830151862689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1097,7 +1102,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4653592042123432988}
-  m_Material: {fileID: 13400000, guid: 10247d77c46d7174db68077ca663a736, type: 2}
+  m_Material: {fileID: 13400000, guid: d1e901d409cef6b47adf87fa67b1b5f9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1240,7 +1245,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5804497208031367639}
-  m_Material: {fileID: 13400000, guid: 10247d77c46d7174db68077ca663a736, type: 2}
+  m_Material: {fileID: 13400000, guid: d1e901d409cef6b47adf87fa67b1b5f9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
