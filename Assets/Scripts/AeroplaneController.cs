@@ -61,6 +61,8 @@ public class AeroplaneController : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] float rudder_power;
+    [SerializeField] float prop_idle_rotation_speed;
+    [SerializeField] Propeller propeller;
 
     [Header("UI objects")]
     [SerializeField] TextMeshProUGUI engine_text;
@@ -103,6 +105,7 @@ public class AeroplaneController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         aircraft_controls.Flight.Enable();
+        propeller.setRotationSpeed(prop_idle_rotation_speed);
     }
 
     void Update()
@@ -313,6 +316,11 @@ public class AeroplaneController : MonoBehaviour
         rb.AddRelativeTorque(correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
     }
 
+    void updatePropSpeed()
+    {
+        propeller.setRotationSpeed(prop_idle_rotation_speed + (throttle_input * 5.0f));
+    }
+
     void updateEngineText()
     {
         if (engine_running)
@@ -349,6 +357,7 @@ public class AeroplaneController : MonoBehaviour
             throttle_input += 0.1f;
         }
 
+        updatePropSpeed();
         updateThrottleText();
     }
 
@@ -359,12 +368,22 @@ public class AeroplaneController : MonoBehaviour
             throttle_input -= 0.1f;
         }
 
+        updatePropSpeed();
         updateThrottleText();
     }
 
     void toggleEngine()
     {
         engine_running = !engine_running;
+
+        if (engine_running)
+        {
+            propeller.setSpinning(true);
+        }
+        else
+        {
+            propeller.setSpinning(false);
+        }
 
         updateEngineText();
     }
