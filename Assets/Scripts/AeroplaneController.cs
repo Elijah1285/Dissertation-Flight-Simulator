@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using TMPro;
 
 public class AeroplaneController : MonoBehaviour
@@ -12,12 +13,15 @@ public class AeroplaneController : MonoBehaviour
     float angle_of_attack;
     float angle_of_attack_yaw;
 
+    float pedals_indicator_x_center_position;
+
+    Vector2 stick_indicator_center_position;
+
     Vector3 velocity;
     Vector3 local_velocity;
     Vector3 last_velocity;
 
     Vector3 local_angular_velocity;
-
     Vector3 local_g_force;
 
     Rigidbody rb;
@@ -63,6 +67,8 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] float rudder_power;
     [SerializeField] float prop_idle_rotation_speed;
     [SerializeField] Propeller propeller;
+    [SerializeField] Image stick_indicator;
+    [SerializeField] Image pedals_indicator;
 
     [Header("UI objects")]
     [SerializeField] TextMeshProUGUI engine_text;
@@ -106,11 +112,14 @@ public class AeroplaneController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         aircraft_controls.Flight.Enable();
         propeller.setRotationSpeed(prop_idle_rotation_speed);
+
+        stick_indicator_center_position = stick_indicator.GetComponent<RectTransform>().position;
+        pedals_indicator_x_center_position = pedals_indicator.GetComponent<RectTransform>().position.x;
     }
 
     void Update()
     {
-        getInput();
+        updateInput();
         updateUI();
     }
 
@@ -127,12 +136,16 @@ public class AeroplaneController : MonoBehaviour
         updateSteering(dt);
     }
 
-    void getInput()
+    void updateInput()
     {
         //joystick input
         control_surface_input.x = stick_input.y; //pitch input
         control_surface_input.y = -pedals_input; //yaw input
         control_surface_input.z = -stick_input.x; //roll input
+
+        //update controls indicators
+        stick_indicator.GetComponent<RectTransform>().position = stick_indicator_center_position + (stick_input * 100.0f);
+        pedals_indicator.GetComponent<RectTransform>().position = new Vector2(pedals_indicator_x_center_position + (pedals_input * -120.0f), pedals_indicator.GetComponent<RectTransform>().position.y);
     }
 
     void calculateState(float dt)

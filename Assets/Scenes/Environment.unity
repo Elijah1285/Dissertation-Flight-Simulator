@@ -3684,9 +3684,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 869251782}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: stick_indicator
+      value: 
+      objectReference: {fileID: 7097584546513970420}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: flaps_lift_power
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: pedals_indicator
+      value: 
+      objectReference: {fileID: 7097584546513970419}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: rate_of_climb_text
       value: 
@@ -5160,6 +5168,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 5889412448082450828, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
+      propertyPath: m_Name
+      value: stick_indicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 8024844943990960346, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
+      propertyPath: m_Name
+      value: pedals_indicator
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5207,6 +5223,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7097584546513970419 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5116201191990615101, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
+  m_PrefabInstance: {fileID: 7097584546513970414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7097584546513970420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 567284535717112316, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
+  m_PrefabInstance: {fileID: 7097584546513970414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
