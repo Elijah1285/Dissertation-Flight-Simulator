@@ -11,7 +11,7 @@ public class AeroplaneController : MonoBehaviour
     bool airbrake_deployed;
 
     float angle_of_attack;
-    float angle_of_attack_yaw;
+    float sideslip;
 
     float pedals_indicator_x_center_position;
 
@@ -159,15 +159,19 @@ public class AeroplaneController : MonoBehaviour
 
     void calculateAngleOfAttack()
     {
+        //set 0 angle of attack if very slow or stationary
         if (local_velocity.sqrMagnitude < 0.1f)
         {
             angle_of_attack = 0.0f;
-            angle_of_attack_yaw = 0.0f;
+            sideslip = 0.0f;
             return;
         }
 
+        //calcculate vertical angle of attack
         angle_of_attack = Mathf.Atan2(-local_velocity.y, local_velocity.z);
-        angle_of_attack_yaw = Mathf.Atan2(local_velocity.x, local_velocity.z);
+
+        //calculate lateral angle of attack A.K.A sideslip
+        sideslip = Mathf.Atan2(local_velocity.x, local_velocity.z);
     }
 
     void calculateGForce(float dt)
@@ -305,7 +309,7 @@ public class AeroplaneController : MonoBehaviour
             lift_power + _flaps_lift_power, lift_angle_of_attack_curve, induced_drag_curve
             );
 
-        var yaw_force = calculateLift(angle_of_attack_yaw, Vector3.up, rudder_power, rudder_angle_of_attack_curve, rudder_induced_drag_curve);
+        var yaw_force = calculateLift(sideslip, Vector3.up, rudder_power, rudder_angle_of_attack_curve, rudder_induced_drag_curve);
 
         rb.AddRelativeForce(lift_force);
         rb.AddRelativeForce(yaw_force); 
