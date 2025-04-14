@@ -4,5 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SCN_MainMenu.unity
+    guid: 38c4e42b0169a3646b754d17bc096872
+  - enabled: 1
+    path: Assets/Scenes/SCN_LoadingScreen.unity
+    guid: 97889c2f17a0bd64487174efec3439ae
+  - enabled: 1
+    path: Assets/Scenes/SCN_FlightEnvironment.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

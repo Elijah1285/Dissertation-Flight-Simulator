@@ -100,14 +100,14 @@ public class AeroplaneController : MonoBehaviour
     Vector2 stick_input;
     float pedals_input;
 
-    AircraftControls aircraft_controls;
+    IA_AircraftControls aircraft_controls;
 
     //initialisation
 
     void Awake()
     {
         //initialise controls object
-        aircraft_controls = new AircraftControls();
+        aircraft_controls = new IA_AircraftControls();
 
         //buttons
         aircraft_controls.Flight.Engine.performed += context => toggleEngine();
@@ -348,9 +348,9 @@ public class AeroplaneController : MonoBehaviour
 
     void updateUI()
     {
-        airspeed_text.text = "IAS: " + Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f).ToString() + " kt";
-        altitude_text.text = "ALT: " + Mathf.FloorToInt(transform.position.y * 3.281f).ToString() + " ft";
-        rate_of_climb_text.text = "ROC: " + Mathf.FloorToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
+        airspeed_text.text = "IAS: " + Mathf.Max(Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f), 0.0f).ToString() + " kt";
+        altitude_text.text = "ALT: " + Mathf.Max(Mathf.FloorToInt(transform.position.y * 3.281f), 0.0f).ToString() + " ft";
+        rate_of_climb_text.text = "ROC: " + Mathf.RoundToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
     }
 
     void updateThrust()
@@ -363,26 +363,44 @@ public class AeroplaneController : MonoBehaviour
 
     void updateDrag()
     {
-        var _local_velocity = local_velocity;
-        float local_velocity_squared = _local_velocity.sqrMagnitude;
+        float local_velocity_squared = local_velocity.sqrMagnitude;
 
         //account for drag from airbrakes/flaps
-        float airbrake_drag = airbrake_deployed ? this.airbrake_drag : 0;
-        float flaps_drag = flaps_deployed ? this.flaps_drag : 0;
+        float local_airbrake_drag;
+
+        if (airbrake_deployed)
+        {
+            local_airbrake_drag = airbrake_drag;
+        }
+        else
+        {
+            local_airbrake_drag = 0.0f;
+        }
+
+        float local_flaps_drag;
+
+        if (flaps_deployed)
+        {
+            local_flaps_drag = flaps_drag;
+        }
+        else
+        {
+            local_flaps_drag = 0.0f;
+        }
 
         //calculate coefficient of drag depending on direction of velocity
         Vector3 drag_coefficient = scale6
             (
-            _local_velocity.normalized,
-            drag_right.Evaluate(Mathf.Abs(_local_velocity.x)), drag_left.Evaluate(Mathf.Abs(_local_velocity.x)),
-            drag_top.Evaluate(Mathf.Abs(_local_velocity.y)), drag_bottom.Evaluate(Mathf.Abs(_local_velocity.y)),
-            drag_forward.Evaluate(Mathf.Abs(_local_velocity.z)) + airbrake_drag + flaps_drag, //include drag from airbrake/flaps for forward coefficient
-            drag_back.Evaluate(Mathf.Abs(_local_velocity.z))
+            local_velocity.normalized,
+            drag_right.Evaluate(Mathf.Abs(local_velocity.x)), drag_left.Evaluate(Mathf.Abs(local_velocity.x)),
+            drag_top.Evaluate(Mathf.Abs(local_velocity.y)), drag_bottom.Evaluate(Mathf.Abs(local_velocity.y)),
+            drag_forward.Evaluate(Mathf.Abs(local_velocity.z)) + local_airbrake_drag + local_flaps_drag, //include drag from airbrake/flaps for forward coefficient
+            drag_back.Evaluate(Mathf.Abs(local_velocity.z))
             );
 
-        Vector3 drag = drag_coefficient.magnitude * local_velocity_squared * -_local_velocity.normalized; //drag is opposite to direction of velocity
+        Vector3 drag = drag_coefficient.magnitude * local_velocity_squared * -local_velocity.normalized; //drag is opposite to direction of velocity
 
-        rb.AddRelativeForce(drag); 
+        rb.AddRelativeForce(drag);
     }
 
     void updateLift()
