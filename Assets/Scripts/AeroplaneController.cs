@@ -14,6 +14,7 @@ public class AeroplaneController : MonoBehaviour
     float sideslip;
 
     float pedals_indicator_x_center_position;
+    float throttle_indicator_y_idle_position;
 
     Vector2 stick_indicator_center_position;
 
@@ -64,11 +65,20 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve steering_curve;
 
     [Header("Misc")]
+    [SerializeField] bool has_prop;
     [SerializeField] float rudder_power;
     [SerializeField] float prop_idle_rotation_speed;
-    [SerializeField] Propeller propeller;
-    [SerializeField] Image stick_indicator;
-    [SerializeField] Image pedals_indicator;
+    [SerializeField] PropellerOrTurbine propeller_or_turbine;
+
+    [Header("Control Surfaces")]
+    [SerializeField] float aileron_deflection;
+    [SerializeField] float elevator_deflection;
+    [SerializeField] float rudder_deflection;
+
+    [SerializeField] Transform left_aileron_pivot;
+    [SerializeField] Transform right_aileron_pivot;
+    [SerializeField] Transform elevator_pivot;
+    [SerializeField] Transform rudder_pivot;
 
     [Header("UI objects")]
     [SerializeField] TextMeshProUGUI engine_text;
@@ -77,8 +87,11 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] TextMeshProUGUI airspeed_text;
     [SerializeField] TextMeshProUGUI altitude_text;
     [SerializeField] TextMeshProUGUI rate_of_climb_text;
+    [SerializeField] Image stick_indicator;
+    [SerializeField] Image pedals_indicator;
+    [SerializeField] Image throttle_indicator;
 
-    //input
+    //input variables
     bool engine_running = false;
     bool brakes_active = true;
     float throttle_input = 0.0f;
@@ -88,6 +101,8 @@ public class AeroplaneController : MonoBehaviour
     float pedals_input;
 
     AircraftControls aircraft_controls;
+
+    //initialisation
 
     void Awake()
     {
@@ -111,32 +126,17 @@ public class AeroplaneController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         aircraft_controls.Flight.Enable();
-        propeller.setRotationSpeed(prop_idle_rotation_speed);
+        propeller_or_turbine.setRotationSpeed(prop_idle_rotation_speed);
 
         stick_indicator_center_position = stick_indicator.GetComponent<RectTransform>().position;
         pedals_indicator_x_center_position = pedals_indicator.GetComponent<RectTransform>().position.x;
+        throttle_indicator_y_idle_position = throttle_indicator.GetComponent<RectTransform>().position.y;
     }
 
-    void Update()
-    {
-        updateInput();
-        updateUI();
-    }
+    //input
 
-    void FixedUpdate()
-    {
-        float dt = Time.fixedDeltaTime;
-
-        calculateState(dt);
-        calculateAngleOfAttack();
-        calculateGForce(dt);
-        updateThrust();
-        updateDrag();
-        updateLift();
-        updateSteering(dt);
-    }
-
-    void updateInput()
+    //axis inputs
+    void getInput()
     {
         //joystick input
         control_surface_input.x = stick_input.y; //pitch input
@@ -146,15 +146,79 @@ public class AeroplaneController : MonoBehaviour
         //update controls indicators
         stick_indicator.GetComponent<RectTransform>().position = stick_indicator_center_position + (stick_input * 100.0f);
         pedals_indicator.GetComponent<RectTransform>().position = new Vector2(pedals_indicator_x_center_position + (pedals_input * -120.0f), pedals_indicator.GetComponent<RectTransform>().position.y);
+        throttle_indicator.GetComponent<RectTransform>().position = new Vector2(throttle_indicator.GetComponent<RectTransform>().position.x, throttle_indicator_y_idle_position + (throttle_input * 240.0f));
+
+        //update control surfaces
+        left_aileron_pivot.localRotation = Quaternion.Euler(-stick_input.x * aileron_deflection, 0.0f, 0.0f);
+        right_aileron_pivot.localRotation = Quaternion.Euler(stick_input.x * aileron_deflection, 0.0f, 0.0f);
+        elevator_pivot.localRotation = Quaternion.Euler(-stick_input.y * elevator_deflection, 0.0f, 0.0f);
+        rudder_pivot.localRotation = Quaternion.Euler(0.0f, pedals_input * rudder_deflection, 0.0f);
     }
 
-    void calculateState(float dt)
+    void increaseThrottleInput()
     {
-        var inverted_rotation = Quaternion.Inverse(rb.rotation);
+        if (throttle_input < 1.0f)
+        {
+            throttle_input += 0.1f;
+        }
+
+        updatePropTurbineSpeed();
+        updateThrottleText();
+    }
+
+    void decreaseThrottleInput()
+    {
+        if (throttle_input > 0.0f)
+        {
+            throttle_input -= 0.1f;
+        }
+
+        updatePropTurbineSpeed();
+        updateThrottleText();
+    }
+
+    //boolean inputs
+    void toggleEngine()
+    {
+        engine_running = !engine_running;
+
+        if (engine_running)
+        {
+            propeller_or_turbine.setSpinning(true);
+        }
+        else
+        {
+            propeller_or_turbine.setSpinning(false);
+        }
+
+        updateEngineText();
+    }
+
+    void toggleBrakes()
+    {
+        brakes_active = !brakes_active;
+
+        if (brakes_active)
+        {
+            left_main_gear_collider.material = braking_gear_physics_material;
+            right_main_gear_collider.material = braking_gear_physics_material;
+        }
+        else
+        {
+            left_main_gear_collider.material = normal_gear_physics_material;
+            right_main_gear_collider.material = normal_gear_physics_material;
+        }
+
+        updateBrakesText();
+    }
+
+    //calculations
+    void calculateLocalVelocities(float dt)
+    {
+        Quaternion inverted_rotation = Quaternion.Inverse(rb.rotation);
         velocity = rb.velocity;
-        local_velocity = inverted_rotation * velocity; //transform world velocity into local space
-        local_angular_velocity = inverted_rotation * rb.angularVelocity; // transform into local space
-       
+        local_velocity = inverted_rotation * velocity; //transform world velocity into local space 
+        local_angular_velocity = inverted_rotation * rb.angularVelocity; // transform angular velocity into local space
     }
 
     void calculateAngleOfAttack()
@@ -167,7 +231,7 @@ public class AeroplaneController : MonoBehaviour
             return;
         }
 
-        //calcculate vertical angle of attack
+        //calculate vertical angle of attack
         angle_of_attack = Mathf.Atan2(-local_velocity.y, local_velocity.z);
 
         //calculate lateral angle of attack A.K.A sideslip
@@ -209,6 +273,14 @@ public class AeroplaneController : MonoBehaviour
         var _acceleration = angular_acceleration * dt;
 
         return Mathf.Clamp(error, -_acceleration, _acceleration);
+    }
+
+    void calculatePropTorque()
+    {
+        if (has_prop)
+        {
+
+        }
     }
 
     public static Vector3 scale6
@@ -254,11 +326,31 @@ public class AeroplaneController : MonoBehaviour
         return result;
     }
 
+    //updates
+    void Update()
+    {
+        getInput();
+        updateUI();
+    }
+
+    void FixedUpdate()
+    {
+        float dt = Time.fixedDeltaTime;
+
+        calculateLocalVelocities(dt);
+        calculateAngleOfAttack();
+        calculateGForce(dt);
+        updateThrust();
+        updateDrag();
+        updateLift();
+        updateSteering(dt);
+    }    
+
     void updateUI()
     {
-        airspeed_text.text = "Airspeed: " + Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f).ToString() + " kt";
-        altitude_text.text = "Altitude: " + Mathf.FloorToInt(transform.position.y * 3.281f).ToString() + " ft";
-        rate_of_climb_text.text = "Rate of Climb: " + Mathf.FloorToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
+        airspeed_text.text = "IAS: " + Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f).ToString() + " kt";
+        altitude_text.text = "ALT: " + Mathf.FloorToInt(transform.position.y * 3.281f).ToString() + " ft";
+        rate_of_climb_text.text = "ROC: " + Mathf.FloorToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
     }
 
     void updateThrust()
@@ -272,14 +364,14 @@ public class AeroplaneController : MonoBehaviour
     void updateDrag()
     {
         var _local_velocity = local_velocity;
-        var local_velocity_squared = _local_velocity.sqrMagnitude;
+        float local_velocity_squared = _local_velocity.sqrMagnitude;
 
         //account for drag from airbrakes/flaps
         float airbrake_drag = airbrake_deployed ? this.airbrake_drag : 0;
         float flaps_drag = flaps_deployed ? this.flaps_drag : 0;
 
         //calculate coefficient of drag depending on direction of velocity
-        var coefficient = scale6
+        Vector3 drag_coefficient = scale6
             (
             _local_velocity.normalized,
             drag_right.Evaluate(Mathf.Abs(_local_velocity.x)), drag_left.Evaluate(Mathf.Abs(_local_velocity.x)),
@@ -288,7 +380,7 @@ public class AeroplaneController : MonoBehaviour
             drag_back.Evaluate(Mathf.Abs(_local_velocity.z))
             );
 
-        var drag = coefficient.magnitude * local_velocity_squared * -_local_velocity.normalized; //drag is opposite to direction of velocity
+        Vector3 drag = drag_coefficient.magnitude * local_velocity_squared * -_local_velocity.normalized; //drag is opposite to direction of velocity
 
         rb.AddRelativeForce(drag); 
     }
@@ -333,93 +425,37 @@ public class AeroplaneController : MonoBehaviour
         rb.AddRelativeTorque(correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
     }
 
-    void updatePropSpeed()
+    void updatePropTurbineSpeed()
     {
-        propeller.setRotationSpeed(prop_idle_rotation_speed + (throttle_input * 5.0f));
+        propeller_or_turbine.setRotationSpeed(prop_idle_rotation_speed + (throttle_input * 5.0f));
     }
 
     void updateEngineText()
     {
         if (engine_running)
         {
-            engine_text.text = "Engine: RUNNING";
+            engine_text.text = "ENG: ON";
         }
         else
         {
-            engine_text.text = "Engine: STOPPED";
+            engine_text.text = "ENG: OFF";
         }
     }
 
     void updateThrottleText()
     {
-        throttle_text.text = "Throttle: " + Mathf.FloorToInt(throttle_input * 100.0f).ToString() + "%";
+        throttle_text.text = "THR: " + Mathf.FloorToInt(throttle_input * 100.0f).ToString() + "%";
     }
 
     void updateBrakesText()
     {
         if (brakes_active)
         {
-            brakes_text.text = "Brakes: Engaged";
+            brakes_text.text = "BRK: ON";
         }
         else
         {
-            brakes_text.text = "Brakes: Disengaged";
+            brakes_text.text = "BRK: OFF";
         }
-    }
-
-    void increaseThrottleInput()
-    {
-        if (throttle_input < 1.0f)
-        {
-            throttle_input += 0.1f;
-        }
-
-        updatePropSpeed();
-        updateThrottleText();
-    }
-
-    void decreaseThrottleInput()
-    {
-        if (throttle_input > 0.0f)
-        {
-            throttle_input -= 0.1f;
-        }
-
-        updatePropSpeed();
-        updateThrottleText();
-    }
-
-    void toggleEngine()
-    {
-        engine_running = !engine_running;
-
-        if (engine_running)
-        {
-            propeller.setSpinning(true);
-        }
-        else
-        {
-            propeller.setSpinning(false);
-        }
-
-        updateEngineText();
-    }
-
-    void toggleBrakes()
-    {
-        brakes_active = !brakes_active;
-
-        if (brakes_active)
-        {
-            left_main_gear_collider.material = braking_gear_physics_material;
-            right_main_gear_collider.material = braking_gear_physics_material;
-        }
-        else
-        {
-            left_main_gear_collider.material = normal_gear_physics_material;
-            right_main_gear_collider.material = normal_gear_physics_material;
-        }
-
-        updateBrakesText();
     }
 }
