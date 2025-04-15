@@ -46,6 +46,33 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""FlapsUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e872237-4133-48e6-b600-599e5f1eb821"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FlapsDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""9514965a-4479-48bf-b736-f76f3b346b51"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleAirbrakes"",
+                    ""type"": ""Button"",
+                    ""id"": ""36cb88e1-d294-4cd0-8779-c1526c963544"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Engine"",
                     ""type"": ""Button"",
                     ""id"": ""823b6884-26a8-4ea3-b0f2-04cd64513aaf"",
@@ -148,6 +175,39 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleBrakes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a235e07-0c7f-4378-a777-16f75bc93e47"",
+                    ""path"": ""<Keyboard>/pageUp"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlapsUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""848611ed-9089-48ad-885e-5cff33bc26b2"",
+                    ""path"": ""<Keyboard>/pageDown"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlapsDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e99f9bb2-cb20-498f-971f-569b030504fb"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleAirbrakes"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -158,6 +218,9 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
         m_Flight = asset.FindActionMap("Flight", throwIfNotFound: true);
         m_Flight_Stick = m_Flight.FindAction("Stick", throwIfNotFound: true);
         m_Flight_Pedals = m_Flight.FindAction("Pedals", throwIfNotFound: true);
+        m_Flight_FlapsUp = m_Flight.FindAction("FlapsUp", throwIfNotFound: true);
+        m_Flight_FlapsDown = m_Flight.FindAction("FlapsDown", throwIfNotFound: true);
+        m_Flight_ToggleAirbrakes = m_Flight.FindAction("ToggleAirbrakes", throwIfNotFound: true);
         m_Flight_Engine = m_Flight.FindAction("Engine", throwIfNotFound: true);
         m_Flight_ThrottleUp = m_Flight.FindAction("ThrottleUp", throwIfNotFound: true);
         m_Flight_ThrottleDown = m_Flight.FindAction("ThrottleDown", throwIfNotFound: true);
@@ -225,6 +288,9 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
     private List<IFlightActions> m_FlightActionsCallbackInterfaces = new List<IFlightActions>();
     private readonly InputAction m_Flight_Stick;
     private readonly InputAction m_Flight_Pedals;
+    private readonly InputAction m_Flight_FlapsUp;
+    private readonly InputAction m_Flight_FlapsDown;
+    private readonly InputAction m_Flight_ToggleAirbrakes;
     private readonly InputAction m_Flight_Engine;
     private readonly InputAction m_Flight_ThrottleUp;
     private readonly InputAction m_Flight_ThrottleDown;
@@ -235,6 +301,9 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
         public FlightActions(@IA_AircraftControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Stick => m_Wrapper.m_Flight_Stick;
         public InputAction @Pedals => m_Wrapper.m_Flight_Pedals;
+        public InputAction @FlapsUp => m_Wrapper.m_Flight_FlapsUp;
+        public InputAction @FlapsDown => m_Wrapper.m_Flight_FlapsDown;
+        public InputAction @ToggleAirbrakes => m_Wrapper.m_Flight_ToggleAirbrakes;
         public InputAction @Engine => m_Wrapper.m_Flight_Engine;
         public InputAction @ThrottleUp => m_Wrapper.m_Flight_ThrottleUp;
         public InputAction @ThrottleDown => m_Wrapper.m_Flight_ThrottleDown;
@@ -254,6 +323,15 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
             @Pedals.started += instance.OnPedals;
             @Pedals.performed += instance.OnPedals;
             @Pedals.canceled += instance.OnPedals;
+            @FlapsUp.started += instance.OnFlapsUp;
+            @FlapsUp.performed += instance.OnFlapsUp;
+            @FlapsUp.canceled += instance.OnFlapsUp;
+            @FlapsDown.started += instance.OnFlapsDown;
+            @FlapsDown.performed += instance.OnFlapsDown;
+            @FlapsDown.canceled += instance.OnFlapsDown;
+            @ToggleAirbrakes.started += instance.OnToggleAirbrakes;
+            @ToggleAirbrakes.performed += instance.OnToggleAirbrakes;
+            @ToggleAirbrakes.canceled += instance.OnToggleAirbrakes;
             @Engine.started += instance.OnEngine;
             @Engine.performed += instance.OnEngine;
             @Engine.canceled += instance.OnEngine;
@@ -276,6 +354,15 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
             @Pedals.started -= instance.OnPedals;
             @Pedals.performed -= instance.OnPedals;
             @Pedals.canceled -= instance.OnPedals;
+            @FlapsUp.started -= instance.OnFlapsUp;
+            @FlapsUp.performed -= instance.OnFlapsUp;
+            @FlapsUp.canceled -= instance.OnFlapsUp;
+            @FlapsDown.started -= instance.OnFlapsDown;
+            @FlapsDown.performed -= instance.OnFlapsDown;
+            @FlapsDown.canceled -= instance.OnFlapsDown;
+            @ToggleAirbrakes.started -= instance.OnToggleAirbrakes;
+            @ToggleAirbrakes.performed -= instance.OnToggleAirbrakes;
+            @ToggleAirbrakes.canceled -= instance.OnToggleAirbrakes;
             @Engine.started -= instance.OnEngine;
             @Engine.performed -= instance.OnEngine;
             @Engine.canceled -= instance.OnEngine;
@@ -309,6 +396,9 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
     {
         void OnStick(InputAction.CallbackContext context);
         void OnPedals(InputAction.CallbackContext context);
+        void OnFlapsUp(InputAction.CallbackContext context);
+        void OnFlapsDown(InputAction.CallbackContext context);
+        void OnToggleAirbrakes(InputAction.CallbackContext context);
         void OnEngine(InputAction.CallbackContext context);
         void OnThrottleUp(InputAction.CallbackContext context);
         void OnThrottleDown(InputAction.CallbackContext context);

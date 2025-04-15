@@ -7,8 +7,8 @@ using TMPro;
 
 public class AeroplaneController : MonoBehaviour
 {  
-    bool flaps_deployed;
-    bool airbrake_deployed;
+    float flaps_state;
+    bool airbrakes_deployed;
 
     float angle_of_attack;
     float sideslip;
@@ -33,10 +33,10 @@ public class AeroplaneController : MonoBehaviour
     [Header("Lift/Angle of Attack Settings")]
     [SerializeField] float lift_power;
     [SerializeField] float flaps_lift_power;
-    [SerializeField] float flaps_angle_of_attack_bias;
+    [SerializeField] float flaps_angle_of_attack_increase;
 
     [SerializeField] AnimationCurve lift_angle_of_attack_curve;
-    [SerializeField] AnimationCurve rudder_angle_of_attack_curve;
+    [SerializeField] AnimationCurve vertical_stabiliser_angle_of_attack_curve;
 
     [Header("Drag/Friction Settings")]
     [SerializeField] float induced_drag;
@@ -51,7 +51,7 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve drag_bottom;
 
     [SerializeField] AnimationCurve induced_drag_curve;
-    [SerializeField] AnimationCurve rudder_induced_drag_curve;
+    [SerializeField] AnimationCurve vertical_stabiliser_induced_drag_curve;
 
     [SerializeField] Collider left_main_gear_collider;
     [SerializeField] Collider right_main_gear_collider;
@@ -61,12 +61,12 @@ public class AeroplaneController : MonoBehaviour
 
     [Header("Control Settings")]
     [SerializeField] Vector3 turn_speed;
-    [SerializeField] Vector3 turn_acceleration;
+    [SerializeField] Vector3 base_max_turn_acceleration;
     [SerializeField] AnimationCurve steering_curve;
 
     [Header("Misc")]
     [SerializeField] bool has_prop;
-    [SerializeField] float rudder_power;
+    [SerializeField] float vertical_stabiliser_power;
     [SerializeField] float prop_idle_rotation_speed;
     [SerializeField] PropellerOrTurbine propeller_or_turbine;
 
@@ -116,6 +116,11 @@ public class AeroplaneController : MonoBehaviour
         aircraft_controls.Flight.ThrottleDown.performed += context => decreaseThrottleInput();
         
         aircraft_controls.Flight.ToggleBrakes.performed += context => toggleBrakes();
+        
+        aircraft_controls.Flight.FlapsUp.performed += context => deployFlaps();
+        aircraft_controls.Flight.FlapsDown.performed += context => retractFlaps();
+        
+        aircraft_controls.Flight.ToggleAirbrakes.performed += context => toggleAirbrakes();
 
         //axis
         aircraft_controls.Flight.Stick.performed += context => stick_input = context.ReadValue<Vector2>();
@@ -177,6 +182,22 @@ public class AeroplaneController : MonoBehaviour
         updateThrottleText();
     }
 
+    void deployFlaps()
+    {
+        if (flaps_state < 1.0f)
+        {
+            flaps_state += 0.25f;
+        }
+    }
+
+    void retractFlaps()
+    {
+        if (flaps_state > 0.0f)
+        {
+            flaps_state -= 0.25f;
+        }
+    }
+
     //boolean inputs
     void toggleEngine()
     {
@@ -210,6 +231,11 @@ public class AeroplaneController : MonoBehaviour
         }
 
         updateBrakesText();
+    }
+
+    void toggleAirbrakes()
+    {
+        airbrakes_deployed = !airbrakes_deployed;
     }
 
     //calculations
@@ -246,33 +272,35 @@ public class AeroplaneController : MonoBehaviour
         last_velocity = velocity;
     }
 
-    Vector3 calculateLift(float _angle_of_attack, Vector3 right_axis, float _lift_power, AnimationCurve _angle_of_attack_curve, AnimationCurve _induced_drag_curve)
+    Vector3 calculateLift(float _angle_of_attack, Vector3 right_axis, float local_lift_power, AnimationCurve _angle_of_attack_curve, AnimationCurve _induced_drag_curve)
     {
-        var lift_velocity = Vector3.ProjectOnPlane(local_velocity, right_axis);
-        var lift_velocity_square_magnitude = lift_velocity.sqrMagnitude;
+        //filter out lateral velocity that doesn't contribute to lift
+        Vector3 lift_velocity = Vector3.ProjectOnPlane(local_velocity, right_axis);
+        
+        float lift_velocity_square_magnitude = lift_velocity.sqrMagnitude;
 
-        //coefficient varies with angle of attack
-        var lift_coefficient = _angle_of_attack_curve.Evaluate(_angle_of_attack * Mathf.Rad2Deg);
-        var lift_force = lift_velocity_square_magnitude * lift_coefficient * _lift_power;
+        //lift coefficient varies with angle of attack
+        float lift_coefficient = _angle_of_attack_curve.Evaluate(_angle_of_attack * Mathf.Rad2Deg);
+        float lift_force = lift_velocity_square_magnitude * lift_coefficient * local_lift_power;
 
-        //lift is perpendicular to velocity
-        var lift_direction = Vector3.Cross(lift_velocity.normalized, right_axis);
-        var lift = lift_direction * lift_force;
+        //lift is perpendicular to velocity and right axis
+        Vector3 lift_direction = Vector3.Cross(lift_velocity.normalized, right_axis);
+        Vector3 lift = lift_direction * lift_force;
 
         //induced drag varies with square of lift coefficient
-        var drag_force = lift_coefficient * lift_coefficient;
-        var drag_direction = -lift_velocity.normalized;
-        var induced_drag = drag_direction * lift_velocity_square_magnitude * drag_force * this.induced_drag * _induced_drag_curve.Evaluate(Mathf.Max(0, local_velocity.z));
+        float drag_force = lift_coefficient * lift_coefficient * this.induced_drag;
+        Vector3 drag_direction = -lift_velocity.normalized;
+        Vector3 induced_drag = drag_direction * lift_velocity_square_magnitude * drag_force * _induced_drag_curve.Evaluate(Mathf.Max(0, local_velocity.z));
 
         return lift + induced_drag;
     }
 
-    float calculateSteering(float dt, float angular_velocity, float target_angular_velocity, float angular_acceleration)
+    float calculateSteering(float dt, float current_angular_velocity, float target_angular_velocity, float max_angular_acceleration)
     {
-        var error = target_angular_velocity - angular_velocity;
-        var _acceleration = angular_acceleration * dt;
+        float angular_velocity_error = target_angular_velocity - current_angular_velocity;
+        float dt_max_angular_acceleration = max_angular_acceleration * dt;
 
-        return Mathf.Clamp(error, -_acceleration, _acceleration);
+        return Mathf.Clamp(angular_velocity_error, -dt_max_angular_acceleration, dt_max_angular_acceleration);
     }
 
     void calculatePropTorque()
@@ -368,7 +396,7 @@ public class AeroplaneController : MonoBehaviour
         //account for drag from airbrakes/flaps
         float local_airbrake_drag;
 
-        if (airbrake_deployed)
+        if (airbrakes_deployed)
         {
             local_airbrake_drag = airbrake_drag;
         }
@@ -377,16 +405,7 @@ public class AeroplaneController : MonoBehaviour
             local_airbrake_drag = 0.0f;
         }
 
-        float local_flaps_drag;
-
-        if (flaps_deployed)
-        {
-            local_flaps_drag = flaps_drag;
-        }
-        else
-        {
-            local_flaps_drag = 0.0f;
-        }
+        float local_flaps_drag = flaps_drag * flaps_state;
 
         //calculate coefficient of drag depending on direction of velocity
         Vector3 drag_coefficient = scale6
@@ -410,37 +429,42 @@ public class AeroplaneController : MonoBehaviour
             return;
         }
 
-        float _flaps_lift_power = flaps_deployed ? this.flaps_lift_power : 0;
-        float _flaps_angle_of_attack_bias = flaps_deployed ? this.flaps_angle_of_attack_bias : 0;
+        //extra lift provided by flaps
+        float local_flaps_lift_power = flaps_lift_power * flaps_state;
 
-        var lift_force = calculateLift
+        //with flaps deployed, wings behave as if they are at a higher angle of attack
+        float local_flaps_angle_of_attack_increase = flaps_angle_of_attack_increase * flaps_state;
+
+        //vertical lift from wings
+        Vector3 lift_force = calculateLift
             (
-            angle_of_attack + (_flaps_angle_of_attack_bias * Mathf.Deg2Rad), Vector3.right,
-            lift_power + _flaps_lift_power, lift_angle_of_attack_curve, induced_drag_curve
+            angle_of_attack + (local_flaps_angle_of_attack_increase * Mathf.Deg2Rad), Vector3.right,
+            lift_power + local_flaps_lift_power, lift_angle_of_attack_curve, induced_drag_curve
             );
 
-        var yaw_force = calculateLift(sideslip, Vector3.up, rudder_power, rudder_angle_of_attack_curve, rudder_induced_drag_curve);
+        //lateral lift from vertical stabiliser
+        Vector3 vertical_stabiliser_force = calculateLift(sideslip, Vector3.up, vertical_stabiliser_power, vertical_stabiliser_angle_of_attack_curve, vertical_stabiliser_induced_drag_curve);
 
         rb.AddRelativeForce(lift_force);
-        rb.AddRelativeForce(yaw_force); 
+        rb.AddRelativeForce(vertical_stabiliser_force); 
     }
 
     void updateSteering(float dt)
     {
-        var speed = Mathf.Max(0, local_velocity.z);
-        var steering_power = steering_curve.Evaluate(speed);
+        float airspeed = Mathf.Max(0.0f, local_velocity.z);
+        float steering_power = steering_curve.Evaluate(airspeed);
 
-        var target_angular_velocity = Vector3.Scale(control_surface_input, turn_speed * steering_power);
-        var angular_velocity = local_angular_velocity * Mathf.Rad2Deg;
+        var current_angular_velocity = local_angular_velocity * Mathf.Rad2Deg;
+        var target_angular_velocity = Vector3.Scale(control_surface_input, turn_speed * steering_power);        
 
-        var correction = new Vector3
+        Vector3 angular_velocity_correction = new Vector3
             (
-            calculateSteering(dt, angular_velocity.x, target_angular_velocity.x, turn_acceleration.x * steering_power),
-            calculateSteering(dt, angular_velocity.y, target_angular_velocity.y, turn_acceleration.y * steering_power),
-            calculateSteering(dt, angular_velocity.z, target_angular_velocity.z, turn_acceleration.z * steering_power)
+            calculateSteering(dt, current_angular_velocity.x, target_angular_velocity.x, base_max_turn_acceleration.x * steering_power),
+            calculateSteering(dt, current_angular_velocity.y, target_angular_velocity.y, base_max_turn_acceleration.y * steering_power),
+            calculateSteering(dt, current_angular_velocity.z, target_angular_velocity.z, base_max_turn_acceleration.z * steering_power)
             );
 
-        rb.AddRelativeTorque(correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
+        rb.AddRelativeTorque(angular_velocity_correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
     }
 
     void updatePropTurbineSpeed()

@@ -1,5 +1,5 @@
 {
-    "name": "AircraftControls",
+    "name": "IA_AircraftControls",
     "maps": [
         {
             "name": "Flight",
@@ -22,6 +22,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "FlapsUp",
+                    "type": "Button",
+                    "id": "4e872237-4133-48e6-b600-599e5f1eb821",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FlapsDown",
+                    "type": "Button",
+                    "id": "9514965a-4479-48bf-b736-f76f3b346b51",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleAirbrakes",
+                    "type": "Button",
+                    "id": "36cb88e1-d294-4cd0-8779-c1526c963544",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Engine",
@@ -124,6 +151,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleBrakes",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a235e07-0c7f-4378-a777-16f75bc93e47",
+                    "path": "<Keyboard>/pageUp",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlapsUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "848611ed-9089-48ad-885e-5cff33bc26b2",
+                    "path": "<Keyboard>/pageDown",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlapsDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e99f9bb2-cb20-498f-971f-569b030504fb",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleAirbrakes",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
