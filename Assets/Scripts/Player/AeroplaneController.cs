@@ -65,10 +65,10 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve steering_curve;
 
     [Header("Misc")]
-    [SerializeField] bool has_prop;
+    [SerializeField] bool affected_by_prop_torque;
     [SerializeField] float vertical_stabiliser_power;
-    [SerializeField] float prop_idle_rotation_speed;
-    [SerializeField] PropellerOrTurbine propeller_or_turbine;
+    [SerializeField] float prop_or_fan_idle_rotation_speed;
+    [SerializeField] PropellerOrFan[] propellers_or_fans;
 
     [Header("Control Surfaces")]
     [SerializeField] float aileron_deflection;
@@ -132,9 +132,12 @@ public class AeroplaneController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         aircraft_controls.Flight.Enable();
 
-        if (propeller_or_turbine != null)
+        if (propellers_or_fans != null)
         {
-            propeller_or_turbine.setRotationSpeed(prop_idle_rotation_speed);
+            for (int i = 0; i < propellers_or_fans.Length; i++)
+            {
+                propellers_or_fans[i].setRotationSpeed(prop_or_fan_idle_rotation_speed);
+            }
         }
 
         stick_indicator_center_position = stick_indicator.GetComponent<RectTransform>().position;
@@ -171,7 +174,7 @@ public class AeroplaneController : MonoBehaviour
             throttle_input += 0.1f;
         }
 
-        updatePropTurbineSpeed();
+        updatePropOrFanSpeed();
         updateThrottleText();
     }
 
@@ -182,7 +185,7 @@ public class AeroplaneController : MonoBehaviour
             throttle_input -= 0.1f;
         }
 
-        updatePropTurbineSpeed();
+        updatePropOrFanSpeed();
         updateThrottleText();
     }
 
@@ -209,11 +212,17 @@ public class AeroplaneController : MonoBehaviour
 
         if (engine_running)
         {
-            propeller_or_turbine.setSpinning(true);
+            for (int i = 0; i < propellers_or_fans.Length; i++)
+            {
+                propellers_or_fans[i].setSpinning(true);
+            }            
         }
         else
         {
-            propeller_or_turbine.setSpinning(false);
+            for (int i = 0; i < propellers_or_fans.Length; i++)
+            {
+                propellers_or_fans[i].setSpinning(false);
+            }
         }
 
         updateEngineText();
@@ -506,9 +515,12 @@ public class AeroplaneController : MonoBehaviour
         rb.AddRelativeTorque(angular_velocity_correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
     }
 
-    void updatePropTurbineSpeed()
+    void updatePropOrFanSpeed()
     {
-        propeller_or_turbine.setRotationSpeed(prop_idle_rotation_speed + (throttle_input * 5.0f));
+        for (int i = 0; i < propellers_or_fans.Length; i++)
+        {
+            propellers_or_fans[i].setRotationSpeed(prop_or_fan_idle_rotation_speed + (throttle_input * 5.0f));
+        }        
     }
 
     void updateEngineText()
