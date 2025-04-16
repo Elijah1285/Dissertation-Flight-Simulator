@@ -53,8 +53,8 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve induced_drag_curve;
     [SerializeField] AnimationCurve vertical_stabiliser_induced_drag_curve;
 
-    [SerializeField] Collider left_main_gear_collider;
-    [SerializeField] Collider right_main_gear_collider;
+    [SerializeField] Collider[] left_main_gear_colliders;
+    [SerializeField] Collider[] right_main_gear_colliders;
 
     [SerializeField] PhysicMaterial normal_gear_physics_material;
     [SerializeField] PhysicMaterial braking_gear_physics_material;
@@ -131,7 +131,11 @@ public class AeroplaneController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         aircraft_controls.Flight.Enable();
-        propeller_or_turbine.setRotationSpeed(prop_idle_rotation_speed);
+
+        if (propeller_or_turbine != null)
+        {
+            propeller_or_turbine.setRotationSpeed(prop_idle_rotation_speed);
+        }
 
         stick_indicator_center_position = stick_indicator.GetComponent<RectTransform>().position;
         pedals_indicator_x_center_position = pedals_indicator.GetComponent<RectTransform>().position.x;
@@ -221,13 +225,27 @@ public class AeroplaneController : MonoBehaviour
 
         if (brakes_active)
         {
-            left_main_gear_collider.material = braking_gear_physics_material;
-            right_main_gear_collider.material = braking_gear_physics_material;
+            for (int i = 0; i < left_main_gear_colliders.Length; i++)
+            {
+                left_main_gear_colliders[i].material = braking_gear_physics_material;
+            }
+
+            for (int i = 0; i < right_main_gear_colliders.Length; i++)
+            {
+                right_main_gear_colliders[i].material = braking_gear_physics_material;
+            }
         }
         else
         {
-            left_main_gear_collider.material = normal_gear_physics_material;
-            right_main_gear_collider.material = normal_gear_physics_material;
+            for (int i = 0; i < left_main_gear_colliders.Length; i++)
+            {
+                left_main_gear_colliders[i].material = normal_gear_physics_material;
+            }
+
+            for (int i = 0; i < right_main_gear_colliders.Length; i++)
+            {
+                right_main_gear_colliders[i].material = normal_gear_physics_material;
+            }
         }
 
         updateBrakesText();
@@ -305,10 +323,32 @@ public class AeroplaneController : MonoBehaviour
 
     void calculatePropTorque()
     {
-        if (has_prop)
-        {
+        
+    }
 
-        }
+    float calculateAirDensity(float metric_altitude)
+    {
+        //standard temperature at sea level in Kelvin
+        const float sea_level_standard_temperature = 288.15f;
+
+        //standard air pressure at sea level is Pascals
+        const float sea_level_standard_pressure = 101325f;
+
+        //Temperature lapse rate in Kelvin per metre
+        const float temperature_lapse_rate = 0.0065f;
+
+        //Specific gas constant (how sensitive air density is to temperature change) for dry air in Joules per Kilogram per Kelvin
+        const float air_specific_gas_constant = 287.05f;
+
+        //gravity of earth
+        const float gravity = 9.807f;
+
+        //calculate air density from values
+        float temperature = sea_level_standard_temperature - (temperature_lapse_rate * metric_altitude);
+        float air_pressure = sea_level_standard_pressure * Mathf.Pow(1 - ((temperature_lapse_rate * metric_altitude) / sea_level_standard_temperature), (gravity / (air_specific_gas_constant * temperature_lapse_rate)));
+        float density = air_pressure / (air_specific_gas_constant * temperature);
+
+        return density; 
     }
 
     public static Vector3 scale6
@@ -391,8 +431,6 @@ public class AeroplaneController : MonoBehaviour
 
     void updateDrag()
     {
-        float local_velocity_squared = local_velocity.sqrMagnitude;
-
         //account for drag from airbrakes/flaps
         float local_airbrake_drag;
 
@@ -417,7 +455,8 @@ public class AeroplaneController : MonoBehaviour
             drag_back.Evaluate(Mathf.Abs(local_velocity.z))
             );
 
-        Vector3 drag = drag_coefficient.magnitude * local_velocity_squared * -local_velocity.normalized; //drag is opposite to direction of velocity
+        //use the drag equation to calculate drag: Drag = 0.5 * Air density * Velocity^2 * Coefficient of drag * Reference area
+        Vector3 drag = 0.5f * calculateAirDensity(transform.position.y) * local_velocity.sqrMagnitude * drag_coefficient.magnitude * -local_velocity.normalized; //drag is opposite to direction of velocity
 
         rb.AddRelativeForce(drag);
     }
@@ -454,8 +493,8 @@ public class AeroplaneController : MonoBehaviour
         float airspeed = Mathf.Max(0.0f, local_velocity.z);
         float steering_power = steering_curve.Evaluate(airspeed);
 
-        var current_angular_velocity = local_angular_velocity * Mathf.Rad2Deg;
-        var target_angular_velocity = Vector3.Scale(control_surface_input, turn_speed * steering_power);        
+        Vector3 current_angular_velocity = local_angular_velocity * Mathf.Rad2Deg;
+        Vector3 target_angular_velocity = Vector3.Scale(control_surface_input, turn_speed * steering_power);        
 
         Vector3 angular_velocity_correction = new Vector3
             (
