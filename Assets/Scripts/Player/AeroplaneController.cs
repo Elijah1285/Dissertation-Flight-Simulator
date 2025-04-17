@@ -6,9 +6,13 @@ using UnityEngine.UI;
 using TMPro;
 
 public class AeroplaneController : MonoBehaviour
-{  
-    float flaps_state;
+{
     bool airbrakes_deployed;
+    
+    bool moving_flaps;
+    float flaps_state;
+    float flaps_current_angle;
+    float flaps_target_angle;
 
     float angle_of_attack;
     float sideslip;
@@ -74,11 +78,16 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] float aileron_deflection;
     [SerializeField] float elevator_deflection;
     [SerializeField] float rudder_deflection;
+    [SerializeField] float flaps_deflection;
+
+    [SerializeField] float flaps_deploy_rate;
 
     [SerializeField] Transform left_aileron_pivot;
     [SerializeField] Transform right_aileron_pivot;
-    [SerializeField] Transform elevator_pivot;
     [SerializeField] Transform rudder_pivot;
+
+    [SerializeField] Transform[] elevator_pivots;
+    [SerializeField] Transform[] flaps_pivots;   
 
     [Header("UI objects")]
     [SerializeField] TextMeshProUGUI engine_text;
@@ -163,8 +172,12 @@ public class AeroplaneController : MonoBehaviour
         //update control surfaces
         left_aileron_pivot.localRotation = Quaternion.Euler(-stick_input.x * aileron_deflection, 0.0f, 0.0f);
         right_aileron_pivot.localRotation = Quaternion.Euler(stick_input.x * aileron_deflection, 0.0f, 0.0f);
-        elevator_pivot.localRotation = Quaternion.Euler(-stick_input.y * elevator_deflection, 0.0f, 0.0f);
         rudder_pivot.localRotation = Quaternion.Euler(0.0f, pedals_input * rudder_deflection, 0.0f);
+
+        for (int i = 0; i < elevator_pivots.Length; i++)
+        {
+            elevator_pivots[i].localRotation = Quaternion.Euler(-stick_input.y * elevator_deflection, 0.0f, 0.0f);
+        }        
     }
 
     void increaseThrottleInput()
@@ -195,6 +208,8 @@ public class AeroplaneController : MonoBehaviour
         {
             flaps_state += 0.25f;
         }
+
+        updateFlapsTargetAngleAndUI();
     }
 
     void retractFlaps()
@@ -203,6 +218,8 @@ public class AeroplaneController : MonoBehaviour
         {
             flaps_state -= 0.25f;
         }
+
+        updateFlapsTargetAngleAndUI();
     }
 
     //boolean inputs
@@ -274,9 +291,9 @@ public class AeroplaneController : MonoBehaviour
         local_angular_velocity = inverted_rotation * rb.angularVelocity; // transform angular velocity into local space
     }
 
-    void calculateAngleOfAttack()
+    void calculateAngleOfAttackAndSideslip()
     {
-        //set 0 angle of attack if very slow or stationary
+        //set 0 angle of attack and sideslip if very slow or stationary
         if (local_velocity.sqrMagnitude < 0.1f)
         {
             angle_of_attack = 0.0f;
@@ -284,10 +301,10 @@ public class AeroplaneController : MonoBehaviour
             return;
         }
 
-        //calculate vertical angle of attack
+        //calculate angle of attack
         angle_of_attack = Mathf.Atan2(-local_velocity.y, local_velocity.z);
 
-        //calculate lateral angle of attack A.K.A sideslip
+        //calculate sideslip
         sideslip = Mathf.Atan2(local_velocity.x, local_velocity.z);
     }
 
@@ -299,7 +316,7 @@ public class AeroplaneController : MonoBehaviour
         last_velocity = velocity;
     }
 
-    Vector3 calculateLift(float _angle_of_attack, Vector3 right_axis, float local_lift_power, AnimationCurve _angle_of_attack_curve, AnimationCurve _induced_drag_curve)
+    Vector3 calculateLiftAndInducedDrag(float _angle_of_attack, Vector3 right_axis, float local_lift_power, AnimationCurve _angle_of_attack_curve, AnimationCurve _induced_drag_curve)
     {
         //filter out lateral velocity that doesn't contribute to lift
         Vector3 lift_velocity = Vector3.ProjectOnPlane(local_velocity, right_axis);
@@ -408,6 +425,7 @@ public class AeroplaneController : MonoBehaviour
     {
         getInput();
         updateUI();
+        updateFlaps();
     }
 
     void FixedUpdate()
@@ -415,7 +433,7 @@ public class AeroplaneController : MonoBehaviour
         float dt = Time.fixedDeltaTime;
 
         calculateLocalVelocities(dt);
-        calculateAngleOfAttack();
+        calculateAngleOfAttackAndSideslip();
         calculateGForce(dt);
         updateThrust();
         updateDrag();
@@ -428,6 +446,48 @@ public class AeroplaneController : MonoBehaviour
         airspeed_text.text = "IAS: " + Mathf.Max(Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f), 0.0f).ToString() + " kt";
         altitude_text.text = "ALT: " + Mathf.Max(Mathf.FloorToInt(transform.position.y * 3.281f), 0.0f).ToString() + " ft";
         rate_of_climb_text.text = "ROC: " + Mathf.RoundToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
+    }
+
+    void updateFlaps()
+    {
+        if (moving_flaps)
+        {
+            //update current flaps angle
+            if (flaps_current_angle < flaps_target_angle)
+            {
+                flaps_current_angle += flaps_deploy_rate * Time.deltaTime;
+
+                //check if should stop moving flaps
+                if (flaps_current_angle > flaps_target_angle)
+                {
+                    flaps_current_angle = flaps_target_angle;
+                    moving_flaps = false;
+                }
+            }
+            else
+            {
+                flaps_current_angle -= flaps_deploy_rate * Time.deltaTime;
+
+                //check if should stop moving flaps
+                if (flaps_current_angle < flaps_target_angle)
+                {
+                    flaps_current_angle = flaps_target_angle;
+                    moving_flaps = false;
+                }
+            }
+
+            //apply flaps angle to flaps pivots
+            for (int i = 0; i < flaps_pivots.Length; i++)
+            {
+                flaps_pivots[i].transform.localRotation = Quaternion.Euler(flaps_current_angle, 0.0f, 0.0f);
+            }
+        }
+    }
+
+    void updateFlapsTargetAngleAndUI()
+    {
+        flaps_target_angle = flaps_state * -flaps_deflection;
+        moving_flaps = true;
     }
 
     void updateThrust()
@@ -484,14 +544,18 @@ public class AeroplaneController : MonoBehaviour
         float local_flaps_angle_of_attack_increase = flaps_angle_of_attack_increase * flaps_state;
 
         //vertical lift from wings
-        Vector3 lift_force = calculateLift
+        Vector3 lift_force = calculateLiftAndInducedDrag
             (
             angle_of_attack + (local_flaps_angle_of_attack_increase * Mathf.Deg2Rad), Vector3.right,
             lift_power + local_flaps_lift_power, lift_angle_of_attack_curve, induced_drag_curve
             );
 
         //lateral lift from vertical stabiliser
-        Vector3 vertical_stabiliser_force = calculateLift(sideslip, Vector3.up, vertical_stabiliser_power, vertical_stabiliser_angle_of_attack_curve, vertical_stabiliser_induced_drag_curve);
+        Vector3 vertical_stabiliser_force = calculateLiftAndInducedDrag
+            (
+            sideslip, Vector3.up, vertical_stabiliser_power, vertical_stabiliser_angle_of_attack_curve,
+            vertical_stabiliser_induced_drag_curve
+            );
 
         rb.AddRelativeForce(lift_force);
         rb.AddRelativeForce(vertical_stabiliser_force); 
