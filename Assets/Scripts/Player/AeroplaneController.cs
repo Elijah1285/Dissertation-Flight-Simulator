@@ -171,9 +171,9 @@ public class AeroplaneController : MonoBehaviour
         throttle_indicator.GetComponent<RectTransform>().position = new Vector2(throttle_indicator.GetComponent<RectTransform>().position.x, throttle_indicator_y_idle_position + (throttle_input * 240.0f));
 
         //update control surfaces
-        left_aileron_pivot.localRotation = Quaternion.Euler(-stick_input.x * aileron_deflection, 0.0f, 0.0f);
-        right_aileron_pivot.localRotation = Quaternion.Euler(stick_input.x * aileron_deflection, 0.0f, 0.0f);
-        rudder_pivot.localRotation = Quaternion.Euler(0.0f, pedals_input * rudder_deflection, 0.0f);
+        left_aileron_pivot.localRotation = Quaternion.Euler(-stick_input.x * aileron_deflection, left_aileron_pivot.localEulerAngles.y, left_aileron_pivot.localEulerAngles.z);
+        right_aileron_pivot.localRotation = Quaternion.Euler(stick_input.x * aileron_deflection, right_aileron_pivot.localEulerAngles.y, right_aileron_pivot.localEulerAngles.z);
+        rudder_pivot.localRotation = Quaternion.Euler(rudder_pivot.localEulerAngles.x, pedals_input * rudder_deflection, rudder_pivot.localEulerAngles.z);
 
         for (int i = 0; i < elevator_pivots.Length; i++)
         {
