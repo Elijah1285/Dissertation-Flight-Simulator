@@ -2540,7 +2540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1214519464104402324, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.0500001
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1427520156194348084, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.x
@@ -2576,7 +2576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1438945132782869892, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.750001
+      value: -15.4
       objectReference: {fileID: 0}
     - target: {fileID: 1566354529828185069, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_Name
@@ -2649,6 +2649,14 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: airbrake_drag
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: flaps_deflection
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: flaps_deploy_rate
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: rudder_deflection
@@ -2756,7 +2764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3231226070109879437, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.750001
+      value: -15.4
       objectReference: {fileID: 0}
     - target: {fileID: 3305437801276241644, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.x
@@ -2900,7 +2908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6276284284564030009, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.0500001
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6583929022644563353, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.x
@@ -2984,7 +2992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7361850273726205602, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.750001
+      value: -15.4
       objectReference: {fileID: 0}
     - target: {fileID: 7393658326458752739, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.x
@@ -3040,7 +3048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8569835004048687126, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.0500001
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8673344301288426227, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.x
@@ -3068,7 +3076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8952088541494374548, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.05
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 9087728885306180229, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.y

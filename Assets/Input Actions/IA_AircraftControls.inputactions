@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "FlapsUp",
+                    "name": "RetractFlaps",
                     "type": "Button",
                     "id": "4e872237-4133-48e6-b600-599e5f1eb821",
                     "expectedControlType": "Button",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FlapsDown",
+                    "name": "DeployFlaps",
                     "type": "Button",
                     "id": "9514965a-4479-48bf-b736-f76f3b346b51",
                     "expectedControlType": "Button",
@@ -161,7 +161,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FlapsUp",
+                    "action": "RetractFlaps",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -172,7 +172,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FlapsDown",
+                    "action": "DeployFlaps",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

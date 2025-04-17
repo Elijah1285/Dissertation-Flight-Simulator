@@ -92,6 +92,7 @@ public class AeroplaneController : MonoBehaviour
     [Header("UI objects")]
     [SerializeField] TextMeshProUGUI engine_text;
     [SerializeField] TextMeshProUGUI throttle_text;
+    [SerializeField] TextMeshProUGUI flaps_text;
     [SerializeField] TextMeshProUGUI brakes_text;
     [SerializeField] TextMeshProUGUI airspeed_text;
     [SerializeField] TextMeshProUGUI altitude_text;
@@ -126,8 +127,8 @@ public class AeroplaneController : MonoBehaviour
         
         aircraft_controls.Flight.ToggleBrakes.performed += context => toggleBrakes();
         
-        aircraft_controls.Flight.FlapsUp.performed += context => deployFlaps();
-        aircraft_controls.Flight.FlapsDown.performed += context => retractFlaps();
+        aircraft_controls.Flight.DeployFlaps.performed += context => deployFlaps();
+        aircraft_controls.Flight.RetractFlaps.performed += context => retractFlaps();
         
         aircraft_controls.Flight.ToggleAirbrakes.performed += context => toggleAirbrakes();
 
@@ -421,31 +422,67 @@ public class AeroplaneController : MonoBehaviour
     }
 
     //updates
+    
+    //Non-physics based updates
     void Update()
     {
         getInput();
-        updateUI();
+        updateFlightVariablesUI();
         updateFlaps();
     }
 
-    void FixedUpdate()
-    {
-        float dt = Time.fixedDeltaTime;
-
-        calculateLocalVelocities(dt);
-        calculateAngleOfAttackAndSideslip();
-        calculateGForce(dt);
-        updateThrust();
-        updateDrag();
-        updateLift();
-        updateSteering(dt);
-    }    
-
-    void updateUI()
+    //UI
+    void updateFlightVariablesUI()
     {
         airspeed_text.text = "IAS: " + Mathf.Max(Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f), 0.0f).ToString() + " kt";
         altitude_text.text = "ALT: " + Mathf.Max(Mathf.FloorToInt(transform.position.y * 3.281f), 0.0f).ToString() + " ft";
         rate_of_climb_text.text = "ROC: " + Mathf.RoundToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
+    }
+
+    void updateEngineText()
+    {
+        if (engine_running)
+        {
+            engine_text.text = "ENG: ON";
+        }
+        else
+        {
+            engine_text.text = "ENG: OFF";
+        }
+    }
+
+    void updateBrakesText()
+    {
+        if (brakes_active)
+        {
+            brakes_text.text = "BRK: ON";
+        }
+        else
+        {
+            brakes_text.text = "BRK: OFF";
+        }
+    }
+
+    void updateThrottleText()
+    {
+        throttle_text.text = "THR: " + Mathf.FloorToInt(throttle_input * 100.0f).ToString() + "%";
+    }
+
+    void updateFlapsTargetAngleAndUI()
+    {
+        flaps_target_angle = flaps_state * -flaps_deflection;
+        moving_flaps = true;
+
+        flaps_text.text = "FLP: " + Mathf.FloorToInt(flaps_state * 100.0f).ToString() + "%";
+    }
+
+    //Non-UI
+    void updatePropOrFanSpeed()
+    {
+        for (int i = 0; i < propellers_or_fans.Length; i++)
+        {
+            propellers_or_fans[i].setRotationSpeed(prop_or_fan_idle_rotation_speed + (throttle_input * 5.0f));
+        }
     }
 
     void updateFlaps()
@@ -479,15 +516,23 @@ public class AeroplaneController : MonoBehaviour
             //apply flaps angle to flaps pivots
             for (int i = 0; i < flaps_pivots.Length; i++)
             {
-                flaps_pivots[i].transform.localRotation = Quaternion.Euler(flaps_current_angle, 0.0f, 0.0f);
+                flaps_pivots[i].transform.localRotation = Quaternion.Euler(flaps_current_angle, flaps_pivots[i].localEulerAngles.y, flaps_pivots[i].localEulerAngles.z);
             }
         }
     }
 
-    void updateFlapsTargetAngleAndUI()
+    //physics based updates
+    void FixedUpdate()
     {
-        flaps_target_angle = flaps_state * -flaps_deflection;
-        moving_flaps = true;
+        float dt = Time.fixedDeltaTime;
+
+        calculateLocalVelocities(dt);
+        calculateAngleOfAttackAndSideslip();
+        calculateGForce(dt);
+        updateThrust();
+        updateDrag();
+        updateLift();
+        updateSteering(dt);
     }
 
     void updateThrust()
@@ -577,42 +622,5 @@ public class AeroplaneController : MonoBehaviour
             );
 
         rb.AddRelativeTorque(angular_velocity_correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
-    }
-
-    void updatePropOrFanSpeed()
-    {
-        for (int i = 0; i < propellers_or_fans.Length; i++)
-        {
-            propellers_or_fans[i].setRotationSpeed(prop_or_fan_idle_rotation_speed + (throttle_input * 5.0f));
-        }        
-    }
-
-    void updateEngineText()
-    {
-        if (engine_running)
-        {
-            engine_text.text = "ENG: ON";
-        }
-        else
-        {
-            engine_text.text = "ENG: OFF";
-        }
-    }
-
-    void updateThrottleText()
-    {
-        throttle_text.text = "THR: " + Mathf.FloorToInt(throttle_input * 100.0f).ToString() + "%";
-    }
-
-    void updateBrakesText()
-    {
-        if (brakes_active)
-        {
-            brakes_text.text = "BRK: ON";
-        }
-        else
-        {
-            brakes_text.text = "BRK: OFF";
-        }
     }
 }
