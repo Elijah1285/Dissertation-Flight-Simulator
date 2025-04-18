@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1566354529828185069, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_Name
-      value: PFB_Aeroplane
+      value: PFB_VRT_Boeing747-400
       objectReference: {fileID: 0}
     - target: {fileID: 7036173496276965883, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.x
