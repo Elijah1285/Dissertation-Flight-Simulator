@@ -616,6 +616,7 @@ Transform:
   - {fileID: 9087728885306180229}
   - {fileID: 8824120988824384657}
   - {fileID: 1101374367012288295}
+  - {fileID: 7540372671284400320}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1879585496088604213
@@ -714,7 +715,7 @@ MonoBehaviour:
   affected_by_prop_torque: 0
   vertical_stabiliser_power: 0
   prop_or_fan_idle_rotation_speed: 0
-  propellers_or_fans: []
+  propellers_or_jets: []
   aileron_deflection: 0
   elevator_deflection: 0
   rudder_deflection: 0
@@ -1072,6 +1073,37 @@ Transform:
   m_Children:
   - {fileID: 3063776005552912965}
   m_Father: {fileID: 8824120988824384657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3927830940621166089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7540372671284400320}
+  m_Layer: 0
+  m_Name: windows
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7540372671284400320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3927830940621166089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7036173496276965883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4039935789809778558
 GameObject:

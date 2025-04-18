@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PropellerOrFan : MonoBehaviour
+public class PropellerOrJet : MonoBehaviour
 {
     bool spinning = false;
     float rotation_speed;

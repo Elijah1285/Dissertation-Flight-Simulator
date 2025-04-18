@@ -72,7 +72,7 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] bool affected_by_prop_torque;
     [SerializeField] float vertical_stabiliser_power;
     [SerializeField] float prop_or_fan_idle_rotation_speed;
-    [SerializeField] PropellerOrFan[] propellers_or_fans;
+    [SerializeField] PropellerOrJet[] propellers_or_jets;
 
     [Header("Control Surfaces")]
     [SerializeField] float aileron_deflection;
@@ -142,11 +142,11 @@ public class AeroplaneController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         aircraft_controls.Flight.Enable();
 
-        if (propellers_or_fans != null)
+        if (propellers_or_jets != null)
         {
-            for (int i = 0; i < propellers_or_fans.Length; i++)
+            for (int i = 0; i < propellers_or_jets.Length; i++)
             {
-                propellers_or_fans[i].setRotationSpeed(prop_or_fan_idle_rotation_speed);
+                propellers_or_jets[i].setRotationSpeed(prop_or_fan_idle_rotation_speed);
             }
         }
 
@@ -177,7 +177,7 @@ public class AeroplaneController : MonoBehaviour
 
         for (int i = 0; i < elevator_pivots.Length; i++)
         {
-            elevator_pivots[i].localRotation = Quaternion.Euler(-stick_input.y * elevator_deflection, 0.0f, 0.0f);
+            elevator_pivots[i].localRotation = Quaternion.Euler(-stick_input.y * elevator_deflection, elevator_pivots[i].localEulerAngles.y, elevator_pivots[i].localEulerAngles.z);
         }        
     }
 
@@ -230,16 +230,16 @@ public class AeroplaneController : MonoBehaviour
 
         if (engine_running)
         {
-            for (int i = 0; i < propellers_or_fans.Length; i++)
+            for (int i = 0; i < propellers_or_jets.Length; i++)
             {
-                propellers_or_fans[i].setSpinning(true);
+                propellers_or_jets[i].setSpinning(true);
             }            
         }
         else
         {
-            for (int i = 0; i < propellers_or_fans.Length; i++)
+            for (int i = 0; i < propellers_or_jets.Length; i++)
             {
-                propellers_or_fans[i].setSpinning(false);
+                propellers_or_jets[i].setSpinning(false);
             }
         }
 
@@ -479,9 +479,9 @@ public class AeroplaneController : MonoBehaviour
     //Non-UI
     void updatePropOrFanSpeed()
     {
-        for (int i = 0; i < propellers_or_fans.Length; i++)
+        for (int i = 0; i < propellers_or_jets.Length; i++)
         {
-            propellers_or_fans[i].setRotationSpeed(prop_or_fan_idle_rotation_speed + (throttle_input * 5.0f));
+            propellers_or_jets[i].setRotationSpeed(prop_or_fan_idle_rotation_speed + (throttle_input * 5.0f));
         }
     }
 
