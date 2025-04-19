@@ -476,37 +476,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d88442a29b770448e33b9c54100ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8727895005620173166
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8879674176703774865}
-  m_Layer: 0
-  m_Name: engine_001
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8879674176703774865
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8727895005620173166}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 232986505875541897}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  idle_rotation_speed: 10
+  rotation_speed_throttle_increase_multiplier: 5
+  angular_acceleration: 10
 --- !u!1001 &897172733028677806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -644,6 +616,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propellers_or_jets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_bottom.m_Curve.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -661,6 +637,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: 'propellers_or_fans.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1011229173637503333}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: 'propellers_or_jets.Array.data[0]'
       value: 
       objectReference: {fileID: 1011229173637503333}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
@@ -1446,9 +1426,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1101374367012288295, guid: f984281b582ce154bbe32afab001f48e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8879674176703774865}
     - targetCorrespondingSourceObject: {fileID: 1101374367012288295, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6530066397858700566}

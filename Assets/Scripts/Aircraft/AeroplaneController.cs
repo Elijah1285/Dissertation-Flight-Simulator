@@ -7,18 +7,18 @@ using TMPro;
 
 public class AeroplaneController : MonoBehaviour
 {
-    bool airbrakes_deployed;
+    bool airbrakes_deployed = false;
     
-    bool moving_flaps;
-    float flaps_state;
-    float flaps_current_angle;
-    float flaps_target_angle;
+    bool moving_flaps = false;
+    float flaps_state = 0.0f;
+    float flaps_current_angle = 0.0f;
+    float flaps_target_angle = 0.0f;
 
-    float angle_of_attack;
-    float sideslip;
+    float angle_of_attack = 0.0f;
+    float sideslip = 0.0f;
 
-    float pedals_indicator_x_center_position;
-    float throttle_indicator_y_idle_position;
+    float pedals_indicator_x_center_position = 0.0f;
+    float throttle_indicator_y_idle_position = 0.0f;
 
     Vector2 stick_indicator_center_position;
 
@@ -77,7 +77,6 @@ public class AeroplaneController : MonoBehaviour
     [Header("Misc")]   
     [SerializeField] bool affected_by_prop_torque;
     [SerializeField] float vertical_stabiliser_power;
-    [SerializeField] float prop_or_fan_idle_rotation_speed;
     [SerializeField] PropellerOrJet[] propellers_or_jets;
 
     [Header("Control Surface Settings")]
@@ -119,7 +118,6 @@ public class AeroplaneController : MonoBehaviour
     IA_AircraftControls aircraft_controls;
 
     //initialisation
-
     void Awake()
     {
         //initialise controls object
@@ -148,14 +146,6 @@ public class AeroplaneController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         aircraft_controls.Flight.Enable();
-
-        if (propellers_or_jets != null)
-        {
-            for (int i = 0; i < propellers_or_jets.Length; i++)
-            {
-                propellers_or_jets[i].setRotationSpeed(prop_or_fan_idle_rotation_speed);
-            }
-        }
 
         stick_indicator_center_position = stick_indicator.GetComponent<RectTransform>().position;
         pedals_indicator_x_center_position = pedals_indicator.GetComponent<RectTransform>().position.x;
@@ -195,8 +185,12 @@ public class AeroplaneController : MonoBehaviour
             throttle_input += 0.1f;
         }
 
-        updatePropOrFanSpeed();
         updateThrottleText();
+
+        if (engine_running)
+        {
+            updatePropOrFanTargetSpeed();
+        }
     }
 
     void decreaseThrottleInput()
@@ -206,8 +200,12 @@ public class AeroplaneController : MonoBehaviour
             throttle_input -= 0.1f;
         }
 
-        updatePropOrFanSpeed();
         updateThrottleText();
+
+        if (engine_running)
+        {
+            updatePropOrFanTargetSpeed();
+        }
     }
 
     void deployFlaps()
@@ -235,20 +233,20 @@ public class AeroplaneController : MonoBehaviour
     {
         engine_running = !engine_running;
 
-        if (engine_running)
-        {
-            for (int i = 0; i < propellers_or_jets.Length; i++)
-            {
-                propellers_or_jets[i].setSpinning(true);
-            }            
-        }
-        else
-        {
-            for (int i = 0; i < propellers_or_jets.Length; i++)
-            {
-                propellers_or_jets[i].setSpinning(false);
-            }
-        }
+        //if (engine_running)
+        //{
+        //    for (int i = 0; i < propellers_or_jets.Length; i++)
+        //    {
+        //        propellers_or_jets[i].setSpinning(true);
+        //    }            
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < propellers_or_jets.Length; i++)
+        //    {
+        //        propellers_or_jets[i].setSpinning(false);
+        //    }
+        //}
 
         updateEngineText();
     }
@@ -495,11 +493,11 @@ public class AeroplaneController : MonoBehaviour
     }
 
     //Non-UI
-    void updatePropOrFanSpeed()
+    void updatePropOrFanTargetSpeed()
     {
         for (int i = 0; i < propellers_or_jets.Length; i++)
         {
-            propellers_or_jets[i].setRotationSpeed(prop_or_fan_idle_rotation_speed + (throttle_input * 5.0f));
+            propellers_or_jets[i].setTargetRotationSpeed(propellers_or_jets[i].getIdleRotationSpeed() + (throttle_input * propellers_or_jets[i].getRotationSpeedThrottleIncreaseMultiplier()));
         }
     }
 

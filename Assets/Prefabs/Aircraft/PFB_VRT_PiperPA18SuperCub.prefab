@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 8748363824970154178}
   - component: {fileID: 1365379416443283460}
   m_Layer: 0
-  m_Name: prop_blade_001
+  m_Name: prop_blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 6530066397858700566}
   - component: {fileID: 1011229173637503333}
   m_Layer: 0
-  m_Name: propeller_001
+  m_Name: propeller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1011,6 +1011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d88442a29b770448e33b9c54100ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angular_acceleration: 0
 --- !u!1 &8497488688244192845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,37 +1119,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &8727895005620173166
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8879674176703774865}
-  m_Layer: 0
-  m_Name: engine_001
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8879674176703774865
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8727895005620173166}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 232986505875541897}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &897172733028677806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2675,9 +2645,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3231226070109879437, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8438877173861059799}
-    - targetCorrespondingSourceObject: {fileID: 1101374367012288295, guid: f984281b582ce154bbe32afab001f48e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8879674176703774865}
     - targetCorrespondingSourceObject: {fileID: 1101374367012288295, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6530066397858700566}

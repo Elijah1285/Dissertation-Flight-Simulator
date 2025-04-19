@@ -746,7 +746,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   retractable_gear: 0
-  gear_retract_direction: 
   landing_gear: []
   affected_by_prop_torque: 0
   vertical_stabiliser_power: 0
@@ -787,7 +786,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 3}
+  m_CenterOfMass: {x: 0, y: 0, z: 1.5}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
