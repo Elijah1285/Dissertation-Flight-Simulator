@@ -100,6 +100,15 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ToggleGear"",
+                    ""type"": ""Button"",
+                    ""id"": ""059e77ca-f337-4c56-87cf-42e40a821d65"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ToggleBrakes"",
                     ""type"": ""Button"",
                     ""id"": ""29f59c38-ae4e-46a7-b518-b29d94c7e9d4"",
@@ -208,6 +217,17 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleAirbrakes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ead50664-4e9f-4e15-92f1-c8262f8eeab4"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleGear"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -224,6 +244,7 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
         m_Flight_Engine = m_Flight.FindAction("Engine", throwIfNotFound: true);
         m_Flight_ThrottleUp = m_Flight.FindAction("ThrottleUp", throwIfNotFound: true);
         m_Flight_ThrottleDown = m_Flight.FindAction("ThrottleDown", throwIfNotFound: true);
+        m_Flight_ToggleGear = m_Flight.FindAction("ToggleGear", throwIfNotFound: true);
         m_Flight_ToggleBrakes = m_Flight.FindAction("ToggleBrakes", throwIfNotFound: true);
     }
 
@@ -294,6 +315,7 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Flight_Engine;
     private readonly InputAction m_Flight_ThrottleUp;
     private readonly InputAction m_Flight_ThrottleDown;
+    private readonly InputAction m_Flight_ToggleGear;
     private readonly InputAction m_Flight_ToggleBrakes;
     public struct FlightActions
     {
@@ -307,6 +329,7 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
         public InputAction @Engine => m_Wrapper.m_Flight_Engine;
         public InputAction @ThrottleUp => m_Wrapper.m_Flight_ThrottleUp;
         public InputAction @ThrottleDown => m_Wrapper.m_Flight_ThrottleDown;
+        public InputAction @ToggleGear => m_Wrapper.m_Flight_ToggleGear;
         public InputAction @ToggleBrakes => m_Wrapper.m_Flight_ToggleBrakes;
         public InputActionMap Get() { return m_Wrapper.m_Flight; }
         public void Enable() { Get().Enable(); }
@@ -341,6 +364,9 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
             @ThrottleDown.started += instance.OnThrottleDown;
             @ThrottleDown.performed += instance.OnThrottleDown;
             @ThrottleDown.canceled += instance.OnThrottleDown;
+            @ToggleGear.started += instance.OnToggleGear;
+            @ToggleGear.performed += instance.OnToggleGear;
+            @ToggleGear.canceled += instance.OnToggleGear;
             @ToggleBrakes.started += instance.OnToggleBrakes;
             @ToggleBrakes.performed += instance.OnToggleBrakes;
             @ToggleBrakes.canceled += instance.OnToggleBrakes;
@@ -372,6 +398,9 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
             @ThrottleDown.started -= instance.OnThrottleDown;
             @ThrottleDown.performed -= instance.OnThrottleDown;
             @ThrottleDown.canceled -= instance.OnThrottleDown;
+            @ToggleGear.started -= instance.OnToggleGear;
+            @ToggleGear.performed -= instance.OnToggleGear;
+            @ToggleGear.canceled -= instance.OnToggleGear;
             @ToggleBrakes.started -= instance.OnToggleBrakes;
             @ToggleBrakes.performed -= instance.OnToggleBrakes;
             @ToggleBrakes.canceled -= instance.OnToggleBrakes;
@@ -402,6 +431,7 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
         void OnEngine(InputAction.CallbackContext context);
         void OnThrottleUp(InputAction.CallbackContext context);
         void OnThrottleDown(InputAction.CallbackContext context);
+        void OnToggleGear(InputAction.CallbackContext context);
         void OnToggleBrakes(InputAction.CallbackContext context);
     }
 }

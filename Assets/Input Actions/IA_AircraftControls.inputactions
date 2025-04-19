@@ -78,6 +78,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToggleGear",
+                    "type": "Button",
+                    "id": "059e77ca-f337-4c56-87cf-42e40a821d65",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ToggleBrakes",
                     "type": "Button",
                     "id": "29f59c38-ae4e-46a7-b518-b29d94c7e9d4",
@@ -184,6 +193,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleAirbrakes",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ead50664-4e9f-4e15-92f1-c8262f8eeab4",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleGear",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

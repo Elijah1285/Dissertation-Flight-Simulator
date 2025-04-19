@@ -31,6 +31,8 @@ public class AeroplaneController : MonoBehaviour
 
     Rigidbody rb;
 
+    Coroutine gear_coroutine;
+
     [Header("Engine/Thrust Settings")]
     [SerializeField] float max_thrust;
 
@@ -63,18 +65,22 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] PhysicMaterial normal_gear_physics_material;
     [SerializeField] PhysicMaterial braking_gear_physics_material;
 
-    [Header("Control Settings")]
+    [Header("Steering Settings")]
     [SerializeField] Vector3 turn_speed;
     [SerializeField] Vector3 base_max_turn_acceleration;
     [SerializeField] AnimationCurve steering_curve;
 
-    [Header("Misc")]
+    [Header("Gear Settings")]
+    [SerializeField] bool retractable_gear;
+    [SerializeField] RetractableGear[] landing_gear;
+
+    [Header("Misc")]   
     [SerializeField] bool affected_by_prop_torque;
     [SerializeField] float vertical_stabiliser_power;
     [SerializeField] float prop_or_fan_idle_rotation_speed;
     [SerializeField] PropellerOrJet[] propellers_or_jets;
 
-    [Header("Control Surfaces")]
+    [Header("Control Surface Settings")]
     [SerializeField] float aileron_deflection;
     [SerializeField] float elevator_deflection;
     [SerializeField] float rudder_deflection;
@@ -125,6 +131,7 @@ public class AeroplaneController : MonoBehaviour
         aircraft_controls.Flight.ThrottleUp.performed += context => increaseThrottleInput();
         aircraft_controls.Flight.ThrottleDown.performed += context => decreaseThrottleInput();
         
+        aircraft_controls.Flight.ToggleGear.performed += context => toggleGear();
         aircraft_controls.Flight.ToggleBrakes.performed += context => toggleBrakes();
         
         aircraft_controls.Flight.DeployFlaps.performed += context => deployFlaps();
@@ -244,6 +251,17 @@ public class AeroplaneController : MonoBehaviour
         }
 
         updateEngineText();
+    }
+
+    void toggleGear()
+    {
+        if (retractable_gear)
+        {
+            for (int i = 0; i < landing_gear.Length; i++)
+            {
+                landing_gear[i].toggleGear();
+            }
+        }
     }
 
     void toggleBrakes()
