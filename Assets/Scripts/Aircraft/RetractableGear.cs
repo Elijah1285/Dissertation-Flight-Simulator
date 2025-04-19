@@ -6,7 +6,7 @@ public class RetractableGear : MonoBehaviour
 {
     bool is_retracted = false;
 
-    const float retracted_angle = 100.0f;
+    const float retracted_angle = 110.0f;
 
     Quaternion deployed_rotation;
     Quaternion retracted_rotation;
@@ -14,7 +14,7 @@ public class RetractableGear : MonoBehaviour
     Coroutine gear_coroutine;
 
     [SerializeField] float rotation_duration;
-    [SerializeField] Vector3 rotation_axis = Vector3.right; //what axis will the gear assembly rotate around
+    [SerializeField] Vector3 rotation_axis; //what axis will the gear assembly rotate around
     [SerializeField] MeshRenderer[] mesh_renderers;
 
     void Start()

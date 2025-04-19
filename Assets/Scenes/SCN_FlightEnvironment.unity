@@ -6939,7 +6939,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11752,14 +11752,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8841459065614347197, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7532800913357188137, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
       propertyPath: flaps_text
       value: 
@@ -11800,6 +11792,10 @@ PrefabInstance:
       propertyPath: throttle_indicator
       value: 
       objectReference: {fileID: 1046671894}
+    - target: {fileID: 7275810938857083037, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -105
+      objectReference: {fileID: 0}
     - target: {fileID: 7431094058367934961, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
       propertyPath: m_Name
       value: PFB_VRT_DeHavillandCanadaDash8Q400
@@ -11810,11 +11806,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 7.75
       objectReference: {fileID: 0}
     - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.8500001
       objectReference: {fileID: 0}
     - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
       propertyPath: m_LocalRotation.w
