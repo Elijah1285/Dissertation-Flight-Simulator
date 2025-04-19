@@ -233,20 +233,24 @@ public class AeroplaneController : MonoBehaviour
     {
         engine_running = !engine_running;
 
-        //if (engine_running)
-        //{
-        //    for (int i = 0; i < propellers_or_jets.Length; i++)
-        //    {
-        //        propellers_or_jets[i].setSpinning(true);
-        //    }            
-        //}
-        //else
-        //{
-        //    for (int i = 0; i < propellers_or_jets.Length; i++)
-        //    {
-        //        propellers_or_jets[i].setSpinning(false);
-        //    }
-        //}
+        if (engine_running)
+        {
+            for (int i = 0; i < propellers_or_jets.Length; i++)
+            {
+                PropellerOrJet propeller_or_jet = propellers_or_jets[i];
+
+                propeller_or_jet.setTargetRotationSpeed(propeller_or_jet.getIdleRotationSpeed() + (throttle_input * propeller_or_jet.getRotationSpeedThrottleIncreaseMultiplier()));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < propellers_or_jets.Length; i++)
+            {
+                PropellerOrJet propeller_or_jet = propellers_or_jets[i];
+
+                propeller_or_jet.setTargetRotationSpeed(0.0f);
+            }
+        }
 
         updateEngineText();
     }
@@ -497,7 +501,9 @@ public class AeroplaneController : MonoBehaviour
     {
         for (int i = 0; i < propellers_or_jets.Length; i++)
         {
-            propellers_or_jets[i].setTargetRotationSpeed(propellers_or_jets[i].getIdleRotationSpeed() + (throttle_input * propellers_or_jets[i].getRotationSpeedThrottleIncreaseMultiplier()));
+            PropellerOrJet propeller_or_jet = propellers_or_jets[i]; 
+
+            propeller_or_jet.setTargetRotationSpeed(propeller_or_jet.getIdleRotationSpeed() + (throttle_input * propeller_or_jet.getRotationSpeedThrottleIncreaseMultiplier()));
         }
     }
 

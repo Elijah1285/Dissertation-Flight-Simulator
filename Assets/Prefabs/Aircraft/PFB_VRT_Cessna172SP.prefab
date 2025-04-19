@@ -476,8 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d88442a29b770448e33b9c54100ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idle_rotation_speed: 10
-  rotation_speed_throttle_increase_multiplier: 5
+  idle_rotation_speed: 1
+  rotation_speed_throttle_increase_multiplier: 1
   angular_acceleration: 10
 --- !u!1001 &897172733028677806
 PrefabInstance:
