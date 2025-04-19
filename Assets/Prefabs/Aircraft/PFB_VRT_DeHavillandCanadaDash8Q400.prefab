@@ -5567,6 +5567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791d0e4d237ed534eb5cb5e88bea269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracted_angle: 110
   rotation_duration: 6
   rotation_axis: {x: 1, y: 0, z: 0}
   mesh_renderers:
@@ -5612,8 +5613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791d0e4d237ed534eb5cb5e88bea269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracted_angle: 120
   rotation_duration: 6
-  rotation_axis: {x: 1, y: 0, z: 0}
+  rotation_axis: {x: -1, y: 0, z: 0}
   mesh_renderers:
   - {fileID: 5373020932005542739}
   - {fileID: 1757480855073144388}
@@ -5657,6 +5659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791d0e4d237ed534eb5cb5e88bea269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracted_angle: 110
   rotation_duration: 6
   rotation_axis: {x: 1, y: 0, z: 0}
   mesh_renderers:

@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791d0e4d237ed534eb5cb5e88bea269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracted_angle: 150
   rotation_duration: 10
   rotation_axis: {x: -1, y: 0, z: 0}
   mesh_renderers:
@@ -7901,6 +7902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791d0e4d237ed534eb5cb5e88bea269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracted_angle: 150
   rotation_duration: 10
   rotation_axis: {x: -1, y: 0, z: 0}
   mesh_renderers:
@@ -9910,6 +9912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791d0e4d237ed534eb5cb5e88bea269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracted_angle: 90
   rotation_duration: 10
   rotation_axis: {x: 0, y: 0, z: -1}
   mesh_renderers:
@@ -9960,6 +9963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791d0e4d237ed534eb5cb5e88bea269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracted_angle: 120
   rotation_duration: 10
   rotation_axis: {x: -1, y: 0, z: 0}
   mesh_renderers:
@@ -10010,6 +10014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791d0e4d237ed534eb5cb5e88bea269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracted_angle: 90
   rotation_duration: 10
   rotation_axis: {x: 0, y: 0, z: 1}
   mesh_renderers:

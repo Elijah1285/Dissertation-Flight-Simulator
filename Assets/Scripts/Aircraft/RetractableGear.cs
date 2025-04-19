@@ -6,7 +6,7 @@ public class RetractableGear : MonoBehaviour
 {
     bool is_retracted = false;
 
-    const float retracted_angle = 110.0f;
+    [SerializeField] float retracted_angle;
 
     Quaternion deployed_rotation;
     Quaternion retracted_rotation;
