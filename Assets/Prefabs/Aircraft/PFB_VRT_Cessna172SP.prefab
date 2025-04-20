@@ -491,6 +491,14 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 830
       objectReference: {fileID: 0}
+    - target: {fileID: 891589073615511056, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 514ca2643d0292e45bee28011b27333f, type: 3}
+    - target: {fileID: 891589073615511056, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 514ca2643d0292e45bee28011b27333f, type: 3}
     - target: {fileID: 1566354529828185069, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_Name
       value: PFB_VRT_Cessna172SP
@@ -552,9 +560,17 @@ PrefabInstance:
       value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: engine_startup_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: a96c4de894767cd48871b0d8aedeea5a, type: 3}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_or_turbine
       value: 
       objectReference: {fileID: 1011229173637503333}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: engine_shutdown_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 08e1bd20ba4d33a4d8597ebcb799f8a4, type: 3}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_back.m_PreInfinity
       value: 2

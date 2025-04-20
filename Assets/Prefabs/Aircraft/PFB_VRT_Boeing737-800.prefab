@@ -5545,6 +5545,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 891589073615511056, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: dd1dc21e7f7ffc54faa4c8c90b8de666, type: 3}
+    - target: {fileID: 891589073615511056, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: dd1dc21e7f7ffc54faa4c8c90b8de666, type: 3}
     - target: {fileID: 1003258323093740809, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.875
@@ -5729,6 +5737,14 @@ PrefabInstance:
       propertyPath: elevator_deflection
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: engine_startup_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: f7515eca57a137e448802e522e697eb9, type: 3}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: engine_shutdown_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2cee7bcd2a4a1044e821c6ce295c9864, type: 3}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: landing_gear.Array.size
       value: 3

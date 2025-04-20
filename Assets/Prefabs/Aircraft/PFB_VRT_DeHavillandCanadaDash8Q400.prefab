@@ -1270,6 +1270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d88442a29b770448e33b9c54100ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idle_rotation_speed: 0
+  rotation_speed_throttle_increase_multiplier: 0
+  angular_acceleration: 0
 --- !u!1 &3032041406205537506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2967,6 +2970,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d88442a29b770448e33b9c54100ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idle_rotation_speed: 0
+  rotation_speed_throttle_increase_multiplier: 0
+  angular_acceleration: 0
 --- !u!1 &6016542450895487278
 GameObject:
   m_ObjectHideFlags: 0
@@ -4769,6 +4775,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 891589073615511056, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 31805e29f299dd64f9617ef2375ecdbb, type: 3}
+    - target: {fileID: 891589073615511056, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 31805e29f299dd64f9617ef2375ecdbb, type: 3}
     - target: {fileID: 1003258323093740809, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.35
@@ -4925,6 +4939,14 @@ PrefabInstance:
       propertyPath: elevator_deflection
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: engine_startup_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: efc294c6fc607e4409bea2551cd757a3, type: 3}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: engine_shutdown_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: ec7efe5a200d67245b840f3ccb6b7526, type: 3}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: landing_gear.Array.size
       value: 3

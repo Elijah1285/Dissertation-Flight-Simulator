@@ -7,6 +7,8 @@ using TMPro;
 
 public class AeroplaneController : MonoBehaviour
 {
+    bool can_toggle_engine = true;
+
     bool airbrakes_deployed = false;
     
     bool moving_flaps = false;
@@ -31,10 +33,14 @@ public class AeroplaneController : MonoBehaviour
 
     Rigidbody rb;
 
+    AudioSource audio_source;
+
     Coroutine gear_coroutine;
 
     [Header("Engine/Thrust Settings")]
     [SerializeField] float max_thrust;
+    [SerializeField] AudioClip engine_startup_sound;
+    [SerializeField] AudioClip engine_shutdown_sound;
 
     [Header("Lift/Angle of Attack Settings")]
     [SerializeField] float lift_power;
@@ -145,6 +151,8 @@ public class AeroplaneController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audio_source = GetComponent<AudioSource>();
+
         aircraft_controls.Flight.Enable();
 
         stick_indicator_center_position = stick_indicator.GetComponent<RectTransform>().position;
@@ -231,28 +239,56 @@ public class AeroplaneController : MonoBehaviour
     //boolean inputs
     void toggleEngine()
     {
-        engine_running = !engine_running;
-
-        if (engine_running)
+        if (can_toggle_engine)
         {
-            for (int i = 0; i < propellers_or_jets.Length; i++)
+            can_toggle_engine = false;
+            engine_running = !engine_running;
+
+            if (engine_running)
             {
-                PropellerOrJet propeller_or_jet = propellers_or_jets[i];
+                //spin up the propellers/jets
+                for (int i = 0; i < propellers_or_jets.Length; i++)
+                {
+                    PropellerOrJet propeller_or_jet = propellers_or_jets[i];
 
-                propeller_or_jet.setTargetRotationSpeed(propeller_or_jet.getIdleRotationSpeed() + (throttle_input * propeller_or_jet.getRotationSpeedThrottleIncreaseMultiplier()));
+                    propeller_or_jet.setTargetRotationSpeed(propeller_or_jet.getIdleRotationSpeed() + (throttle_input * propeller_or_jet.getRotationSpeedThrottleIncreaseMultiplier()));
+                }
+
+                //play startup sound
+                audio_source.PlayOneShot(engine_startup_sound);
+
+                //wait for startup to finish before allowing engine toggle and playing run audio
+                StartCoroutine(waitForClipToEnd(engine_startup_sound, () =>
+                {
+                    can_toggle_engine = true;
+                    audio_source.Play();
+                }
+                ));
             }
-        }
-        else
-        {
-            for (int i = 0; i < propellers_or_jets.Length; i++)
+            else
             {
-                PropellerOrJet propeller_or_jet = propellers_or_jets[i];
+                //spin down the propellers/jets
+                for (int i = 0; i < propellers_or_jets.Length; i++)
+                {
+                    PropellerOrJet propeller_or_jet = propellers_or_jets[i];
 
-                propeller_or_jet.setTargetRotationSpeed(0.0f);
+                    propeller_or_jet.setTargetRotationSpeed(0.0f);
+                }
+
+                //stop engine run audio and play shutdown sound
+                audio_source.Stop();
+                audio_source.PlayOneShot(engine_shutdown_sound);
+
+                //wait for shutdown to finish before allowing engine toggle
+                StartCoroutine(waitForClipToEnd(engine_startup_sound, () =>
+                {
+                    can_toggle_engine = true;
+                }
+                ));
             }
-        }
 
-        updateEngineText();
+            updateEngineText();
+        }
     }
 
     void toggleGear()
@@ -644,5 +680,18 @@ public class AeroplaneController : MonoBehaviour
             );
 
         rb.AddRelativeTorque(angular_velocity_correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
+    }
+
+    IEnumerator waitForClipToEnd(AudioClip clip, System.Action on_complete)
+    {
+        if (clip == null)
+        {
+            on_complete?.Invoke();
+            yield break;
+        }
+
+        //wait for clip to end and invoke action
+        yield return new WaitForSeconds(clip.length);
+        on_complete?.Invoke();
     }
 }
