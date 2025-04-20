@@ -11789,6 +11789,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7097584546513970416}
     - target: {fileID: 1614193932294510235, guid: 568dfb04d9fad1d45b041ce10f5176dd, type: 3}
+      propertyPath: spoilers_text
+      value: 
+      objectReference: {fileID: 2075872096}
+    - target: {fileID: 1614193932294510235, guid: 568dfb04d9fad1d45b041ce10f5176dd, type: 3}
       propertyPath: throttle_text
       value: 
       objectReference: {fileID: 869251782}
@@ -11800,6 +11804,10 @@ PrefabInstance:
       propertyPath: pedals_indicator
       value: 
       objectReference: {fileID: 7097584546513970419}
+    - target: {fileID: 1614193932294510235, guid: 568dfb04d9fad1d45b041ce10f5176dd, type: 3}
+      propertyPath: landing_gear_text
+      value: 
+      objectReference: {fileID: 2075872097}
     - target: {fileID: 1614193932294510235, guid: 568dfb04d9fad1d45b041ce10f5176dd, type: 3}
       propertyPath: rate_of_climb_text
       value: 
@@ -14205,6 +14213,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 115d9c726d475654aba379ed15cb57ae, type: 3}
+--- !u!114 &2075872096 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7494480650575609185, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
+  m_PrefabInstance: {fileID: 7097584546513970414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2075872097 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6055000959525600633, guid: 6485c371ae300444098a10c7c4ea9ddd, type: 3}
+  m_PrefabInstance: {fileID: 7097584546513970414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2075921897
 PrefabInstance:
   m_ObjectHideFlags: 0

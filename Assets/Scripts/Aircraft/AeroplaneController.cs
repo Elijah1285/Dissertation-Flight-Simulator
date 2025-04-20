@@ -102,9 +102,11 @@ public class AeroplaneController : MonoBehaviour
 
     [Header("UI objects")]
     [SerializeField] TextMeshProUGUI engine_text;
+    [SerializeField] TextMeshProUGUI brakes_text;
+    [SerializeField] TextMeshProUGUI landing_gear_text;
     [SerializeField] TextMeshProUGUI throttle_text;
     [SerializeField] TextMeshProUGUI flaps_text;
-    [SerializeField] TextMeshProUGUI brakes_text;
+    [SerializeField] TextMeshProUGUI spoilers_text;   
     [SerializeField] TextMeshProUGUI airspeed_text;
     [SerializeField] TextMeshProUGUI altitude_text;
     [SerializeField] TextMeshProUGUI rate_of_climb_text;
@@ -246,6 +248,8 @@ public class AeroplaneController : MonoBehaviour
 
             if (engine_running)
             {
+                engine_text.text = "ENG: STRT";
+
                 //spin up the propellers/jets
                 for (int i = 0; i < propellers_or_jets.Length; i++)
                 {
@@ -261,12 +265,15 @@ public class AeroplaneController : MonoBehaviour
                 StartCoroutine(waitForClipToEnd(engine_startup_sound, () =>
                 {
                     can_toggle_engine = true;
+                    engine_text.text = "ENG: ON";
                     audio_source.Play();
                 }
                 ));
             }
             else
             {
+                engine_text.text = "ENG: SHTDWN";
+
                 //spin down the propellers/jets
                 for (int i = 0; i < propellers_or_jets.Length; i++)
                 {
@@ -283,11 +290,10 @@ public class AeroplaneController : MonoBehaviour
                 StartCoroutine(waitForClipToEnd(engine_startup_sound, () =>
                 {
                     can_toggle_engine = true;
+                    engine_text.text = "ENG: OFF";
                 }
                 ));
             }
-
-            updateEngineText();
         }
     }
 
@@ -493,18 +499,6 @@ public class AeroplaneController : MonoBehaviour
         airspeed_text.text = "IAS: " + Mathf.Max(Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f), 0.0f).ToString() + " kt";
         altitude_text.text = "ALT: " + Mathf.Max(Mathf.FloorToInt(transform.position.y * 3.281f), 0.0f).ToString() + " ft";
         rate_of_climb_text.text = "ROC: " + Mathf.RoundToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
-    }
-
-    void updateEngineText()
-    {
-        if (engine_running)
-        {
-            engine_text.text = "ENG: ON";
-        }
-        else
-        {
-            engine_text.text = "ENG: OFF";
-        }
     }
 
     void updateBrakesText()
