@@ -5797,6 +5797,10 @@ PrefabInstance:
       propertyPath: 'right_main_gear_colliders.Array.data[1]'
       value: 
       objectReference: {fileID: 608333630947104293}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: engine_throttle_pitch_increase_multiplier
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 2168695963069773261, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.5
@@ -6757,6 +6761,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: engine_002
       objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: idle_rotation_speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: angular_acceleration
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: rotation_speed_throttle_increase_multiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6829,6 +6845,18 @@ PrefabInstance:
     - target: {fileID: 6826561767718017025, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
       propertyPath: m_Name
       value: engine_001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: idle_rotation_speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: angular_acceleration
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: rotation_speed_throttle_increase_multiplier
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

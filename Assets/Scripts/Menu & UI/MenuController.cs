@@ -7,7 +7,7 @@ public class MenuController : MonoBehaviour
 {
     public void startGame()
     {
-        SceneManager.LoadScene("SCN_LoadingScreen");
+        SceneManager.LoadScene("SCN_AircraftSelect");
     }
 
     public void quitGame()

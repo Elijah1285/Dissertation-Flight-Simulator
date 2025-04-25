@@ -9035,7 +9035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propellers_or_jets.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: prop_or_fan_idle_rotation_speed
@@ -9047,6 +9047,14 @@ PrefabInstance:
       objectReference: {fileID: 6242020696269626960}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: 'propellers_or_jets.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2661055499329075021}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: 'propellers_or_jets.Array.data[2]'
+      value: 
+      objectReference: {fileID: 5311990388505803144}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: 'propellers_or_jets.Array.data[3]'
       value: 
       objectReference: {fileID: 6476960893500399701}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
@@ -9065,6 +9073,10 @@ PrefabInstance:
       propertyPath: 'right_main_gear_colliders.Array.data[1]'
       value: 
       objectReference: {fileID: 608333630947104293}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: engine_throttle_pitch_increase_multiplier
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 2168695963069773261, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.x
       value: 9
@@ -10128,6 +10140,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: engine_003
       objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: idle_rotation_speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: angular_acceleration
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: rotation_speed_throttle_increase_multiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10138,6 +10162,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1995150077466637062, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
   m_PrefabInstance: {fileID: 2731297088195687315}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5311990388505803144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+  m_PrefabInstance: {fileID: 2731297088195687315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d88442a29b770448e33b9c54100ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3869355948198537806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10201,6 +10236,18 @@ PrefabInstance:
     - target: {fileID: 6826561767718017025, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
       propertyPath: m_Name
       value: engine_004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: idle_rotation_speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: angular_acceleration
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: rotation_speed_throttle_increase_multiplier
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10287,6 +10334,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: engine_001
       objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: idle_rotation_speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: angular_acceleration
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: rotation_speed_throttle_increase_multiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10372,11 +10431,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: engine_002
       objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: idle_rotation_speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: angular_acceleration
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+      propertyPath: rotation_speed_throttle_increase_multiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+--- !u!114 &2661055499329075021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7804877956238215707, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}
+  m_PrefabInstance: {fileID: 5241495927558045014}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d88442a29b770448e33b9c54100ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5984644720179875408 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1995150077466637062, guid: 029a562fc6e8dd44da429f35d4fbee92, type: 3}

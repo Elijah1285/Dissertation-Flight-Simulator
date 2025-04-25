@@ -7,22 +7,24 @@ using TMPro;
 
 public class AeroplaneController : MonoBehaviour
 {
-    bool can_toggle_engine = true;
+    //engine variables
+    enum EngineState
+    {
+        NOT_RUNNING = 1,
+        RUNNING = 2,
+        TRANSITION = 3
+    }
 
-    bool airbrakes_deployed = false;
-    
+    EngineState engine_state = EngineState.NOT_RUNNING;
+
+    //flight variables
+    bool airbrakes_deployed = false;  
     bool moving_flaps = false;
     float flaps_state = 0.0f;
     float flaps_current_angle = 0.0f;
     float flaps_target_angle = 0.0f;
-
     float angle_of_attack = 0.0f;
     float sideslip = 0.0f;
-
-    float pedals_indicator_x_center_position = 0.0f;
-    float throttle_indicator_y_idle_position = 0.0f;
-
-    Vector2 stick_indicator_center_position;
 
     Vector3 velocity;
     Vector3 local_velocity;
@@ -31,18 +33,32 @@ public class AeroplaneController : MonoBehaviour
     Vector3 local_angular_velocity;
     Vector3 local_g_force;
 
-    Rigidbody rb;
+    //UI variables
+    float pedals_indicator_x_center_position = 0.0f;
+    float throttle_indicator_y_idle_position = 0.0f;
+    Vector2 stick_indicator_center_position;
 
+    //misc
+    Rigidbody rb;
     AudioSource audio_source;
 
-    Coroutine gear_coroutine;
+    //input variables
+    bool brakes_active = true;
+    float throttle_input = 0.0f;
+
+    Vector2 stick_input;
+    float pedals_input;
+
+    IA_AircraftControls aircraft_controls;
 
     [Header("Engine/Thrust Settings")]
     [SerializeField] float max_thrust;
+    [SerializeField] float engine_throttle_pitch_increase_multiplier;
     [SerializeField] AudioClip engine_startup_sound;
     [SerializeField] AudioClip engine_shutdown_sound;
 
     [Header("Lift/Angle of Attack Settings")]
+    [SerializeField] float wing_surface_area;
     [SerializeField] float lift_power;
     [SerializeField] float flaps_lift_power;
     [SerializeField] float flaps_angle_of_attack_increase;
@@ -112,18 +128,7 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] TextMeshProUGUI rate_of_climb_text;
     [SerializeField] Image stick_indicator;
     [SerializeField] Image pedals_indicator;
-    [SerializeField] Image throttle_indicator;
-
-    //input variables
-    bool engine_running = false;
-    bool brakes_active = true;
-    float throttle_input = 0.0f;
-    Vector3 control_surface_input = Vector3.zero;
-
-    Vector2 stick_input;
-    float pedals_input;
-
-    IA_AircraftControls aircraft_controls;
+    [SerializeField] Image throttle_indicator;  
 
     //initialisation
     void Awake()
@@ -167,11 +172,6 @@ public class AeroplaneController : MonoBehaviour
     //axis inputs
     void getInput()
     {
-        //joystick input
-        control_surface_input.x = stick_input.y; //pitch input
-        control_surface_input.y = -pedals_input; //yaw input
-        control_surface_input.z = -stick_input.x; //roll input
-
         //update controls indicators
         stick_indicator.GetComponent<RectTransform>().position = stick_indicator_center_position + (stick_input * 100.0f);
         pedals_indicator.GetComponent<RectTransform>().position = new Vector2(pedals_indicator_x_center_position + (pedals_input * -120.0f), pedals_indicator.GetComponent<RectTransform>().position.y);
@@ -190,31 +190,35 @@ public class AeroplaneController : MonoBehaviour
 
     void increaseThrottleInput()
     {
-        if (throttle_input < 1.0f)
+        throttle_input += 0.1f;
+
+        if (throttle_input > 1.0f)
         {
-            throttle_input += 0.1f;
+            throttle_input = 1.0f;
         }
 
         updateThrottleText();
 
-        if (engine_running)
+        if (engine_state == EngineState.RUNNING)
         {
-            updatePropOrFanTargetSpeed();
+            updatePropOrTurbineTargetSpeedAndAudio();
         }
     }
 
     void decreaseThrottleInput()
     {
-        if (throttle_input > 0.0f)
+        throttle_input -= 0.1f;
+
+        if (throttle_input < 0.0f)
         {
-            throttle_input -= 0.1f;
+            throttle_input = 0.0f;
         }
 
         updateThrottleText();
 
-        if (engine_running)
+        if (engine_state == EngineState.RUNNING)
         {
-            updatePropOrFanTargetSpeed();
+            updatePropOrTurbineTargetSpeedAndAudio();
         }
     }
 
@@ -241,44 +245,46 @@ public class AeroplaneController : MonoBehaviour
     //boolean inputs
     void toggleEngine()
     {
-        if (can_toggle_engine)
+        if (engine_state == EngineState.NOT_RUNNING || engine_state == EngineState.RUNNING)
         {
-            can_toggle_engine = false;
-            engine_running = !engine_running;
-
-            if (engine_running)
+            if (engine_state == EngineState.NOT_RUNNING)
             {
+                //start the startup procedure if not running
+                engine_state = EngineState.TRANSITION;
                 engine_text.text = "ENG: STRT";
 
                 //spin up the propellers/jets
                 for (int i = 0; i < propellers_or_jets.Length; i++)
                 {
                     PropellerOrJet propeller_or_jet = propellers_or_jets[i];
-
-                    propeller_or_jet.setTargetRotationSpeed(propeller_or_jet.getIdleRotationSpeed() + (throttle_input * propeller_or_jet.getRotationSpeedThrottleIncreaseMultiplier()));
+                    propeller_or_jet.setTargetRotationSpeed(propeller_or_jet.getIdleRotationSpeed());
                 }
 
                 //play startup sound
                 audio_source.PlayOneShot(engine_startup_sound);
 
-                //wait for startup to finish before allowing engine toggle and playing run audio
+                //wait for startup to finish before setting engine to running
                 StartCoroutine(waitForClipToEnd(engine_startup_sound, () =>
                 {
-                    can_toggle_engine = true;
+                    engine_state = EngineState.RUNNING;
                     engine_text.text = "ENG: ON";
                     audio_source.Play();
+
+                    updatePropOrTurbineTargetSpeedAndAudio();
                 }
                 ));
             }
-            else
+            else if (engine_state == EngineState.RUNNING)
             {
+                //start the shutdown procedure if running
+                engine_state = EngineState.TRANSITION;
                 engine_text.text = "ENG: SHTDWN";
+                audio_source.pitch = 1.0f;
 
                 //spin down the propellers/jets
                 for (int i = 0; i < propellers_or_jets.Length; i++)
                 {
                     PropellerOrJet propeller_or_jet = propellers_or_jets[i];
-
                     propeller_or_jet.setTargetRotationSpeed(0.0f);
                 }
 
@@ -287,9 +293,9 @@ public class AeroplaneController : MonoBehaviour
                 audio_source.PlayOneShot(engine_shutdown_sound);
 
                 //wait for shutdown to finish before allowing engine toggle
-                StartCoroutine(waitForClipToEnd(engine_startup_sound, () =>
+                StartCoroutine(waitForClipToEnd(engine_shutdown_sound, () =>
                 {
-                    can_toggle_engine = true;
+                    engine_state = EngineState.NOT_RUNNING;
                     engine_text.text = "ENG: OFF";
                 }
                 ));
@@ -345,7 +351,7 @@ public class AeroplaneController : MonoBehaviour
         airbrakes_deployed = !airbrakes_deployed;
     }
 
-    //calculations
+    //calculations (some calculations are also done directly in the updates)
     void calculateLocalVelocities(float dt)
     {
         Quaternion inverted_rotation = Quaternion.Inverse(rb.rotation);
@@ -379,7 +385,8 @@ public class AeroplaneController : MonoBehaviour
         last_velocity = velocity;
     }
 
-    Vector3 calculateLiftAndInducedDrag(float _angle_of_attack, Vector3 right_axis, float local_lift_power, AnimationCurve _angle_of_attack_curve, AnimationCurve _induced_drag_curve)
+    Vector3 calculateLiftAndInducedDrag(float _angle_of_attack, Vector3 right_axis, float local_lift_power,
+        AnimationCurve _angle_of_attack_curve, AnimationCurve _induced_drag_curve, float air_density)
     {
         //filter out lateral velocity that doesn't contribute to lift
         Vector3 lift_velocity = Vector3.ProjectOnPlane(local_velocity, right_axis);
@@ -388,7 +395,9 @@ public class AeroplaneController : MonoBehaviour
 
         //lift coefficient varies with angle of attack
         float lift_coefficient = _angle_of_attack_curve.Evaluate(_angle_of_attack * Mathf.Rad2Deg);
-        float lift_force = lift_velocity_square_magnitude * lift_coefficient * local_lift_power;
+
+        //calculate lift force using the lift equation
+        float lift_force = 0.5f * air_density * wing_surface_area * lift_velocity_square_magnitude * lift_coefficient * local_lift_power;
 
         //lift is perpendicular to velocity and right axis
         Vector3 lift_direction = Vector3.Cross(lift_velocity.normalized, right_axis);
@@ -527,14 +536,17 @@ public class AeroplaneController : MonoBehaviour
     }
 
     //Non-UI
-    void updatePropOrFanTargetSpeed()
+    void updatePropOrTurbineTargetSpeedAndAudio()
     {
+        //update target speed of propellers/turbines
         for (int i = 0; i < propellers_or_jets.Length; i++)
         {
             PropellerOrJet propeller_or_jet = propellers_or_jets[i]; 
-
             propeller_or_jet.setTargetRotationSpeed(propeller_or_jet.getIdleRotationSpeed() + (throttle_input * propeller_or_jet.getRotationSpeedThrottleIncreaseMultiplier()));
         }
+
+        //update engine audio
+        audio_source.pitch = 1.0f + (throttle_input * engine_throttle_pitch_increase_multiplier);
     }
 
     void updateFlaps()
@@ -577,25 +589,26 @@ public class AeroplaneController : MonoBehaviour
     void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
+        float air_density = calculateAirDensity(transform.position.y);
 
         calculateLocalVelocities(dt);
         calculateAngleOfAttackAndSideslip();
         calculateGForce(dt);
         updateThrust();
-        updateDrag();
-        updateLift();
+        updateDrag(air_density);
+        updateLift(air_density);
         updateSteering(dt);
     }
 
     void updateThrust()
     {
-        if (engine_running)
+        if (engine_state == EngineState.RUNNING)
         {
             rb.AddRelativeForce(throttle_input * max_thrust * Vector3.forward);
         }
     }
 
-    void updateDrag()
+    void updateDrag(float air_density)
     {
         //account for drag from airbrakes/flaps
         float local_airbrake_drag;
@@ -622,12 +635,12 @@ public class AeroplaneController : MonoBehaviour
             );
 
         //use the drag equation to calculate drag: Drag = 0.5 * Air density * Velocity^2 * Coefficient of drag * Reference area
-        Vector3 drag = 0.5f * calculateAirDensity(transform.position.y) * local_velocity.sqrMagnitude * drag_coefficient.magnitude * -local_velocity.normalized; //drag is opposite to direction of velocity
+        Vector3 drag = 0.5f * air_density * local_velocity.sqrMagnitude * drag_coefficient.magnitude * -local_velocity.normalized; //drag is opposite to direction of velocity
 
         rb.AddRelativeForce(drag);
     }
 
-    void updateLift()
+    void updateLift(float air_density)
     {
         if (local_velocity.sqrMagnitude < 1f)
         {
@@ -644,14 +657,14 @@ public class AeroplaneController : MonoBehaviour
         Vector3 lift_force = calculateLiftAndInducedDrag
             (
             angle_of_attack + (local_flaps_angle_of_attack_increase * Mathf.Deg2Rad), Vector3.right,
-            lift_power + local_flaps_lift_power, lift_angle_of_attack_curve, induced_drag_curve
+            lift_power + local_flaps_lift_power, lift_angle_of_attack_curve, induced_drag_curve, air_density
             );
 
         //lateral lift from vertical stabiliser
         Vector3 vertical_stabiliser_force = calculateLiftAndInducedDrag
             (
             sideslip, Vector3.up, vertical_stabiliser_power, vertical_stabiliser_angle_of_attack_curve,
-            vertical_stabiliser_induced_drag_curve
+            vertical_stabiliser_induced_drag_curve, air_density
             );
 
         rb.AddRelativeForce(lift_force);
@@ -662,6 +675,8 @@ public class AeroplaneController : MonoBehaviour
     {
         float airspeed = Mathf.Max(0.0f, local_velocity.z);
         float steering_power = steering_curve.Evaluate(airspeed);
+
+        Vector3 control_surface_input = new Vector3(stick_input.y, -pedals_input, -stick_input.x);
 
         Vector3 current_angular_velocity = local_angular_velocity * Mathf.Rad2Deg;
         Vector3 target_angular_velocity = Vector3.Scale(control_surface_input, turn_speed * steering_power);        

@@ -1011,9 +1011,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d88442a29b770448e33b9c54100ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idle_rotation_speed: 0
-  rotation_speed_throttle_increase_multiplier: 0
-  angular_acceleration: 0
+  idle_rotation_speed: 4
+  rotation_speed_throttle_increase_multiplier: 1
+  angular_acceleration: 10
 --- !u!1 &8497488688244192845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,6 +1466,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propellers_or_jets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_bottom.m_Curve.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1483,6 +1487,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: 'propellers_or_fans.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1011229173637503333}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: 'propellers_or_jets.Array.data[0]'
       value: 
       objectReference: {fileID: 1011229173637503333}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
@@ -1636,6 +1644,10 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_right.m_Curve.Array.data[1].inWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: engine_throttle_pitch_increase_multiplier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].time
