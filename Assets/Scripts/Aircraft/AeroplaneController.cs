@@ -58,7 +58,7 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AudioClip engine_shutdown_sound;
 
     [Header("Lift/Angle of Attack Settings")]
-    [SerializeField] float wing_surface_area;
+    [SerializeField] float wing_surface_area; //the planform surface area of the wing measured in square metres
     [SerializeField] float lift_power;
     [SerializeField] float flaps_lift_power;
     [SerializeField] float flaps_angle_of_attack_increase;
@@ -161,6 +161,20 @@ public class AeroplaneController : MonoBehaviour
         audio_source = GetComponent<AudioSource>();
 
         aircraft_controls.Flight.Enable();
+        
+        //get references to UI objects
+        engine_text = GameObject.Find("engine_text").GetComponent<TextMeshProUGUI>();
+        brakes_text = GameObject.Find("brakes_text").GetComponent<TextMeshProUGUI>();
+        landing_gear_text = GameObject.Find("landing_gear_text").GetComponent<TextMeshProUGUI>();
+        throttle_text = GameObject.Find("throttle_text").GetComponent<TextMeshProUGUI>();
+        flaps_text = GameObject.Find("flaps_text").GetComponent<TextMeshProUGUI>();
+        spoilers_text = GameObject.Find("spoilers_text").GetComponent<TextMeshProUGUI>();
+        airspeed_text = GameObject.Find("airspeed_text").GetComponent<TextMeshProUGUI>();
+        altitude_text = GameObject.Find("altitude_text").GetComponent<TextMeshProUGUI>();
+        rate_of_climb_text = GameObject.Find("rate_of_climb_text").GetComponent<TextMeshProUGUI>();
+        stick_indicator = GameObject.Find("stick_indicator").GetComponent<Image>();
+        pedals_indicator = GameObject.Find("pedals_indicator").GetComponent<Image>();
+        throttle_indicator = GameObject.Find("throttle_indicator").GetComponent<Image>();
 
         stick_indicator_center_position = stick_indicator.GetComponent<RectTransform>().position;
         pedals_indicator_x_center_position = pedals_indicator.GetComponent<RectTransform>().position.x;

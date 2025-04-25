@@ -1272,7 +1272,7 @@ Transform:
   m_GameObject: {fileID: 1688404667868016104}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.24, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 0.24, y: -1.7250001, z: 0}
   m_LocalScale: {x: 0.5, y: 0.17599997, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1679,7 +1679,7 @@ Transform:
   m_GameObject: {fileID: 2025391467075740946}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.24, y: -1.6000001, z: 0}
+  m_LocalPosition: {x: 0.24, y: -1.7250001, z: 0}
   m_LocalScale: {x: 1, y: 0.17499997, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5611,7 +5611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1427520156194348084, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6000001
+      value: -1.7250001
       objectReference: {fileID: 0}
     - target: {fileID: 1427520156194348084, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5707,7 +5707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1878924944068608501, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6000001
+      value: -1.7250001
       objectReference: {fileID: 0}
     - target: {fileID: 1878924944068608501, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5728,6 +5728,10 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: rudder_deflection
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: wing_surface_area
+      value: 124.6
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: aileron_deflection
@@ -6123,7 +6127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6627796723351970255, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.6
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 6627796723351970255, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.z
@@ -6131,7 +6135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6627796723351970255, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.8
+      value: -0.875
       objectReference: {fileID: 0}
     - target: {fileID: 6627796723351970255, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalPosition.z
