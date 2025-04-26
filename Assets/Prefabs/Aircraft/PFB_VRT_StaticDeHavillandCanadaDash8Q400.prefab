@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &684281322227098719
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385350609232305127, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7431094058367934961, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+      propertyPath: m_Name
+      value: PFB_VRT_StaticDeHavillandCanadaDash8Q400
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7532800913357188137, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    - {fileID: 8841459065614347197, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    - {fileID: 9134368769966742540, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    - {fileID: 5203564896184504578, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    - {fileID: 433369316279832189, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    - {fileID: 5396193964163772070, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    - {fileID: 65078413143069439, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    - {fileID: 307345873026278519, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    - {fileID: 5871676073487728862, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    - {fileID: 9063804000950860909, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5e8786e86f683a94c8bd666f37c777c0, type: 3}

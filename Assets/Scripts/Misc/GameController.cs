@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    //since aircraft are of different heights, they must be initially spawned at different altitudes
-    [SerializeField] float cessna_172sp_vertical_spawn_offset;
-    [SerializeField] float piper_pa18_super_cub_vertical_spawn_offset;
-    [SerializeField] float dehavilland_canada_dash8_q400_vertical_spawn_offset;
-    [SerializeField] float boeing_737_800_vertical_spawn_offset;
-    [SerializeField] float boeing_747_400f_vertical_spawn_offset;
-
-    //since the piper super cub is a taildragger, it is pitched up when on the ground
-    [SerializeField] float piper_pa18_super_cub_pitch_spawn_offset;
+    //aircraft spawn points
+    [SerializeField] Transform cessna_172sp_spawn_point;
+    [SerializeField] Transform piper_pa18_super_cub_spawn_point;
+    [SerializeField] Transform dehavilland_canada_dash8_q400_spawn_point;
+    [SerializeField] Transform boeing_737_800_spawn_point;
+    [SerializeField] Transform boeing_747_400f_spawn_point;
 
     //aircraft prefabs
     [SerializeField] GameObject cessna_172sp_prefab;
@@ -27,35 +24,35 @@ public class GameController : MonoBehaviour
         {
             case "cessna_172sp":
                 {
-                    Instantiate(cessna_172sp_prefab, new Vector3(0.0f, cessna_172sp_vertical_spawn_offset, 0.0f), Quaternion.identity);
+                    Instantiate(cessna_172sp_prefab, cessna_172sp_spawn_point.position, cessna_172sp_spawn_point.rotation);
 
                     break;
                 }
 
             case "piper_pa18_super_cub":
                 {
-                    Instantiate(piper_pa18_super_cub_prefab, new Vector3(0.0f, piper_pa18_super_cub_vertical_spawn_offset, 0.0f), Quaternion.identity);
+                    Instantiate(piper_pa18_super_cub_prefab, piper_pa18_super_cub_spawn_point.position, piper_pa18_super_cub_spawn_point.rotation);
 
                     break;
                 }
 
             case "dehavilland_canada_dash8_q400":
                 {
-                    Instantiate(dehavilland_canada_dash8_q400_prefab, new Vector3(0.0f, dehavilland_canada_dash8_q400_vertical_spawn_offset, 0.0f), Quaternion.identity);
+                    Instantiate(dehavilland_canada_dash8_q400_prefab, dehavilland_canada_dash8_q400_spawn_point.position, dehavilland_canada_dash8_q400_spawn_point.rotation);
 
                     break;
                 }
 
             case "boeing_737_800":
                 {
-                    Instantiate(boeing_737_800_prefab, new Vector3(0.0f, boeing_737_800_vertical_spawn_offset, 0.0f), Quaternion.identity);
+                    Instantiate(boeing_737_800_prefab, boeing_737_800_spawn_point.position, boeing_737_800_spawn_point.rotation);
 
                     break;
                 }
 
             case "boeing_747_400f":
                 {
-                    Instantiate(boeing_747_400f_prefab, new Vector3(0.0f, boeing_747_400f_vertical_spawn_offset, 0.0f), Quaternion.identity);
+                    Instantiate(boeing_747_400f_prefab, boeing_747_400f_spawn_point.position, boeing_747_400f_spawn_point.rotation);
 
                     break;
                 }
