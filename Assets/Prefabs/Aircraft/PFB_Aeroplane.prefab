@@ -666,11 +666,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_thrust: 0
+  engine_throttle_pitch_increase_multiplier: 0
   engine_startup_sound: {fileID: 0}
   engine_shutdown_sound: {fileID: 0}
-  lift_power: 0
+  propeller_diameter: 0
+  propeller_torque_coefficient_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  propellers_or_jets: []
+  wing_surface_area: 0
+  wing_aspect_ratio: 0
+  lift_multiplier: 0
   flaps_lift_power: 0
   flaps_angle_of_attack_increase: 0
+  oswald_efficiency: 0
   lift_angle_of_attack_curve:
     serializedVersion: 2
     m_Curve: []
@@ -683,7 +695,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  induced_drag: 0
+  induced_drag_multiplier: 0
   airbrake_drag: 0
   flaps_drag: 0
   drag_forward:
@@ -722,7 +734,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  induced_drag_curve:
+  aoa_induced_drag_curve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
@@ -740,6 +752,9 @@ MonoBehaviour:
   - {fileID: 8891898216246197997}
   normal_gear_physics_material: {fileID: 13400000, guid: 10247d77c46d7174db68077ca663a736, type: 2}
   braking_gear_physics_material: {fileID: 13400000, guid: d1e901d409cef6b47adf87fa67b1b5f9, type: 2}
+  ground_steering_multiplier: 0
+  max_taxi_steering_speed: 0
+  ground_angular_drag: 0
   turn_speed: {x: 0, y: 0, z: 0}
   base_max_turn_acceleration: {x: 0, y: 0, z: 0}
   steering_curve:
@@ -749,10 +764,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   retractable_gear: 0
+  ground_check_distance: 0
+  nose_or_tail_wheel: {fileID: 0}
   landing_gear: []
-  affected_by_prop_torque: 0
+  affected_by_propeller_torque: 0
   vertical_stabiliser_power: 0
-  propellers_or_jets: []
+  ground_layer:
+    serializedVersion: 2
+    m_Bits: 8
   aileron_deflection: 0
   elevator_deflection: 0
   rudder_deflection: 0
@@ -768,9 +787,11 @@ MonoBehaviour:
   - {fileID: 1214519464104402324}
   - {fileID: 8952088541494374548}
   engine_text: {fileID: 0}
+  brakes_text: {fileID: 0}
+  landing_gear_text: {fileID: 0}
   throttle_text: {fileID: 0}
   flaps_text: {fileID: 0}
-  brakes_text: {fileID: 0}
+  spoilers_text: {fileID: 0}
   airspeed_text: {fileID: 0}
   altitude_text: {fileID: 0}
   rate_of_climb_text: {fileID: 0}
@@ -786,7 +807,7 @@ Rigidbody:
   m_GameObject: {fileID: 1566354529828185069}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.2
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 1.5}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

@@ -32,7 +32,7 @@ public class PropellerOrJet : MonoBehaviour
             }
         }
 
-        transform.Rotate(0.0f, 0.0f, current_rotation_speed);
+        transform.Rotate(0.0f, 0.0f, current_rotation_speed * Time.deltaTime);
     }
 
     public void setTargetRotationSpeed(float new_target_rotation_speed)
@@ -43,6 +43,11 @@ public class PropellerOrJet : MonoBehaviour
     public float getIdleRotationSpeed()
     {
         return idle_rotation_speed;
+    }
+
+    public float getCurrentRotationSpeed()
+    {
+        return current_rotation_speed;
     }
 
     public float getRotationSpeedThrottleIncreaseMultiplier()

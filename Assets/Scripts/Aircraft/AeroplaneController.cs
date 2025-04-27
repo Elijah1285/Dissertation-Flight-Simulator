@@ -51,23 +51,29 @@ public class AeroplaneController : MonoBehaviour
 
     IA_AircraftControls aircraft_controls;
 
-    [Header("Engine/Thrust Settings")]
+    [Header("Engine, Thrust & Propeller Settings")]
     [SerializeField] float max_thrust;
     [SerializeField] float engine_throttle_pitch_increase_multiplier;
     [SerializeField] AudioClip engine_startup_sound;
     [SerializeField] AudioClip engine_shutdown_sound;
 
+    [SerializeField] float propeller_diameter;
+    [SerializeField] AnimationCurve propeller_torque_coefficient_curve;
+    [SerializeField] PropellerOrJet[] propellers_or_jets;
+
     [Header("Lift/Angle of Attack Settings")]
     [SerializeField] float wing_surface_area; //the planform surface area of the wing measured in square metres
-    [SerializeField] float lift_power;
+    [SerializeField] float wing_aspect_ratio;
+    [SerializeField] float lift_multiplier;
     [SerializeField] float flaps_lift_power;
     [SerializeField] float flaps_angle_of_attack_increase;
+    [SerializeField] float oswald_efficiency;
 
     [SerializeField] AnimationCurve lift_angle_of_attack_curve;
     [SerializeField] AnimationCurve vertical_stabiliser_angle_of_attack_curve;
 
     [Header("Drag/Friction Settings")]
-    [SerializeField] float induced_drag;
+    [SerializeField] float induced_drag_multiplier;
     [SerializeField] float airbrake_drag;
     [SerializeField] float flaps_drag;
 
@@ -78,7 +84,7 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve drag_top;
     [SerializeField] AnimationCurve drag_bottom;
 
-    [SerializeField] AnimationCurve induced_drag_curve;
+    [SerializeField] AnimationCurve aoa_induced_drag_curve;
     [SerializeField] AnimationCurve vertical_stabiliser_induced_drag_curve;
 
     [SerializeField] Collider[] left_main_gear_colliders;
@@ -88,18 +94,23 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] PhysicMaterial braking_gear_physics_material;
 
     [Header("Steering Settings")]
+    [SerializeField] float ground_steering_multiplier;
+    [SerializeField] float max_taxi_steering_speed; //so turn rate while on the ground is limited, this is in m/s
+    [SerializeField] float ground_angular_drag;
     [SerializeField] Vector3 turn_speed;
     [SerializeField] Vector3 base_max_turn_acceleration;
     [SerializeField] AnimationCurve steering_curve;
 
     [Header("Gear Settings")]
-    [SerializeField] bool retractable_gear;
-    [SerializeField] RetractableGear[] landing_gear;
-
+    [SerializeField] bool retractable_gear;  
+    [SerializeField] float ground_check_distance;
+    [SerializeField] Transform nose_or_tail_wheel;
+    [SerializeField] RetractableGear[] landing_gear;    
+    
     [Header("Misc")]   
-    [SerializeField] bool affected_by_prop_torque;
+    [SerializeField] bool affected_by_propeller_torque;
     [SerializeField] float vertical_stabiliser_power;
-    [SerializeField] PropellerOrJet[] propellers_or_jets;
+    [SerializeField] LayerMask ground_layer;
 
     [Header("Control Surface Settings")]
     [SerializeField] float aileron_deflection;
@@ -175,7 +186,8 @@ public class AeroplaneController : MonoBehaviour
         stick_indicator = GameObject.Find("stick_indicator").GetComponent<Image>();
         pedals_indicator = GameObject.Find("pedals_indicator").GetComponent<Image>();
         throttle_indicator = GameObject.Find("throttle_indicator").GetComponent<Image>();
-
+        
+        //save default positions of controls indicators
         stick_indicator_center_position = stick_indicator.GetComponent<RectTransform>().position;
         pedals_indicator_x_center_position = pedals_indicator.GetComponent<RectTransform>().position.x;
         throttle_indicator_y_idle_position = throttle_indicator.GetComponent<RectTransform>().position.y;
@@ -399,30 +411,33 @@ public class AeroplaneController : MonoBehaviour
         last_velocity = velocity;
     }
 
-    Vector3 calculateLiftAndInducedDrag(float _angle_of_attack, Vector3 right_axis, float local_lift_power,
-        AnimationCurve _angle_of_attack_curve, AnimationCurve _induced_drag_curve, float air_density)
+    Vector3 calculateLiftAndInducedDrag(float _angle_of_attack, Vector3 right_axis, float local_lift_multiplier,
+        AnimationCurve local_angle_of_attack_curve, AnimationCurve local_aoa_induced_drag_curve, float air_density)
     {
-        //filter out lateral velocity that doesn't contribute to lift
+        //filter out component of velocity that doesn't contribute to lift
         Vector3 lift_velocity = Vector3.ProjectOnPlane(local_velocity, right_axis);
         
         float lift_velocity_square_magnitude = lift_velocity.sqrMagnitude;
 
         //lift coefficient varies with angle of attack
-        float lift_coefficient = _angle_of_attack_curve.Evaluate(_angle_of_attack * Mathf.Rad2Deg);
+        float lift_coefficient = local_angle_of_attack_curve.Evaluate(_angle_of_attack * Mathf.Rad2Deg);
 
         //calculate lift force using the lift equation
-        float lift_force = 0.5f * air_density * wing_surface_area * lift_velocity_square_magnitude * lift_coefficient * local_lift_power;
+        float lift_force = 0.5f * air_density * wing_surface_area * lift_velocity_square_magnitude * lift_coefficient * local_lift_multiplier;
 
         //lift is perpendicular to velocity and right axis
         Vector3 lift_direction = Vector3.Cross(lift_velocity.normalized, right_axis);
         Vector3 lift = lift_direction * lift_force;
 
-        //induced drag varies with square of lift coefficient
-        float drag_force = lift_coefficient * lift_coefficient * this.induced_drag;
-        Vector3 drag_direction = -lift_velocity.normalized;
-        Vector3 induced_drag = drag_direction * lift_velocity_square_magnitude * drag_force * _induced_drag_curve.Evaluate(Mathf.Max(0, local_velocity.z));
+        //calculate induced drag coefficient
+        float induced_drag_coefficient = Mathf.Pow(lift_coefficient, 2) / (Mathf.PI * oswald_efficiency * wing_aspect_ratio);
 
-        return lift + induced_drag;
+        //calculate induced drag force
+        float induced_drag_force = 0.5f * air_density * lift_velocity_square_magnitude * wing_surface_area * induced_drag_coefficient * local_aoa_induced_drag_curve.Evaluate(Mathf.Max(0, local_velocity.z));// induced_drag_multiplier;
+        Vector3 drag_direction = -lift_velocity.normalized;
+        Vector3 induced_drag = drag_direction * induced_drag_force;
+
+        return lift;// + induced_drag;
     }
 
     float calculateSteering(float dt, float current_angular_velocity, float target_angular_velocity, float max_angular_acceleration)
@@ -433,9 +448,21 @@ public class AeroplaneController : MonoBehaviour
         return Mathf.Clamp(angular_velocity_error, -dt_max_angular_acceleration, dt_max_angular_acceleration);
     }
 
-    void calculatePropTorque()
+    float calculatePropellerTorque(PropellerOrJet propeller, float air_density)
     {
-        
+        //calculate revolutions per second (used for torque equation)
+        float propeller_revolutions_per_second = propeller.getCurrentRotationSpeed() / 360.0f;
+
+        //revolutions per minute for finding torque coefficient
+        float propeller_revolutions_per_minute = propeller_revolutions_per_second * 60.0f;
+
+        //evaluate the torque coefficient curve to find out the torque coefficient
+        float propeller_torque_coefficient = propeller_torque_coefficient_curve.Evaluate(propeller_revolutions_per_minute);
+
+        //use the equation to calculate propeller torque
+        float propeller_torque = propeller_torque_coefficient * air_density * Mathf.Pow(propeller_revolutions_per_second, 2) * Mathf.Pow(propeller_diameter, 5);
+
+        return propeller_torque;
     }
 
     float calculateAirDensity(float metric_altitude)
@@ -609,9 +636,12 @@ public class AeroplaneController : MonoBehaviour
         calculateAngleOfAttackAndSideslip();
         calculateGForce(dt);
         updateThrust();
+        updatePropellerTorque(air_density);
         updateDrag(air_density);
         updateLift(air_density);
         updateSteering(dt);
+
+        Debug.Log(angle_of_attack);
     }
 
     void updateThrust()
@@ -619,6 +649,19 @@ public class AeroplaneController : MonoBehaviour
         if (engine_state == EngineState.RUNNING)
         {
             rb.AddRelativeForce(throttle_input * max_thrust * Vector3.forward);
+        }
+    }
+
+    void updatePropellerTorque(float air_density)
+    {
+        if (affected_by_propeller_torque)
+        {
+            for (int i = 0; i < propellers_or_jets.Length; i++)
+            {
+                float propeller_torque = calculatePropellerTorque(propellers_or_jets[i], air_density);
+
+                rb.AddRelativeTorque(Vector3.forward * propeller_torque);
+            }
         }
     }
 
@@ -671,7 +714,7 @@ public class AeroplaneController : MonoBehaviour
         Vector3 lift_force = calculateLiftAndInducedDrag
             (
             angle_of_attack + (local_flaps_angle_of_attack_increase * Mathf.Deg2Rad), Vector3.right,
-            lift_power + local_flaps_lift_power, lift_angle_of_attack_curve, induced_drag_curve, air_density
+            lift_multiplier + local_flaps_lift_power, lift_angle_of_attack_curve, aoa_induced_drag_curve, air_density
             );
 
         //lateral lift from vertical stabiliser
@@ -687,6 +730,7 @@ public class AeroplaneController : MonoBehaviour
 
     void updateSteering(float dt)
     {
+        //aerodynamic steering from control surfaces
         float airspeed = Mathf.Max(0.0f, local_velocity.z);
         float steering_power = steering_curve.Evaluate(airspeed);
 
@@ -703,6 +747,23 @@ public class AeroplaneController : MonoBehaviour
             );
 
         rb.AddRelativeTorque(angular_velocity_correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
+
+        //steering from nose/tail wheel when on the ground
+        //raycast to check if wheel is on the ground
+        bool nose_or_tail_wheel_on_ground = Physics.Raycast(nose_or_tail_wheel.position, Vector3.down, ground_check_distance, ground_layer);
+        Debug.Log(nose_or_tail_wheel_on_ground);
+        Debug.DrawRay(nose_or_tail_wheel.position, Vector3.down * ground_check_distance, Color.green);
+        
+        //apply ground steering when wheel is on ground
+        if (nose_or_tail_wheel_on_ground)
+        {
+            rb.angularDrag = ground_angular_drag;
+            rb.AddRelativeTorque(-pedals_input * Mathf.Min(local_velocity.z, max_taxi_steering_speed) * ground_steering_multiplier * Vector3.up, ForceMode.Acceleration);
+        }
+        else
+        {
+            rb.angularDrag = 0.2f;
+        }
     }
 
     IEnumerator waitForClipToEnd(AudioClip clip, System.Action on_complete)
