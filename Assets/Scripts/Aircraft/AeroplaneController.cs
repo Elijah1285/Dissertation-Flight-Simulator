@@ -57,23 +57,32 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AudioClip engine_startup_sound;
     [SerializeField] AudioClip engine_shutdown_sound;
 
+    [SerializeField] bool affected_by_propeller_torque;
     [SerializeField] float propeller_diameter;
     [SerializeField] AnimationCurve propeller_torque_coefficient_curve;
     [SerializeField] PropellerOrJet[] propellers_or_jets;
 
     [Header("Lift/Angle of Attack Settings")]
-    [SerializeField] float wing_surface_area; //the planform surface area of the wing measured in square metres
+    [SerializeField] float wing_surface_area;
     [SerializeField] float wing_aspect_ratio;
-    [SerializeField] float lift_multiplier;
-    [SerializeField] float flaps_lift_power;
-    [SerializeField] float flaps_angle_of_attack_increase;
-    [SerializeField] float oswald_efficiency;
+    [SerializeField] float wing_oswald_efficiency;
+    [SerializeField] float wing_lift_multiplier;
+    [SerializeField] float wing_induced_drag_multiplier;
+    [SerializeField] AnimationCurve wing_angle_of_attack_lift_curve;
+    [SerializeField] AnimationCurve wing_angle_of_attack_induced_drag_curve;
 
-    [SerializeField] AnimationCurve lift_angle_of_attack_curve;
-    [SerializeField] AnimationCurve vertical_stabiliser_angle_of_attack_curve;
+    [SerializeField] float vertical_stabiliser_surface_area;
+    [SerializeField] float vertical_stabiliser_aspect_ratio;
+    [SerializeField] float vertical_stabiliser_oswald_efficiency;
+    [SerializeField] float vertical_stabiliser_lift_multiplier;
+    [SerializeField] float vertical_stabiliser_induced_drag_multiplier;
+    [SerializeField] AnimationCurve vertical_stabiliser_angle_of_attack_lift_curve;
+    [SerializeField] AnimationCurve vertical_stabiliser_angle_of_attack_induced_drag_curve;
+
+    [SerializeField] float flaps_lift_power;
+    [SerializeField] float flaps_angle_of_attack_increase;   
 
     [Header("Drag/Friction Settings")]
-    [SerializeField] float induced_drag_multiplier;
     [SerializeField] float airbrake_drag;
     [SerializeField] float flaps_drag;
 
@@ -83,9 +92,6 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve drag_right;
     [SerializeField] AnimationCurve drag_top;
     [SerializeField] AnimationCurve drag_bottom;
-
-    [SerializeField] AnimationCurve aoa_induced_drag_curve;
-    [SerializeField] AnimationCurve vertical_stabiliser_induced_drag_curve;
 
     [SerializeField] Collider[] left_main_gear_colliders;
     [SerializeField] Collider[] right_main_gear_colliders;
@@ -100,17 +106,13 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] Vector3 turn_speed;
     [SerializeField] Vector3 base_max_turn_acceleration;
     [SerializeField] AnimationCurve steering_curve;
+    [SerializeField] LayerMask ground_layer;
 
     [Header("Gear Settings")]
     [SerializeField] bool retractable_gear;  
     [SerializeField] float ground_check_distance;
     [SerializeField] Transform nose_or_tail_wheel;
-    [SerializeField] RetractableGear[] landing_gear;    
-    
-    [Header("Misc")]   
-    [SerializeField] bool affected_by_propeller_torque;
-    [SerializeField] float vertical_stabiliser_power;
-    [SerializeField] LayerMask ground_layer;
+    [SerializeField] RetractableGear[] landing_gear;        
 
     [Header("Control Surface Settings")]
     [SerializeField] float aileron_deflection;
@@ -411,33 +413,37 @@ public class AeroplaneController : MonoBehaviour
         last_velocity = velocity;
     }
 
-    Vector3 calculateLiftAndInducedDrag(float _angle_of_attack, Vector3 right_axis, float local_lift_multiplier,
-        AnimationCurve local_angle_of_attack_curve, AnimationCurve local_aoa_induced_drag_curve, float air_density)
+    Vector3 calculateLiftAndInducedDrag(float local_angle_of_attack, Vector3 right_axis, float local_lift_multiplier,
+        AnimationCurve local_angle_of_attack_lift_curve, AnimationCurve local_angle_of_attack_induced_drag_curve, float air_density,
+        float local_oswald_efficiency, float local_surface_aspect_ratio, float local_surface_area, float local_induced_drag_multiplier)
     {
+        //convert aoa from radians to degrees
+        float angle_of_attack_degrees = local_angle_of_attack * Mathf.Rad2Deg;
+
         //filter out component of velocity that doesn't contribute to lift
         Vector3 lift_velocity = Vector3.ProjectOnPlane(local_velocity, right_axis);
         
         float lift_velocity_square_magnitude = lift_velocity.sqrMagnitude;
 
         //lift coefficient varies with angle of attack
-        float lift_coefficient = local_angle_of_attack_curve.Evaluate(_angle_of_attack * Mathf.Rad2Deg);
+        float lift_coefficient = local_angle_of_attack_lift_curve.Evaluate(angle_of_attack_degrees);
 
         //calculate lift force using the lift equation
-        float lift_force = 0.5f * air_density * wing_surface_area * lift_velocity_square_magnitude * lift_coefficient * local_lift_multiplier;
+        float lift_force = 0.5f * air_density * local_surface_area * lift_velocity_square_magnitude * lift_coefficient * local_lift_multiplier;
 
         //lift is perpendicular to velocity and right axis
         Vector3 lift_direction = Vector3.Cross(lift_velocity.normalized, right_axis);
         Vector3 lift = lift_direction * lift_force;
 
         //calculate induced drag coefficient
-        float induced_drag_coefficient = Mathf.Pow(lift_coefficient, 2) / (Mathf.PI * oswald_efficiency * wing_aspect_ratio);
+        float induced_drag_coefficient = Mathf.Pow(lift_coefficient, 2) / (Mathf.PI * local_oswald_efficiency * local_surface_aspect_ratio);
 
-        //calculate induced drag force
-        float induced_drag_force = 0.5f * air_density * lift_velocity_square_magnitude * wing_surface_area * induced_drag_coefficient * local_aoa_induced_drag_curve.Evaluate(Mathf.Max(0, local_velocity.z));// induced_drag_multiplier;
+        //calculate induced drag force       
+        float induced_drag_force = 0.5f * air_density * lift_velocity_square_magnitude * local_surface_area * induced_drag_coefficient * local_angle_of_attack_induced_drag_curve.Evaluate(angle_of_attack_degrees) * local_induced_drag_multiplier;
         Vector3 drag_direction = -lift_velocity.normalized;
         Vector3 induced_drag = drag_direction * induced_drag_force;
 
-        return lift;// + induced_drag;
+        return lift + induced_drag;
     }
 
     float calculateSteering(float dt, float current_angular_velocity, float target_angular_velocity, float max_angular_acceleration)
@@ -640,8 +646,6 @@ public class AeroplaneController : MonoBehaviour
         updateDrag(air_density);
         updateLift(air_density);
         updateSteering(dt);
-
-        Debug.Log(angle_of_attack);
     }
 
     void updateThrust()
@@ -714,15 +718,15 @@ public class AeroplaneController : MonoBehaviour
         Vector3 lift_force = calculateLiftAndInducedDrag
             (
             angle_of_attack + (local_flaps_angle_of_attack_increase * Mathf.Deg2Rad), Vector3.right,
-            lift_multiplier + local_flaps_lift_power, lift_angle_of_attack_curve, aoa_induced_drag_curve, air_density
-            );
+            wing_lift_multiplier + local_flaps_lift_power, wing_angle_of_attack_lift_curve, wing_angle_of_attack_induced_drag_curve, air_density,
+            wing_oswald_efficiency, wing_aspect_ratio, wing_surface_area, wing_induced_drag_multiplier);
 
         //lateral lift from vertical stabiliser
         Vector3 vertical_stabiliser_force = calculateLiftAndInducedDrag
             (
-            sideslip, Vector3.up, vertical_stabiliser_power, vertical_stabiliser_angle_of_attack_curve,
-            vertical_stabiliser_induced_drag_curve, air_density
-            );
+            sideslip, Vector3.up, vertical_stabiliser_lift_multiplier, vertical_stabiliser_angle_of_attack_lift_curve,
+            vertical_stabiliser_angle_of_attack_induced_drag_curve, air_density, vertical_stabiliser_oswald_efficiency, vertical_stabiliser_aspect_ratio,
+            vertical_stabiliser_surface_area, vertical_stabiliser_induced_drag_multiplier);
 
         rb.AddRelativeForce(lift_force);
         rb.AddRelativeForce(vertical_stabiliser_force); 
