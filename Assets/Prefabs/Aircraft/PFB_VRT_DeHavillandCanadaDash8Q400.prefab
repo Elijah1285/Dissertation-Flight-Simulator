@@ -4763,6 +4763,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 26300
       objectReference: {fileID: 0}
+    - target: {fileID: 589812830151862689, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_CenterOfMass.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 790157259336685443, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.y
       value: 5
@@ -4948,6 +4952,10 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: nose_or_tail_wheel
+      value: 
+      objectReference: {fileID: 7534253629162013673}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: elevator_deflection
       value: 20
       objectReference: {fileID: 0}
@@ -4959,6 +4967,10 @@ PrefabInstance:
       propertyPath: engine_shutdown_sound
       value: 
       objectReference: {fileID: 8300000, guid: ec7efe5a200d67245b840f3ccb6b7526, type: 3}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: ground_check_distance
+      value: 0.385
+      objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_oswald_efficiency
       value: 0.85
@@ -5679,6 +5691,11 @@ MonoBehaviour:
 --- !u!4 &7081510799437422472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1214519464104402324, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+  m_PrefabInstance: {fileID: 8258550076527526428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7534253629162013673 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1878924944068608501, guid: f984281b582ce154bbe32afab001f48e, type: 3}
   m_PrefabInstance: {fileID: 8258550076527526428}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &7669095522810296809 stripped

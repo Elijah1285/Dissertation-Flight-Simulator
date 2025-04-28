@@ -8769,6 +8769,14 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 300000
       objectReference: {fileID: 0}
+    - target: {fileID: 589812830151862689, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_ImplicitCom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 589812830151862689, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: m_CenterOfMass.z
+      value: 9.5
+      objectReference: {fileID: 0}
     - target: {fileID: 790157259336685443, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.55
@@ -9006,6 +9014,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: nose_or_tail_wheel
+      value: 
+      objectReference: {fileID: 1473337080854399111}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: elevator_deflection
       value: 25
       objectReference: {fileID: 0}
@@ -9017,6 +9029,10 @@ PrefabInstance:
       propertyPath: engine_shutdown_sound
       value: 
       objectReference: {fileID: 8300000, guid: 2cee7bcd2a4a1044e821c6ce295c9864, type: 3}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: ground_check_distance
+      value: 0.76
+      objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_oswald_efficiency
       value: 0.8
@@ -9985,6 +10001,11 @@ MonoBehaviour:
 --- !u!23 &1226681491478751564 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2262808527700189246, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+  m_PrefabInstance: {fileID: 1036127036225636722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1473337080854399111 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1878924944068608501, guid: f984281b582ce154bbe32afab001f48e, type: 3}
   m_PrefabInstance: {fileID: 1036127036225636722}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &1626725511549940359 stripped

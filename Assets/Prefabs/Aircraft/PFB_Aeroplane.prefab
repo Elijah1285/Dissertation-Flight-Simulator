@@ -622,6 +622,7 @@ GameObject:
   - component: {fileID: 1879585496088604213}
   - component: {fileID: 589812830151862689}
   - component: {fileID: 891589073615511056}
+  - component: {fileID: 9214667052457917412}
   m_Layer: 0
   m_Name: PFB_Aeroplane
   m_TagString: Untagged
@@ -669,6 +670,7 @@ MonoBehaviour:
   engine_throttle_pitch_increase_multiplier: 0
   engine_startup_sound: {fileID: 0}
   engine_shutdown_sound: {fileID: 0}
+  affected_by_propeller_torque: 0
   propeller_diameter: 0
   propeller_torque_coefficient_curve:
     serializedVersion: 2
@@ -679,23 +681,40 @@ MonoBehaviour:
   propellers_or_jets: []
   wing_surface_area: 0
   wing_aspect_ratio: 0
-  lift_multiplier: 0
+  wing_oswald_efficiency: 0
+  wing_lift_multiplier: 0
+  wing_induced_drag_multiplier: 0
+  wing_angle_of_attack_lift_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  wing_angle_of_attack_induced_drag_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  vertical_stabiliser_surface_area: 0
+  vertical_stabiliser_aspect_ratio: 0
+  vertical_stabiliser_oswald_efficiency: 0
+  vertical_stabiliser_lift_multiplier: 0
+  vertical_stabiliser_induced_drag_multiplier: 0
+  vertical_stabiliser_angle_of_attack_lift_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  vertical_stabiliser_angle_of_attack_induced_drag_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   flaps_lift_power: 0
   flaps_angle_of_attack_increase: 0
-  oswald_efficiency: 0
-  lift_angle_of_attack_curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  vertical_stabiliser_angle_of_attack_curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  induced_drag_multiplier: 0
   airbrake_drag: 0
   flaps_drag: 0
   drag_forward:
@@ -734,18 +753,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  aoa_induced_drag_curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  vertical_stabiliser_induced_drag_curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   left_main_gear_colliders:
   - {fileID: 5561705943489165958}
   right_main_gear_colliders:
@@ -763,15 +770,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  ground_layer:
+    serializedVersion: 2
+    m_Bits: 8
   retractable_gear: 0
   ground_check_distance: 0
   nose_or_tail_wheel: {fileID: 0}
   landing_gear: []
-  affected_by_propeller_torque: 0
-  vertical_stabiliser_power: 0
-  ground_layer:
-    serializedVersion: 2
-    m_Bits: 8
   aileron_deflection: 0
   elevator_deflection: 0
   rudder_deflection: 0
@@ -922,6 +927,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9214667052457917412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566354529828185069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397978b9d8481124bbfe1fe8628fc24a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1680915317930039630
 GameObject:
   m_ObjectHideFlags: 0
