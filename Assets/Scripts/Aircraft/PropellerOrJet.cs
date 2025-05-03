@@ -32,7 +32,17 @@ public class PropellerOrJet : MonoBehaviour
             }
         }
 
+        //Debug.Log(current_rotation_speed);
+
         transform.Rotate(0.0f, 0.0f, current_rotation_speed * Time.deltaTime);
+    }
+
+    public void onEngineShutdown() //function to be called when engine is shut down
+    {
+        if (current_rotation_speed > idle_rotation_speed)
+        {
+            current_rotation_speed = idle_rotation_speed;
+        }
     }
 
     public void setTargetRotationSpeed(float new_target_rotation_speed)

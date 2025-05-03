@@ -31,7 +31,7 @@ public class AeroplaneController : MonoBehaviour
     Vector3 last_velocity;
 
     Vector3 local_angular_velocity;
-    Vector3 local_g_force;
+    Vector3 g_force;
 
     //UI variables
     float pedals_indicator_x_center_position = 0.0f;
@@ -52,7 +52,7 @@ public class AeroplaneController : MonoBehaviour
     IA_AircraftControls aircraft_controls;
 
     [Header("Engine, Thrust & Propeller Settings")]
-    [SerializeField] float max_thrust;
+    [SerializeField] float thrust_multiplier;
     [SerializeField] float engine_throttle_pitch_increase_multiplier;
     [SerializeField] AudioClip engine_startup_sound;
     [SerializeField] AudioClip engine_shutdown_sound;
@@ -80,9 +80,10 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve vertical_stabiliser_angle_of_attack_induced_drag_curve;
 
     [SerializeField] float flaps_lift_power;
-    [SerializeField] float flaps_angle_of_attack_increase;   
+    [SerializeField] float flaps_angle_of_attack_increase;
 
     [Header("Drag/Friction Settings")]
+    [SerializeField] float drag_multiplier;
     [SerializeField] float airbrake_drag;
     [SerializeField] float flaps_drag;
 
@@ -130,18 +131,30 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] Transform[] flaps_pivots;   
 
     [Header("UI objects")]
-    [SerializeField] TextMeshProUGUI engine_text;
-    [SerializeField] TextMeshProUGUI brakes_text;
-    [SerializeField] TextMeshProUGUI landing_gear_text;
-    [SerializeField] TextMeshProUGUI throttle_text;
-    [SerializeField] TextMeshProUGUI flaps_text;
-    [SerializeField] TextMeshProUGUI spoilers_text;   
-    [SerializeField] TextMeshProUGUI airspeed_text;
-    [SerializeField] TextMeshProUGUI altitude_text;
-    [SerializeField] TextMeshProUGUI rate_of_climb_text;
-    [SerializeField] Image stick_indicator;
-    [SerializeField] Image pedals_indicator;
-    [SerializeField] Image throttle_indicator;  
+    //main ui
+    TextMeshProUGUI engine_text;
+    TextMeshProUGUI brakes_text;
+    TextMeshProUGUI landing_gear_text;
+    TextMeshProUGUI throttle_text;
+    TextMeshProUGUI flaps_text;
+    TextMeshProUGUI spoilers_text;   
+    TextMeshProUGUI airspeed_text;
+    TextMeshProUGUI altitude_text;
+    TextMeshProUGUI rate_of_climb_text;
+    TextMeshProUGUI g_force_text;
+    Image stick_indicator;
+    Image pedals_indicator;
+    Image throttle_indicator;
+
+    //extra ui
+    TextMeshProUGUI thrust_text;
+    TextMeshProUGUI drag_text;
+    TextMeshProUGUI wing_lift_text;
+    TextMeshProUGUI vertical_stabiliser_lift_text;
+    TextMeshProUGUI weight_text;
+    TextMeshProUGUI angle_of_attack_text;
+    TextMeshProUGUI sideslip_text;
+    TextMeshProUGUI propeller_torque_text;
 
     //initialisation
     void Awake()
@@ -175,7 +188,8 @@ public class AeroplaneController : MonoBehaviour
 
         aircraft_controls.Flight.Enable();
         
-        //get references to UI objects
+        //get references to ui objects
+        //main ui
         engine_text = GameObject.Find("engine_text").GetComponent<TextMeshProUGUI>();
         brakes_text = GameObject.Find("brakes_text").GetComponent<TextMeshProUGUI>();
         landing_gear_text = GameObject.Find("landing_gear_text").GetComponent<TextMeshProUGUI>();
@@ -185,10 +199,21 @@ public class AeroplaneController : MonoBehaviour
         airspeed_text = GameObject.Find("airspeed_text").GetComponent<TextMeshProUGUI>();
         altitude_text = GameObject.Find("altitude_text").GetComponent<TextMeshProUGUI>();
         rate_of_climb_text = GameObject.Find("rate_of_climb_text").GetComponent<TextMeshProUGUI>();
+        g_force_text = GameObject.Find("g_force_text").GetComponent<TextMeshProUGUI>();
         stick_indicator = GameObject.Find("stick_indicator").GetComponent<Image>();
         pedals_indicator = GameObject.Find("pedals_indicator").GetComponent<Image>();
         throttle_indicator = GameObject.Find("throttle_indicator").GetComponent<Image>();
-        
+
+        //extra
+        thrust_text = GameObject.Find("thrust_text").GetComponent<TextMeshProUGUI>();
+        drag_text = GameObject.Find("drag_text").GetComponent<TextMeshProUGUI>();
+        wing_lift_text = GameObject.Find("wing_lift_text").GetComponent<TextMeshProUGUI>();
+        vertical_stabiliser_lift_text = GameObject.Find("vertical_stabiliser_lift_text").GetComponent<TextMeshProUGUI>();
+        weight_text = GameObject.Find("weight_text").GetComponent<TextMeshProUGUI>();
+        angle_of_attack_text = GameObject.Find("angle_of_attack_text").GetComponent<TextMeshProUGUI>();
+        sideslip_text = GameObject.Find("sideslip_text").GetComponent<TextMeshProUGUI>();
+        propeller_torque_text = GameObject.Find("propeller_torque_text").GetComponent<TextMeshProUGUI>();
+
         //save default positions of controls indicators
         stick_indicator_center_position = stick_indicator.GetComponent<RectTransform>().position;
         pedals_indicator_x_center_position = pedals_indicator.GetComponent<RectTransform>().position.x;
@@ -313,6 +338,7 @@ public class AeroplaneController : MonoBehaviour
                 for (int i = 0; i < propellers_or_jets.Length; i++)
                 {
                     PropellerOrJet propeller_or_jet = propellers_or_jets[i];
+                    propeller_or_jet.onEngineShutdown();
                     propeller_or_jet.setTargetRotationSpeed(0.0f);
                 }
 
@@ -400,16 +426,18 @@ public class AeroplaneController : MonoBehaviour
 
         //calculate angle of attack
         angle_of_attack = Mathf.Atan2(-local_velocity.y, local_velocity.z);
+        angle_of_attack_text.text = "AOA: " + (angle_of_attack * Mathf.Rad2Deg) + "°";
 
         //calculate sideslip
         sideslip = Mathf.Atan2(local_velocity.x, local_velocity.z);
+        sideslip_text.text = "SDSLP: " + (sideslip * Mathf.Rad2Deg) + "°";
     }
 
     void calculateGForce(float dt)
     {
         var inverted_rotation = Quaternion.Inverse(rb.rotation);
         var acceleration = (velocity - last_velocity) / dt;
-        local_g_force = inverted_rotation * acceleration;   
+        g_force = inverted_rotation * acceleration;   
         last_velocity = velocity;
     }
 
@@ -555,6 +583,7 @@ public class AeroplaneController : MonoBehaviour
         airspeed_text.text = "IAS: " + Mathf.Max(Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f), 0.0f).ToString() + " kt";
         altitude_text.text = "ALT: " + Mathf.Max(Mathf.FloorToInt(transform.position.y * 3.281f), 0.0f).ToString() + " ft";
         rate_of_climb_text.text = "ROC: " + Mathf.RoundToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
+        g_force_text.text = "G:   " + g_force.ToString("F1");
     }
 
     void updateBrakesText()
@@ -641,18 +670,21 @@ public class AeroplaneController : MonoBehaviour
         calculateLocalVelocities(dt);
         calculateAngleOfAttackAndSideslip();
         calculateGForce(dt);
-        updateThrust();
+        updateThrust(air_density);
         updatePropellerTorque(air_density);
         updateDrag(air_density);
         updateLift(air_density);
         updateSteering(dt);
     }
 
-    void updateThrust()
+    void updateThrust(float air_density)
     {
         if (engine_state == EngineState.RUNNING)
         {
-            rb.AddRelativeForce(throttle_input * max_thrust * Vector3.forward);
+            float thrust_force = throttle_input * thrust_multiplier * air_density;
+
+            rb.AddRelativeForce(thrust_force * Vector3.forward);
+            thrust_text.text = "THRST: " + thrust_force + "N";
         }
     }
 
@@ -664,6 +696,7 @@ public class AeroplaneController : MonoBehaviour
             {
                 float propeller_torque = calculatePropellerTorque(propellers_or_jets[i], air_density);
 
+                propeller_torque_text.text = "TRQ: " + propeller_torque + "Nm";
                 rb.AddRelativeTorque(Vector3.forward * propeller_torque);
             }
         }
@@ -696,7 +729,9 @@ public class AeroplaneController : MonoBehaviour
             );
 
         //use the drag equation to calculate drag: Drag = 0.5 * Air density * Velocity^2 * Coefficient of drag * Reference area
-        Vector3 drag = 0.5f * air_density * local_velocity.sqrMagnitude * drag_coefficient.magnitude * -local_velocity.normalized; //drag is opposite to direction of velocity
+        Vector3 drag = 0.5f * air_density * local_velocity.sqrMagnitude * drag_coefficient.magnitude * drag_multiplier * -local_velocity.normalized; //drag is opposite to direction of velocity
+
+        drag_text.text = "DRAG: " + drag.magnitude + "N";
 
         rb.AddRelativeForce(drag);
     }
@@ -728,6 +763,10 @@ public class AeroplaneController : MonoBehaviour
             vertical_stabiliser_angle_of_attack_induced_drag_curve, air_density, vertical_stabiliser_oswald_efficiency, vertical_stabiliser_aspect_ratio,
             vertical_stabiliser_surface_area, vertical_stabiliser_induced_drag_multiplier);
 
+        wing_lift_text.text = "WING: " + lift_force.magnitude + "N";
+        vertical_stabiliser_lift_text.text = "VSTAB: " + vertical_stabiliser_force.magnitude + "N";
+        weight_text.text = "WGHT: " + -Physics.gravity.y * rb.mass + "N";
+
         rb.AddRelativeForce(lift_force);
         rb.AddRelativeForce(vertical_stabiliser_force); 
     }
@@ -755,8 +794,6 @@ public class AeroplaneController : MonoBehaviour
         //steering from nose/tail wheel when on the ground
         //raycast to check if wheel is on the ground
         bool nose_or_tail_wheel_on_ground = Physics.Raycast(nose_or_tail_wheel.position, Vector3.down, ground_check_distance, ground_layer);
-        Debug.Log(nose_or_tail_wheel_on_ground);
-        Debug.DrawRay(nose_or_tail_wheel.position, Vector3.down * ground_check_distance, Color.green);
         
         //apply ground steering when wheel is on ground
         if (nose_or_tail_wheel_on_ground)
