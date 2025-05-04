@@ -564,6 +564,18 @@ PrefabInstance:
       value: 2700
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: turn_multiplier.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: turn_multiplier.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: turn_multiplier.z
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_aspect_ratio
       value: 7.32
       objectReference: {fileID: 0}
@@ -737,7 +749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.size
-      value: 4
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_top.m_Curve.Array.data[1].time
@@ -1925,15 +1937,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].time
-      value: 19.96339
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[2].time
-      value: 70.04627
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[3].time
-      value: 89.95761
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[4].time
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[5].time
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[6].time
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[7].time
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[8].time
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[9].time
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_bottom.m_Curve.Array.data[0].inWeight
@@ -2148,16 +2184,48 @@ PrefabInstance:
       value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[10].time
+      value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[11].time
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].value
-      value: 0.048714086
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[2].value
-      value: 0.95137393
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[3].value
-      value: 1.0007324
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[4].value
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[5].value
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[6].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[7].value
+      value: 0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[8].value
+      value: 0.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[9].value
+      value: 0.875
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_back.m_Curve.Array.data[0].tangentMode
@@ -2376,6 +2444,14 @@ PrefabInstance:
       value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[10].value
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[11].value
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_induced_drag_multiplier
       value: 1
       objectReference: {fileID: 0}
@@ -2481,19 +2557,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[0].inSlope
-      value: 0.002440171
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].inSlope
-      value: 0.010231746
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[2].inSlope
-      value: 0.010251118
+      value: 0.0325
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[3].inSlope
-      value: 0.0024789136
+      value: 0.024999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[4].inSlope
+      value: 0.0225
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[5].inSlope
+      value: 0.015000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[6].inSlope
+      value: 0.0040000025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[7].inSlope
+      value: -0.003999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[8].inSlope
+      value: -0.0075000017
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[9].inSlope
+      value: -0.012
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_bottom.m_Curve.Array.data[0].tangentMode
@@ -2549,7 +2649,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[0].outSlope
-      value: 0.002440171
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[10].inSlope
+      value: -0.022500003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[11].inSlope
+      value: -0.030000007
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].inWeight
@@ -2557,7 +2665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].outSlope
-      value: 0.010231746
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[2].inWeight
@@ -2565,7 +2673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[2].outSlope
-      value: 0.010251118
+      value: 0.0325
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[3].inWeight
@@ -2573,7 +2681,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[3].outSlope
-      value: 0.0024789136
+      value: 0.024999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[4].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[4].outSlope
+      value: 0.0225
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[5].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[5].outSlope
+      value: 0.015000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[6].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[6].outSlope
+      value: 0.0040000025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[7].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[7].outSlope
+      value: -0.003999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[8].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[8].outSlope
+      value: -0.0075000017
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[9].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[9].outSlope
+      value: -0.012
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_bottom.m_Curve.Array.data[10].tangentMode
@@ -2628,6 +2784,22 @@ PrefabInstance:
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[10].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[10].outSlope
+      value: -0.022500003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[11].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[11].outSlope
+      value: -0.030000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
@@ -2640,6 +2812,30 @@ PrefabInstance:
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[4].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[5].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[6].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[7].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[8].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[9].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_forward.m_Curve.Array.data[10].tangentMode
       value: 34
       objectReference: {fileID: 0}
@@ -2648,12 +2844,20 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[10].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[11].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[0].tangentMode
-      value: 34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[1].tangentMode
-      value: 34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: steering_curve.m_Curve.Array.data[2].tangentMode
@@ -2664,12 +2868,48 @@ PrefabInstance:
       value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[4].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[5].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[6].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[7].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[8].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[9].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: induced_drag_curve.m_Curve.Array.data[0].inWeight
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: induced_drag_curve.m_Curve.Array.data[1].inWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[10].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: steering_curve.m_Curve.Array.data[11].tangentMode
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: induced_drag_curve.m_Curve.Array.data[0].outWeight
@@ -2764,6 +3004,42 @@ PrefabInstance:
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[0].time
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[1].time
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[2].time
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[3].time
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[5].time
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[6].time
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[7].time
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[8].time
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[9].time
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: lift_angle_of_attack_curve.m_Curve.Array.data[0].inWeight
       value: 0.33333334
       objectReference: {fileID: 0}
@@ -2798,6 +3074,50 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_induced_drag_curve.m_Curve.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[0].value
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[10].time
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[1].value
+      value: 0.475
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[2].value
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[3].value
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[4].value
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[5].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[6].value
+      value: 0.975
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[7].value
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[8].value
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[9].value
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: lift_angle_of_attack_curve.m_Curve.Array.data[0].outWeight
@@ -2866,6 +3186,10 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[9].time
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[10].value
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: rudder_angle_of_attack_curve.m_Curve.Array.data[0].inWeight
@@ -2944,6 +3268,46 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[0].inSlope
+      value: 0.054999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[1].inSlope
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[2].inSlope
+      value: 0.0375
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[3].inSlope
+      value: 0.024999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[4].inSlope
+      value: 0.014999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[5].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[6].inSlope
+      value: -0.014999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[7].inSlope
+      value: -0.05000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[8].inSlope
+      value: -0.10000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[9].inSlope
+      value: -0.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: lift_angle_of_attack_curve.m_Curve.Array.data[0].tangentMode
       value: 136
       objectReference: {fileID: 0}
@@ -2992,6 +3356,86 @@ PrefabInstance:
       value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[0].outSlope
+      value: 0.054999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[10].inSlope
+      value: -0.24999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[1].outSlope
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[2].outSlope
+      value: 0.0375
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[3].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[3].outSlope
+      value: 0.024999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[4].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[4].outSlope
+      value: 0.014999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[5].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[5].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[6].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[6].outSlope
+      value: -0.014999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[7].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[7].outSlope
+      value: -0.05000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[8].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[8].outSlope
+      value: -0.10000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[9].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[9].outSlope
+      value: -0.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[0].time
       value: 0
       objectReference: {fileID: 0}
@@ -3034,6 +3478,54 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[9].inSlope
       value: -0.19166666
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[10].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[10].outSlope
+      value: -0.24999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[3].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[4].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[5].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[6].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[7].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[8].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[9].outWeight
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[0].value
@@ -3192,8 +3684,56 @@ PrefabInstance:
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[3].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[4].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[5].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[6].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[7].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[8].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[9].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[0].inSlope
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[10].tangentMode
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[0].inWeight
@@ -3262,6 +3802,10 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_induced_drag_curve.m_Curve.Array.data[1].value
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.size
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[0].time
@@ -3548,6 +4092,38 @@ PrefabInstance:
       value: 136
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[0].time
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[1].time
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[2].time
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[3].time
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[5].time
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[6].time
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[7].time
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[8].time
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_curve.m_Curve.Array.data[0].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
@@ -3610,6 +4186,38 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_lift_curve.m_Curve.Array.data[9].time
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[0].value
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[1].value
+      value: -0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[2].value
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[3].value
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[5].value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[6].value
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[7].value
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[8].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[0].tangentMode
@@ -3688,6 +4296,38 @@ PrefabInstance:
       value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[0].time
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[1].time
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].time
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].time
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].time
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].time
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].time
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[8].time
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_curve.m_Curve.Array.data[0].tangentMode
       value: 136
       objectReference: {fileID: 0}
@@ -3710,6 +4350,74 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_lift_curve.m_Curve.Array.data[10].value
       value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[0].inSlope
+      value: 0.010000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[1].inSlope
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[2].inSlope
+      value: 0.044999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[3].inSlope
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[4].inSlope
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[5].inSlope
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[6].inSlope
+      value: 0.044999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[7].inSlope
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[8].inSlope
+      value: 0.010000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[1].value
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].value
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].value
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].value
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].value
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].value
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[8].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_lift_curve.m_Curve.Array.data[0].inSlope
@@ -3750,6 +4458,74 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_lift_curve.m_Curve.Array.data[9].inSlope
       value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[0].outSlope
+      value: 0.010000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[1].outSlope
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[2].outSlope
+      value: 0.044999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[3].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[3].outSlope
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[4].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[4].outSlope
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[5].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[5].outSlope
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[6].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[6].outSlope
+      value: 0.044999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[7].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[7].outSlope
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[8].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[8].outSlope
+      value: 0.010000003
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_lift_curve.m_Curve.Array.data[0].inWeight
@@ -3836,6 +4612,70 @@ PrefabInstance:
       value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[3].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[4].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[5].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[6].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[7].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[0].inSlope
+      value: -0.088
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[1].inSlope
+      value: -0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].inSlope
+      value: -0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].inSlope
+      value: -0.024999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].inSlope
+      value: 0.024999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].inSlope
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].inSlope
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[8].inSlope
+      value: 0.088
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_lift_curve.m_Curve.Array.data[0].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
@@ -3884,6 +4724,138 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[0].outSlope
+      value: -0.088
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[1].outSlope
+      value: -0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].outSlope
+      value: -0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].outSlope
+      value: -0.024999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[4].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].outSlope
+      value: 0.024999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].outSlope
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].outSlope
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[8].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[8].outSlope
+      value: 0.088
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[3].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[4].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[5].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[6].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[7].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.data[8].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[4].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_lift_curve.m_Curve.Array.data[0].tangentMode
       value: 34
       objectReference: {fileID: 0}
@@ -3929,6 +4901,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_lift_curve.m_Curve.Array.data[10].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[8].tangentMode
       value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}

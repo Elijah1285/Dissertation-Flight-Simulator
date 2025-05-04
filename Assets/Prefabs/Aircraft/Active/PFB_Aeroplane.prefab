@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbdc10a39e4b724a8cd1bf31154de9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_thrust: 0
+  thrust_multiplier: 0
   engine_throttle_pitch_increase_multiplier: 0
   engine_startup_sound: {fileID: 0}
   engine_shutdown_sound: {fileID: 0}
@@ -701,13 +701,13 @@ MonoBehaviour:
   vertical_stabiliser_oswald_efficiency: 0
   vertical_stabiliser_lift_multiplier: 0
   vertical_stabiliser_induced_drag_multiplier: 0
-  vertical_stabiliser_angle_of_attack_lift_curve:
+  vertical_stabiliser_sideslip_correction_curve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  vertical_stabiliser_angle_of_attack_induced_drag_curve:
+  vertical_stabiliser_sideslip_induced_drag_curve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
@@ -715,6 +715,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   flaps_lift_power: 0
   flaps_angle_of_attack_increase: 0
+  drag_multiplier: 0
   airbrake_drag: 0
   flaps_drag: 0
   drag_forward:
@@ -762,9 +763,15 @@ MonoBehaviour:
   ground_steering_multiplier: 0
   max_taxi_steering_speed: 0
   ground_angular_drag: 0
-  turn_speed: {x: 0, y: 0, z: 0}
-  base_max_turn_acceleration: {x: 0, y: 0, z: 0}
+  turn_multiplier: {x: 0, y: 0, z: 0}
+  max_turn_acceleration: {x: 0, y: 0, z: 0}
   steering_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  angle_of_attack_steering_curve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
@@ -791,18 +798,6 @@ MonoBehaviour:
   flaps_pivots:
   - {fileID: 1214519464104402324}
   - {fileID: 8952088541494374548}
-  engine_text: {fileID: 0}
-  brakes_text: {fileID: 0}
-  landing_gear_text: {fileID: 0}
-  throttle_text: {fileID: 0}
-  flaps_text: {fileID: 0}
-  spoilers_text: {fileID: 0}
-  airspeed_text: {fileID: 0}
-  altitude_text: {fileID: 0}
-  rate_of_climb_text: {fileID: 0}
-  stick_indicator: {fileID: 0}
-  pedals_indicator: {fileID: 0}
-  throttle_indicator: {fileID: 0}
 --- !u!54 &589812830151862689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -812,7 +807,7 @@ Rigidbody:
   m_GameObject: {fileID: 1566354529828185069}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.2
+  m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 1.5}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

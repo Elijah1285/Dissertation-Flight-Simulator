@@ -76,8 +76,8 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] float vertical_stabiliser_oswald_efficiency;
     [SerializeField] float vertical_stabiliser_lift_multiplier;
     [SerializeField] float vertical_stabiliser_induced_drag_multiplier;
-    [SerializeField] AnimationCurve vertical_stabiliser_angle_of_attack_lift_curve;
-    [SerializeField] AnimationCurve vertical_stabiliser_angle_of_attack_induced_drag_curve;
+    [SerializeField] AnimationCurve vertical_stabiliser_sideslip_correction_curve;
+    [SerializeField] AnimationCurve vertical_stabiliser_sideslip_induced_drag_curve;
 
     [SerializeField] float flaps_lift_power;
     [SerializeField] float flaps_angle_of_attack_increase;
@@ -104,9 +104,10 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] float ground_steering_multiplier;
     [SerializeField] float max_taxi_steering_speed; //so turn rate while on the ground is limited, this is in m/s
     [SerializeField] float ground_angular_drag;
-    [SerializeField] Vector3 turn_speed;
-    [SerializeField] Vector3 base_max_turn_acceleration;
+    [SerializeField] Vector3 turn_multiplier;
+    [SerializeField] Vector3 max_turn_acceleration;
     [SerializeField] AnimationCurve steering_curve;
+    [SerializeField] AnimationCurve angle_of_attack_steering_curve;
     [SerializeField] LayerMask ground_layer;
 
     [Header("Gear Settings")]
@@ -426,11 +427,11 @@ public class AeroplaneController : MonoBehaviour
 
         //calculate angle of attack
         angle_of_attack = Mathf.Atan2(-local_velocity.y, local_velocity.z);
-        angle_of_attack_text.text = "AOA: " + (angle_of_attack * Mathf.Rad2Deg) + "°";
+        angle_of_attack_text.text = "AOA: " + (angle_of_attack * Mathf.Rad2Deg).ToString("F1") + "°";
 
         //calculate sideslip
         sideslip = Mathf.Atan2(local_velocity.x, local_velocity.z);
-        sideslip_text.text = "SDSLP: " + (sideslip * Mathf.Rad2Deg) + "°";
+        sideslip_text.text = "SDSLP: " + (sideslip * Mathf.Rad2Deg).ToString("F1") + "°";
     }
 
     void calculateGForce(float dt)
@@ -517,11 +518,11 @@ public class AeroplaneController : MonoBehaviour
         const float gravity = 9.807f;
 
         //calculate air density from values
-        float temperature = sea_level_standard_temperature - (temperature_lapse_rate * metric_altitude);
+        float air_temperature = sea_level_standard_temperature - (temperature_lapse_rate * metric_altitude);
         float air_pressure = sea_level_standard_pressure * Mathf.Pow(1 - ((temperature_lapse_rate * metric_altitude) / sea_level_standard_temperature), (gravity / (air_specific_gas_constant * temperature_lapse_rate)));
-        float density = air_pressure / (air_specific_gas_constant * temperature);
+        float air_density = air_pressure / (air_specific_gas_constant * air_temperature);
 
-        return density; 
+        return air_density; 
     }
 
     public static Vector3 scale6
@@ -684,7 +685,7 @@ public class AeroplaneController : MonoBehaviour
             float thrust_force = throttle_input * thrust_multiplier * air_density;
 
             rb.AddRelativeForce(thrust_force * Vector3.forward);
-            thrust_text.text = "THRST: " + thrust_force + "N";
+            thrust_text.text = "THRST: " + (int) thrust_force + "N";
         }
     }
 
@@ -696,7 +697,7 @@ public class AeroplaneController : MonoBehaviour
             {
                 float propeller_torque = calculatePropellerTorque(propellers_or_jets[i], air_density);
 
-                propeller_torque_text.text = "TRQ: " + propeller_torque + "Nm";
+                propeller_torque_text.text = "TRQ: " + (int) propeller_torque + "Nm";
                 rb.AddRelativeTorque(Vector3.forward * propeller_torque);
             }
         }
@@ -731,7 +732,7 @@ public class AeroplaneController : MonoBehaviour
         //use the drag equation to calculate drag: Drag = 0.5 * Air density * Velocity^2 * Coefficient of drag * Reference area
         Vector3 drag = 0.5f * air_density * local_velocity.sqrMagnitude * drag_coefficient.magnitude * drag_multiplier * -local_velocity.normalized; //drag is opposite to direction of velocity
 
-        drag_text.text = "DRAG: " + drag.magnitude + "N";
+        drag_text.text = "DRAG: " + (int) drag.magnitude + "N";
 
         rb.AddRelativeForce(drag);
     }
@@ -759,13 +760,13 @@ public class AeroplaneController : MonoBehaviour
         //lateral lift from vertical stabiliser
         Vector3 vertical_stabiliser_force = calculateLiftAndInducedDrag
             (
-            sideslip, Vector3.up, vertical_stabiliser_lift_multiplier, vertical_stabiliser_angle_of_attack_lift_curve,
-            vertical_stabiliser_angle_of_attack_induced_drag_curve, air_density, vertical_stabiliser_oswald_efficiency, vertical_stabiliser_aspect_ratio,
+            sideslip, Vector3.up, vertical_stabiliser_lift_multiplier, vertical_stabiliser_sideslip_correction_curve,
+            vertical_stabiliser_sideslip_induced_drag_curve, air_density, vertical_stabiliser_oswald_efficiency, vertical_stabiliser_aspect_ratio,
             vertical_stabiliser_surface_area, vertical_stabiliser_induced_drag_multiplier);
 
-        wing_lift_text.text = "WING: " + lift_force.magnitude + "N";
-        vertical_stabiliser_lift_text.text = "VSTAB: " + vertical_stabiliser_force.magnitude + "N";
-        weight_text.text = "WGHT: " + -Physics.gravity.y * rb.mass + "N";
+        wing_lift_text.text = "WING: " + (int) lift_force.magnitude + "N";
+        vertical_stabiliser_lift_text.text = "VSTAB: " + (int) vertical_stabiliser_force.magnitude + "N";
+        weight_text.text = "WGHT: " + (int) (-Physics.gravity.y * rb.mass) + "N";
 
         rb.AddRelativeForce(lift_force);
         rb.AddRelativeForce(vertical_stabiliser_force); 
@@ -775,19 +776,21 @@ public class AeroplaneController : MonoBehaviour
     {
         //aerodynamic steering from control surfaces
         float airspeed = Mathf.Max(0.0f, local_velocity.z);
-        float steering_power = steering_curve.Evaluate(airspeed);
+        float control_surface_effectiveness = steering_curve.Evaluate(airspeed) * angle_of_attack_steering_curve.Evaluate(angle_of_attack);
 
         Vector3 control_surface_input = new Vector3(stick_input.y, -pedals_input, -stick_input.x);
 
         Vector3 current_angular_velocity = local_angular_velocity * Mathf.Rad2Deg;
-        Vector3 target_angular_velocity = Vector3.Scale(control_surface_input, turn_speed * steering_power);        
+        Vector3 target_angular_velocity = Vector3.Scale(control_surface_input, turn_multiplier * control_surface_effectiveness);        
 
         Vector3 angular_velocity_correction = new Vector3
             (
-            calculateSteering(dt, current_angular_velocity.x, target_angular_velocity.x, base_max_turn_acceleration.x * steering_power),
-            calculateSteering(dt, current_angular_velocity.y, target_angular_velocity.y, base_max_turn_acceleration.y * steering_power),
-            calculateSteering(dt, current_angular_velocity.z, target_angular_velocity.z, base_max_turn_acceleration.z * steering_power)
+            calculateSteering(dt, current_angular_velocity.x, target_angular_velocity.x, max_turn_acceleration.x * control_surface_effectiveness),
+            calculateSteering(dt, current_angular_velocity.y, target_angular_velocity.y, max_turn_acceleration.y * control_surface_effectiveness),
+            calculateSteering(dt, current_angular_velocity.z, target_angular_velocity.z, max_turn_acceleration.z * control_surface_effectiveness)
             );
+
+        Debug.Log(angular_velocity_correction);
 
         rb.AddRelativeTorque(angular_velocity_correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
 
