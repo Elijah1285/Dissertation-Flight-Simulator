@@ -253,7 +253,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b03c1bd0413e0438e1729607d01760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  graphic: {fileID: 434015666728817948}
   blip_sound: {fileID: 8300000, guid: c4a8d59a83b9cf54fb12266ccd6be5fd, type: 3}
+  audio_source: {fileID: 7370411252875961345}
 --- !u!82 &7370411252875961345
 AudioSource:
   m_ObjectHideFlags: 0
