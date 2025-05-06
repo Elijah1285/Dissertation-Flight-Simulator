@@ -20,4 +20,9 @@ public class ChangeButtonColourOnHover : MonoBehaviour
     {
         graphic.color = Color.white;
     }
+
+    void OnDisable()
+    {
+        graphic.color = Color.white;
+    }
 }

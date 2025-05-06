@@ -6,16 +6,17 @@ public class RetractableGear : MonoBehaviour
 {
     bool is_retracted = false;
 
-    [SerializeField] float retracted_angle;
-
     Quaternion deployed_rotation;
     Quaternion retracted_rotation;
 
     Coroutine gear_coroutine;
 
+    [SerializeField] float retracted_angle;
     [SerializeField] float rotation_duration;
     [SerializeField] Vector3 rotation_axis; //what axis will the gear assembly rotate around
     [SerializeField] MeshRenderer[] mesh_renderers;
+    [SerializeField] AudioSource audio_source;
+    [SerializeField] AudioClip thump_sound;
 
     void Start()
     {
@@ -45,6 +46,11 @@ public class RetractableGear : MonoBehaviour
 
         gear_coroutine = StartCoroutine(gearCoroutine(transform.localRotation, target_rotation));
         is_retracted = !is_retracted;
+
+        if (audio_source != null)
+        {
+            audio_source.Play();
+        }
     }
 
     void toggleMesh(bool show_mesh)
@@ -71,9 +77,12 @@ public class RetractableGear : MonoBehaviour
 
         transform.localRotation = target_rotation;
 
+        audio_source.Stop();
+
         if (target_rotation == retracted_rotation)
         {
             toggleMesh(false);
+            audio_source.PlayOneShot(thump_sound);
         }
         
         gear_coroutine = null;

@@ -30,6 +30,8 @@ public class SelectionScreenController : MonoBehaviour
     [SerializeField] GameObject dhc_dash_8_q400_info_screen;
     [SerializeField] GameObject boeing_737_800_info_screen;
     [SerializeField] GameObject boeing_747_400f_info_screen;
+    [SerializeField] GameObject info_screen_back_button;
+
 
     public void selectAircraft(int aircraft_index)
     {
@@ -86,6 +88,7 @@ public class SelectionScreenController : MonoBehaviour
                     dhc_dash_8_q400_info_screen.SetActive(false);
                     boeing_737_800_info_screen.SetActive(false);
                     boeing_747_400f_info_screen.SetActive(false);
+                    info_screen_back_button.SetActive(false);
 
                     break;
                 }
@@ -97,6 +100,7 @@ public class SelectionScreenController : MonoBehaviour
                     dhc_dash_8_q400_info_screen.SetActive(false);
                     boeing_737_800_info_screen.SetActive(false);
                     boeing_747_400f_info_screen.SetActive(false);
+                    info_screen_back_button.SetActive(true);
 
                     break;
                 }
@@ -108,6 +112,7 @@ public class SelectionScreenController : MonoBehaviour
                     dhc_dash_8_q400_info_screen.SetActive(false);
                     boeing_737_800_info_screen.SetActive(false);
                     boeing_747_400f_info_screen.SetActive(false);
+                    info_screen_back_button.SetActive(true);
 
                     break;
                 }
@@ -119,6 +124,7 @@ public class SelectionScreenController : MonoBehaviour
                     dhc_dash_8_q400_info_screen.SetActive(true);
                     boeing_737_800_info_screen.SetActive(false);
                     boeing_747_400f_info_screen.SetActive(false);
+                    info_screen_back_button.SetActive(true);
 
                     break;
                 }
@@ -130,6 +136,7 @@ public class SelectionScreenController : MonoBehaviour
                     dhc_dash_8_q400_info_screen.SetActive(false);
                     boeing_737_800_info_screen.SetActive(true);
                     boeing_747_400f_info_screen.SetActive(false);
+                    info_screen_back_button.SetActive(true);
 
                     break;
                 }
@@ -141,6 +148,7 @@ public class SelectionScreenController : MonoBehaviour
                     dhc_dash_8_q400_info_screen.SetActive(false);
                     boeing_737_800_info_screen.SetActive(false);
                     boeing_747_400f_info_screen.SetActive(true);
+                    info_screen_back_button.SetActive(true);
 
                     break;
                 }

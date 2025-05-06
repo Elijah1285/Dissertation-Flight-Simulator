@@ -680,6 +680,10 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: affected_by_propeller_torque
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: base_max_turn_acceleration.x
       value: 60
       objectReference: {fileID: 0}
@@ -2953,7 +2957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.size
-      value: 2
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: rudder_induced_drag_curve.m_Curve.Array.data[1].value
@@ -3441,7 +3445,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[1].time
-      value: 500
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[2].time
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[3].time
+      value: 195
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[4].time
+      value: 260
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[5].time
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[6].time
+      value: 390
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[7].time
+      value: 455
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[8].time
+      value: 520
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[9].time
+      value: 555
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[0].inSlope
@@ -3529,11 +3565,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[0].value
-      value: -0.00024708174
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[10].time
+      value: 585
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[1].value
-      value: 0.6
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[2].value
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[3].value
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[4].value
+      value: 0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[5].value
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[6].value
+      value: 0.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[7].value
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[8].value
+      value: 0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[9].value
+      value: 0.99
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: rudder_angle_of_attack_curve.m_Curve.Array.data[0].tangentMode
@@ -3636,6 +3708,10 @@ PrefabInstance:
       value: -0.19166666
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[10].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[0].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
@@ -3725,7 +3801,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[0].inSlope
-      value: 0
+      value: 0.0009230769
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[1].inSlope
+      value: 0.0013846154
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[2].inSlope
+      value: 0.0019999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[3].inSlope
+      value: 0.002307692
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[4].inSlope
+      value: 0.0023846154
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[5].inSlope
+      value: 0.002153846
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[6].inSlope
+      value: 0.0018461539
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[7].inSlope
+      value: 0.0015384614
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[8].inSlope
+      value: 0.0011208793
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[9].inSlope
+      value: 0.00059523835
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_correction_curve.m_Curve.Array.size
@@ -3741,11 +3853,83 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[0].outSlope
-      value: 0
+      value: 0.0009230769
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[10].inSlope
+      value: 0.000333333
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[1].inWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[1].outSlope
+      value: 0.0013846154
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[2].outSlope
+      value: 0.0019999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[3].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[3].outSlope
+      value: 0.002307692
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[4].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[4].outSlope
+      value: 0.0023846154
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[5].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[5].outSlope
+      value: 0.002153846
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[6].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[6].outSlope
+      value: 0.0018461539
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[7].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[7].outSlope
+      value: 0.0015384614
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[8].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[8].outSlope
+      value: 0.0011208793
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[9].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[9].outSlope
+      value: 0.00059523835
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_lift_curve.m_Curve.Array.size
@@ -3796,7 +3980,47 @@ PrefabInstance:
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[10].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[10].outSlope
+      value: 0.000333333
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[3].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[4].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[5].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[6].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[7].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[8].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[9].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
@@ -3844,6 +4068,10 @@ PrefabInstance:
       value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[10].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
@@ -3877,11 +4105,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[0].tangentMode
-      value: 0
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[1].tangentMode
-      value: 136
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[3].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[4].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[5].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[6].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[7].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[8].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[9].tangentMode
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_curve.m_Curve.Array.data[0].time
@@ -3898,6 +4158,10 @@ PrefabInstance:
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_curve.m_Curve.Array.data[4].time
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[10].tangentMode
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_angle_of_attack_curve.m_Curve.Array.data[1].value

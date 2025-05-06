@@ -18,11 +18,18 @@ public class AeroplaneController : MonoBehaviour
     EngineState engine_state = EngineState.NOT_RUNNING;
 
     //flight variables
+    //airbrakes
     bool airbrakes_deployed = false;  
+    bool moving_airbrakes = false;
+    float airbrakes_current_angle = 0.0f;
+    float airbrakes_target_angle = 0.0f;
+
+    //flaps
     bool moving_flaps = false;
     float flaps_state = 0.0f;
     float flaps_current_angle = 0.0f;
     float flaps_target_angle = 0.0f;
+
     float angle_of_attack = 0.0f;
     float sideslip = 0.0f;
 
@@ -40,7 +47,6 @@ public class AeroplaneController : MonoBehaviour
 
     //misc
     Rigidbody rb;
-    AudioSource audio_source;
 
     //input variables
     bool brakes_active = true;
@@ -114,15 +120,21 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] bool retractable_gear;  
     [SerializeField] float ground_check_distance;
     [SerializeField] Transform nose_or_tail_wheel;
-    [SerializeField] RetractableGear[] landing_gear;        
+    [SerializeField] RetractableGear[] landing_gear;
 
     [Header("Control Surface Settings")]
+    [SerializeField] bool has_airbrakes;
+
     [SerializeField] float aileron_deflection;
     [SerializeField] float elevator_deflection;
     [SerializeField] float rudder_deflection;
     [SerializeField] float flaps_deflection;
+    [SerializeField] float airbrakes_deflection;
 
+    [SerializeField] float airbrakes_deploy_rate;
     [SerializeField] float flaps_deploy_rate;
+    [SerializeField] AudioClip flaps_transition_sound;
+    [SerializeField] AudioClip wind_sound;
 
     [SerializeField] Transform left_aileron_pivot;
     [SerializeField] Transform right_aileron_pivot;
@@ -130,6 +142,13 @@ public class AeroplaneController : MonoBehaviour
 
     [SerializeField] Transform[] elevator_pivots;
     [SerializeField] Transform[] flaps_pivots;   
+    [SerializeField] Transform[] airbrakes_pivots;
+
+    [Header("Audio")]
+    [SerializeField] float speed_for_wind_sound;
+    [SerializeField] AudioSource engine_audio_source;
+    [SerializeField] AudioSource flaps_audio_source;
+    [SerializeField] AudioSource wind_audio_source;
 
     [Header("UI objects")]
     //main ui
@@ -185,7 +204,6 @@ public class AeroplaneController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        audio_source = GetComponent<AudioSource>();
 
         aircraft_controls.Flight.Enable();
         
@@ -283,7 +301,7 @@ public class AeroplaneController : MonoBehaviour
             flaps_state += 0.25f;
         }
 
-        updateFlapsTargetAngleAndUI();
+        onFlapsTransition();
     }
 
     void retractFlaps()
@@ -293,7 +311,7 @@ public class AeroplaneController : MonoBehaviour
             flaps_state -= 0.25f;
         }
 
-        updateFlapsTargetAngleAndUI();
+        onFlapsTransition();
     }
 
     //boolean inputs
@@ -315,14 +333,14 @@ public class AeroplaneController : MonoBehaviour
                 }
 
                 //play startup sound
-                audio_source.PlayOneShot(engine_startup_sound);
+                engine_audio_source.PlayOneShot(engine_startup_sound);
 
                 //wait for startup to finish before setting engine to running
                 StartCoroutine(waitForClipToEnd(engine_startup_sound, () =>
                 {
                     engine_state = EngineState.RUNNING;
                     engine_text.text = "ENG: ON";
-                    audio_source.Play();
+                    engine_audio_source.Play();
 
                     updatePropOrTurbineTargetSpeedAndAudio();
                 }
@@ -333,7 +351,7 @@ public class AeroplaneController : MonoBehaviour
                 //start the shutdown procedure if running
                 engine_state = EngineState.TRANSITION;
                 engine_text.text = "ENG: SHTDWN";
-                audio_source.pitch = 1.0f;
+                engine_audio_source.pitch = 1.0f;
 
                 //spin down the propellers/jets
                 for (int i = 0; i < propellers_or_jets.Length; i++)
@@ -344,8 +362,8 @@ public class AeroplaneController : MonoBehaviour
                 }
 
                 //stop engine run audio and play shutdown sound
-                audio_source.Stop();
-                audio_source.PlayOneShot(engine_shutdown_sound);
+                engine_audio_source.Stop();
+                engine_audio_source.PlayOneShot(engine_shutdown_sound);
 
                 //wait for shutdown to finish before allowing engine toggle
                 StartCoroutine(waitForClipToEnd(engine_shutdown_sound, () =>
@@ -403,7 +421,22 @@ public class AeroplaneController : MonoBehaviour
 
     void toggleAirbrakes()
     {
-        airbrakes_deployed = !airbrakes_deployed;
+        if (has_airbrakes)
+        {
+            moving_airbrakes = true;
+            airbrakes_deployed = !airbrakes_deployed;
+
+            if (airbrakes_deployed)
+            {
+                airbrakes_target_angle = airbrakes_deflection;
+                wind_audio_source.Play();
+            }
+            else
+            {
+                airbrakes_target_angle = 0.0f;
+                wind_audio_source.Stop();
+            }
+        }
     }
 
     //calculations (some calculations are also done directly in the updates)
@@ -475,7 +508,7 @@ public class AeroplaneController : MonoBehaviour
         return lift + induced_drag;
     }
 
-    float calculateSteering(float dt, float current_angular_velocity, float target_angular_velocity, float max_angular_acceleration)
+    float calculateControlSurfaceRotation(float dt, float current_angular_velocity, float target_angular_velocity, float max_angular_acceleration)
     {
         float angular_velocity_error = target_angular_velocity - current_angular_velocity;
         float dt_max_angular_acceleration = max_angular_acceleration * dt;
@@ -576,6 +609,7 @@ public class AeroplaneController : MonoBehaviour
         getInput();
         updateFlightVariablesUI();
         updateFlaps();
+        updateAirbrakes();
     }
 
     //UI
@@ -604,14 +638,6 @@ public class AeroplaneController : MonoBehaviour
         throttle_text.text = "THR: " + Mathf.FloorToInt(throttle_input * 100.0f).ToString() + "%";
     }
 
-    void updateFlapsTargetAngleAndUI()
-    {
-        flaps_target_angle = flaps_state * -flaps_deflection;
-        moving_flaps = true;
-
-        flaps_text.text = "FLP: " + Mathf.FloorToInt(flaps_state * 100.0f).ToString() + "%";
-    }
-
     //Non-UI
     void updatePropOrTurbineTargetSpeedAndAudio()
     {
@@ -623,7 +649,7 @@ public class AeroplaneController : MonoBehaviour
         }
 
         //update engine audio
-        audio_source.pitch = 1.0f + (throttle_input * engine_throttle_pitch_increase_multiplier);
+        engine_audio_source.pitch = 1.0f + (throttle_input * engine_throttle_pitch_increase_multiplier);
     }
 
     void updateFlaps()
@@ -640,6 +666,7 @@ public class AeroplaneController : MonoBehaviour
                 {
                     flaps_current_angle = flaps_target_angle;
                     moving_flaps = false;
+                    flaps_audio_source.Stop();
                 }
             }
             else
@@ -651,6 +678,7 @@ public class AeroplaneController : MonoBehaviour
                 {
                     flaps_current_angle = flaps_target_angle;
                     moving_flaps = false;
+                    flaps_audio_source.Stop();
                 }
             }
 
@@ -658,6 +686,55 @@ public class AeroplaneController : MonoBehaviour
             for (int i = 0; i < flaps_pivots.Length; i++)
             {
                 flaps_pivots[i].transform.localRotation = Quaternion.Euler(flaps_current_angle, flaps_pivots[i].localEulerAngles.y, flaps_pivots[i].localEulerAngles.z);
+            }
+        }
+    }
+
+    void updateAirbrakes()
+    {
+        if (has_airbrakes)
+        {
+            if (moving_airbrakes)
+            {
+                //update current airbrakes angle
+                if (airbrakes_current_angle < airbrakes_target_angle)
+                {
+                    airbrakes_current_angle += airbrakes_deploy_rate * Time.deltaTime;
+
+                    //check if should stop moving airbrakes
+                    if (airbrakes_current_angle > airbrakes_target_angle)
+                    {
+                        airbrakes_current_angle = airbrakes_target_angle;
+                        moving_airbrakes = false;
+                    }
+                }
+                else
+                {
+                    airbrakes_current_angle -= airbrakes_deploy_rate * Time.deltaTime;
+
+                    //check if should stop moving airbrakes
+                    if (airbrakes_current_angle < airbrakes_target_angle)
+                    {
+                        airbrakes_current_angle = airbrakes_target_angle;
+                        moving_airbrakes = false;
+                    }
+                }
+
+                //apply airbrakes angle to airbrakes pivots
+                for (int i = 0; i < airbrakes_pivots.Length; i++)
+                {
+                    airbrakes_pivots[i].transform.localRotation = Quaternion.Euler(airbrakes_current_angle, airbrakes_pivots[i].localEulerAngles.y, airbrakes_pivots[i].localEulerAngles.z);
+                }
+            }
+
+            //wind sound is only heard when aircraft is fast enough
+            if (airbrakes_deployed && (transform.InverseTransformDirection(rb.velocity).z * 1.944f) >= speed_for_wind_sound)
+            {
+                wind_audio_source.Play();
+            }
+            else if (wind_audio_source.isPlaying)
+            {
+                wind_audio_source.Stop();
             }
         }
     }
@@ -675,7 +752,7 @@ public class AeroplaneController : MonoBehaviour
         updatePropellerTorque(air_density);
         updateDrag(air_density);
         updateLift(air_density);
-        updateSteering(dt);
+        updateControlSurfaceRotation(dt);
     }
 
     void updateThrust(float air_density)
@@ -745,7 +822,7 @@ public class AeroplaneController : MonoBehaviour
         }
 
         //extra lift provided by flaps
-        float local_flaps_lift_power = flaps_lift_power * flaps_state;
+        float local_flaps_lift_multiplier = flaps_lift_power * flaps_state;
 
         //with flaps deployed, wings behave as if they are at a higher angle of attack
         float local_flaps_angle_of_attack_increase = flaps_angle_of_attack_increase * flaps_state;
@@ -754,7 +831,7 @@ public class AeroplaneController : MonoBehaviour
         Vector3 lift_force = calculateLiftAndInducedDrag
             (
             angle_of_attack + (local_flaps_angle_of_attack_increase * Mathf.Deg2Rad), Vector3.right,
-            wing_lift_multiplier + local_flaps_lift_power, wing_angle_of_attack_lift_curve, wing_angle_of_attack_induced_drag_curve, air_density,
+            wing_lift_multiplier * local_flaps_lift_multiplier, wing_angle_of_attack_lift_curve, wing_angle_of_attack_induced_drag_curve, air_density,
             wing_oswald_efficiency, wing_aspect_ratio, wing_surface_area, wing_induced_drag_multiplier);
 
         //lateral lift from vertical stabiliser
@@ -772,7 +849,7 @@ public class AeroplaneController : MonoBehaviour
         rb.AddRelativeForce(vertical_stabiliser_force); 
     }
 
-    void updateSteering(float dt)
+    void updateControlSurfaceRotation(float dt)
     {
         //aerodynamic steering from control surfaces
         float airspeed = Mathf.Max(0.0f, local_velocity.z);
@@ -785,9 +862,9 @@ public class AeroplaneController : MonoBehaviour
 
         Vector3 angular_velocity_correction = new Vector3
             (
-            calculateSteering(dt, current_angular_velocity.x, target_angular_velocity.x, max_turn_acceleration.x * control_surface_effectiveness),
-            calculateSteering(dt, current_angular_velocity.y, target_angular_velocity.y, max_turn_acceleration.y * control_surface_effectiveness),
-            calculateSteering(dt, current_angular_velocity.z, target_angular_velocity.z, max_turn_acceleration.z * control_surface_effectiveness)
+            calculateControlSurfaceRotation(dt, current_angular_velocity.x, target_angular_velocity.x, max_turn_acceleration.x * control_surface_effectiveness),
+            calculateControlSurfaceRotation(dt, current_angular_velocity.y, target_angular_velocity.y, max_turn_acceleration.y * control_surface_effectiveness),
+            calculateControlSurfaceRotation(dt, current_angular_velocity.z, target_angular_velocity.z, max_turn_acceleration.z * control_surface_effectiveness)
             );
 
         Debug.Log(angular_velocity_correction);
@@ -808,6 +885,14 @@ public class AeroplaneController : MonoBehaviour
         {
             rb.angularDrag = 0.2f;
         }
+    }
+
+    void onFlapsTransition() //function to be called when flaps are moved
+    {
+        flaps_target_angle = flaps_state * -flaps_deflection;
+        moving_flaps = true;
+        flaps_text.text = "FLP: " + Mathf.FloorToInt(flaps_state * 100.0f).ToString() + "%";
+        flaps_audio_source.Play();
     }
 
     IEnumerator waitForClipToEnd(AudioClip clip, System.Action on_complete)
