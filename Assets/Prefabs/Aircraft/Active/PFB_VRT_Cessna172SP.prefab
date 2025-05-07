@@ -541,7 +541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_multiplier
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: lift_multiplier
@@ -549,7 +549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: flaps_deflection
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: flaps_lift_power
@@ -565,7 +565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: flaps_deploy_rate
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: rudder_deflection
@@ -609,7 +609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: elevator_deflection
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: ground_angular_drag
@@ -637,7 +637,7 @@ PrefabInstance:
       objectReference: {fileID: 1011229173637503333}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_lift_multiplier
-      value: 5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: engine_shutdown_sound
@@ -724,8 +724,16 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: flaps_drag_relative_increase
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: flaps_lift_relative_increase
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_induced_drag_multiplier
-      value: 1
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_right.m_Curve.Array.size
@@ -745,7 +753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: flaps_angle_of_attack_increase
-      value: 0.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_forward.m_Curve.Array.size
@@ -2477,7 +2485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_induced_drag_multiplier
-      value: 1
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: drag_back.m_Curve.Array.data[10].tangentMode
@@ -3249,7 +3257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[0].value
-      value: -0.8
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[10].time
@@ -3269,15 +3277,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[4].value
-      value: 0.4
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[5].value
-      value: 0.7
+      value: 0.625
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[6].value
-      value: 0.925
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[7].value
@@ -3285,11 +3293,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[8].value
-      value: 0.75
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[9].value
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[0].inSlope
@@ -3501,11 +3509,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[0].inSlope
-      value: 0.060000002
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[1].inSlope
-      value: 0.060000002
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[2].inSlope
@@ -3513,27 +3521,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[3].inSlope
-      value: 0.060000002
+      value: 0.055
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[4].inSlope
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
-      propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[5].inSlope
       value: 0.052500002
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[5].inSlope
+      value: 0.055
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[6].inSlope
-      value: 0.035
+      value: 0.04416667
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[8].inSlope
-      value: -0.15416667
+      value: -0.13333333
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[9].inSlope
-      value: -0.19166666
+      value: -0.20833334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: angle_of_attack_steering_curve.m_Curve.Array.data[0].outWeight
@@ -3653,11 +3661,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[0].outSlope
-      value: 0.060000002
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[10].inSlope
-      value: -0.2
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[1].inWeight
@@ -3665,7 +3673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[1].outSlope
-      value: 0.060000002
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[2].inWeight
@@ -3681,7 +3689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[3].outSlope
-      value: 0.060000002
+      value: 0.055
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[4].inWeight
@@ -3689,7 +3697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[4].outSlope
-      value: 0.06
+      value: 0.052500002
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[5].inWeight
@@ -3697,7 +3705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[5].outSlope
-      value: 0.052500002
+      value: 0.055
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[6].inWeight
@@ -3705,7 +3713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[6].outSlope
-      value: 0.035
+      value: 0.04416667
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[7].inWeight
@@ -3717,7 +3725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[8].outSlope
-      value: -0.15416667
+      value: -0.13333333
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[9].inWeight
@@ -3725,7 +3733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[9].outSlope
-      value: -0.19166666
+      value: -0.20833334
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: propeller_torque_coefficient_curve.m_Curve.Array.data[10].value
@@ -3741,7 +3749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[10].outSlope
-      value: -0.2
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_lift_curve.m_Curve.Array.data[1].outWeight
@@ -4101,19 +4109,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[2].value
-      value: 0.25
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[3].value
-      value: 0.06
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[4].value
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[5].value
-      value: 0.06
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[6].value
-      value: 0.25
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[7].value
@@ -4205,27 +4217,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[1].inSlope
-      value: -0.075
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[2].inSlope
-      value: -0.049999997
+      value: -0.041
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[3].inSlope
-      value: -0.024999999
+      value: -0.020000001
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[5].inSlope
-      value: 0.024999999
+      value: 0.020000001
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[6].inSlope
-      value: 0.049999997
+      value: 0.041
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[7].inSlope
-      value: 0.075
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[8].inSlope
@@ -4253,7 +4265,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[1].outSlope
-      value: -0.075
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[2].inWeight
@@ -4261,7 +4273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[2].outSlope
-      value: -0.049999997
+      value: -0.041
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[3].inWeight
@@ -4269,7 +4281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[3].outSlope
-      value: -0.024999999
+      value: -0.020000001
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[4].inWeight
@@ -4281,7 +4293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[5].outSlope
-      value: 0.024999999
+      value: 0.020000001
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[6].inWeight
@@ -4289,7 +4301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[6].outSlope
-      value: 0.049999997
+      value: 0.041
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[7].inWeight
@@ -4297,7 +4309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[7].outSlope
-      value: 0.075
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: wing_angle_of_attack_induced_drag_curve.m_Curve.Array.data[8].inWeight
@@ -4681,19 +4693,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].value
-      value: 0.25
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].value
-      value: 0.06
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[4].value
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].value
-      value: 0.06
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].value
-      value: 0.25
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].value
@@ -4933,27 +4949,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[1].inSlope
-      value: -0.075
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].inSlope
-      value: -0.049999997
+      value: -0.041
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].inSlope
-      value: -0.024999999
+      value: -0.020000001
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].inSlope
-      value: 0.024999999
+      value: 0.020000001
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].inSlope
-      value: 0.049999997
+      value: 0.041
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].inSlope
-      value: 0.075
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[8].inSlope
@@ -5017,7 +5033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[1].outSlope
-      value: -0.075
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].inWeight
@@ -5025,7 +5041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[2].outSlope
-      value: -0.049999997
+      value: -0.041
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].inWeight
@@ -5033,7 +5049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[3].outSlope
-      value: -0.024999999
+      value: -0.020000001
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[4].inWeight
@@ -5045,7 +5061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[5].outSlope
-      value: 0.024999999
+      value: 0.020000001
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].inWeight
@@ -5053,7 +5069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[6].outSlope
-      value: 0.049999997
+      value: 0.041
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].inWeight
@@ -5061,7 +5077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[7].outSlope
-      value: 0.075
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: vertical_stabiliser_sideslip_induced_drag_curve.m_Curve.Array.data[8].inWeight
