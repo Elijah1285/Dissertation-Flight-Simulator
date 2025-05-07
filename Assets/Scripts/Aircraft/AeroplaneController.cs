@@ -143,7 +143,8 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] float max_taxi_steering_speed; //so turn rate while on the ground is limited, this is in m/s
     [SerializeField] float ground_angular_drag;
     [SerializeField] float propeller_torque_multiplier;
-    [SerializeField] float g_limit;
+    [SerializeField] float g_limit_positive;
+    [SerializeField] float g_limit_negative;
 
     [SerializeField] Vector3 turn_multiplier;
     [SerializeField] Vector3 max_turn_acceleration;
@@ -335,7 +336,7 @@ public class AeroplaneController : MonoBehaviour
             {
                 //start the startup procedure if not running
                 engine_state = EngineState.TRANSITION;
-                engine_text.text = "ENG: STRT";
+                engine_text.text = "ENG:STRT";
 
                 //spin up the propellers/jets
                 for (int i = 0; i < propellers_or_jets.Length; i++)
@@ -351,7 +352,7 @@ public class AeroplaneController : MonoBehaviour
                 StartCoroutine(waitForClipToEnd(engine_startup_sound, () =>
                 {
                     engine_state = EngineState.RUNNING;
-                    engine_text.text = "ENG: ON";
+                    engine_text.text = "ENG:ON";
                     engine_audio_source.Play();
 
                     updatePropOrTurbineTargetSpeedAndAudio();
@@ -362,7 +363,7 @@ public class AeroplaneController : MonoBehaviour
             {
                 //start the shutdown procedure if running
                 engine_state = EngineState.TRANSITION;
-                engine_text.text = "ENG: SHTDWN";
+                engine_text.text = "ENG:SHTDWN";
                 engine_audio_source.pitch = 1.0f;
 
                 //spin down the propellers/jets
@@ -381,7 +382,7 @@ public class AeroplaneController : MonoBehaviour
                 StartCoroutine(waitForClipToEnd(engine_shutdown_sound, () =>
                 {
                     engine_state = EngineState.NOT_RUNNING;
-                    engine_text.text = "ENG: OFF";
+                    engine_text.text = "ENG:OFF";
                 }
                 ));
             }
@@ -464,7 +465,7 @@ public class AeroplaneController : MonoBehaviour
 
         //calculate angle of attack
         angle_of_attack = Mathf.Atan2(-local_velocity.y, local_velocity.z);
-        angle_of_attack_text.text = "AOA: " + (angle_of_attack * Mathf.Rad2Deg).ToString("F1") + "°";
+        angle_of_attack_text.text = "AOA:   " + (angle_of_attack * Mathf.Rad2Deg).ToString("F1") + "°";
 
         //calculate sideslip
         sideslip = Mathf.Atan2(local_velocity.x, local_velocity.z);
@@ -474,7 +475,7 @@ public class AeroplaneController : MonoBehaviour
     void calculateGForce(float dt)
     {
         Vector3 acceleration = (rb.velocity - last_velocity) / dt;
-        g_force = transform.InverseTransformDirection(acceleration).y / Physics.gravity.y;   
+        g_force = transform.InverseTransformDirection(acceleration).y / -Physics.gravity.y;   
         last_velocity = rb.velocity;
     }
 
@@ -620,13 +621,17 @@ public class AeroplaneController : MonoBehaviour
     //UI
     void updateFlightVariablesUI()
     {
-        airspeed_text.text = "IAS: " + Mathf.Max(Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f), 0.0f).ToString() + " kt";
-        altitude_text.text = "ALT: " + Mathf.Max(Mathf.FloorToInt(transform.position.y * 3.281f), 0.0f).ToString() + " ft";
-        rate_of_climb_text.text = "ROC: " + Mathf.RoundToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
+        airspeed_text.text = "IAS:" + Mathf.Max(Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f), 0.0f).ToString() + " kt";
+        altitude_text.text = "ALT:" + Mathf.Max(Mathf.FloorToInt(transform.position.y * 3.281f), 0.0f).ToString() + " ft";
+        rate_of_climb_text.text = "ROC:" + Mathf.RoundToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
        
-        g_force_text.text = "G:   " + g_force.ToString("F1");
+        g_force_text.text = "G:  " + g_force.ToString("F1");
 
-        if (g_force >= g_limit)
+        if (g_force >= g_limit_positive)
+        {
+            g_force_text.color = Color.red;
+        }
+        else if (g_force <= g_limit_negative)
         {
             g_force_text.color = Color.red;
         }
@@ -640,17 +645,17 @@ public class AeroplaneController : MonoBehaviour
     {
         if (brakes_active)
         {
-            brakes_text.text = "BRK: ON";
+            brakes_text.text = "BRK:ON";
         }
         else
         {
-            brakes_text.text = "BRK: OFF";
+            brakes_text.text = "BRK:OFF";
         }
     }
 
     void updateThrottleText()
     {
-        throttle_text.text = "THR: " + Mathf.FloorToInt(throttle_input * 100.0f).ToString() + "%";
+        throttle_text.text = "THR:" + Mathf.FloorToInt(throttle_input * 100.0f).ToString() + "%";
     }
 
     //Non-UI
@@ -789,7 +794,7 @@ public class AeroplaneController : MonoBehaviour
             {
                 float propeller_torque = calculatePropellerTorque(propellers_or_jets[i], air_density);
 
-                propeller_torque_text.text = "TRQ: " + (int) propeller_torque + "Nm";
+                propeller_torque_text.text = "TRQ:   " + (int) propeller_torque + "Nm";
                 rb.AddRelativeTorque(Vector3.forward * propeller_torque);
             }
         }
@@ -824,7 +829,7 @@ public class AeroplaneController : MonoBehaviour
         //use the drag equation to calculate drag: Drag = 0.5 * Air density * Velocity^2 * Coefficient of drag * Reference area
         Vector3 drag = 0.5f * air_density * local_velocity.sqrMagnitude * drag_coefficient.magnitude * drag_multiplier * -local_velocity.normalized; //drag is opposite to direction of velocity
 
-        parasitic_drag_text.text = "DRAG: " + (int) drag.magnitude + "N";
+        parasitic_drag_text.text = "PAR:   " + (int) drag.magnitude + "N";
 
         rb.AddRelativeForce(drag);
     }
@@ -857,13 +862,13 @@ public class AeroplaneController : MonoBehaviour
             vertical_stabiliser_surface_area, vertical_stabiliser_induced_drag_multiplier);
 
         //set UI text
-        wing_lift_text.text = "WING: " + (int) wing_lift_results.lift.magnitude + "N";
-        wing_induced_drag_text.text = "W-INDC: " + (int) wing_lift_results.induced_drag.magnitude + "N";
+        wing_lift_text.text = "WING:  " + (int) wing_lift_results.lift.magnitude + "N";
+        wing_induced_drag_text.text = "W-INDC:" + (int) wing_lift_results.induced_drag.magnitude + "N";
 
-        vertical_stabiliser_lift_text.text = "VSTAB: " + (int) vertical_stabiliser_lift_results.lift.magnitude + "N";
-        vertical_stabiliser_induced_drag_text.text = "V-INDC: " + (int) vertical_stabiliser_lift_results.induced_drag.magnitude + "N";
+        vertical_stabiliser_lift_text.text = "V-STAB:" + (int) vertical_stabiliser_lift_results.lift.magnitude + "N";
+        vertical_stabiliser_induced_drag_text.text = "V-INDC:" + (int) vertical_stabiliser_lift_results.induced_drag.magnitude + "N";
 
-        weight_text.text = "WGHT: " + (int) (-Physics.gravity.y * rb.mass) + "N";
+        weight_text.text = "WGHT:  " + (int) (-Physics.gravity.y * rb.mass) + "N";
 
         rb.AddRelativeForce(wing_lift_results.lift + wing_lift_results.induced_drag);
         rb.AddRelativeForce(vertical_stabiliser_lift_results.lift + vertical_stabiliser_lift_results.induced_drag); 
@@ -909,7 +914,7 @@ public class AeroplaneController : MonoBehaviour
     {
         flaps_target_angle = flaps_state * -flaps_deflection;
         moving_flaps = true;
-        flaps_text.text = "FLP: " + Mathf.FloorToInt(flaps_state * 100.0f).ToString() + "%";
+        flaps_text.text = "FLP:" + Mathf.FloorToInt(flaps_state * 100.0f).ToString() + "%";
         flaps_audio_source.Play();
     }
 
