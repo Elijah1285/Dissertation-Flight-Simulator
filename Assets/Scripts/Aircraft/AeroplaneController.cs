@@ -17,6 +17,12 @@ public class AeroplaneController : MonoBehaviour
 
     EngineState engine_state = EngineState.NOT_RUNNING;
 
+    struct LiftResults
+    {
+        public Vector3 lift;
+        public Vector3 induced_drag;
+    }
+
     //flight variables
     //airbrakes
     bool airbrakes_deployed = false;  
@@ -33,12 +39,10 @@ public class AeroplaneController : MonoBehaviour
     float angle_of_attack = 0.0f;
     float sideslip = 0.0f;
 
-    Vector3 velocity;
     Vector3 local_velocity;
     Vector3 last_velocity;
 
-    Vector3 local_angular_velocity;
-    Vector3 g_force;
+    float g_force;
 
     //UI variables
     float pedals_indicator_x_center_position = 0.0f;
@@ -54,6 +58,34 @@ public class AeroplaneController : MonoBehaviour
 
     Vector2 stick_input;
     float pedals_input;
+
+    //UI
+    //left side
+    TextMeshProUGUI engine_text;
+    TextMeshProUGUI brakes_text;
+    TextMeshProUGUI landing_gear_text;
+    TextMeshProUGUI throttle_text;
+    TextMeshProUGUI flaps_text;
+    TextMeshProUGUI spoilers_text;
+    TextMeshProUGUI airspeed_text;
+    TextMeshProUGUI altitude_text;
+    TextMeshProUGUI rate_of_climb_text;
+    TextMeshProUGUI g_force_text;
+    Image stick_indicator;
+    Image pedals_indicator;
+    Image throttle_indicator;
+
+    //right side
+    TextMeshProUGUI thrust_text;
+    TextMeshProUGUI parasitic_drag_text;
+    TextMeshProUGUI wing_induced_drag_text;
+    TextMeshProUGUI vertical_stabiliser_induced_drag_text;
+    TextMeshProUGUI wing_lift_text;
+    TextMeshProUGUI vertical_stabiliser_lift_text;
+    TextMeshProUGUI weight_text;
+    TextMeshProUGUI angle_of_attack_text;
+    TextMeshProUGUI sideslip_text;
+    TextMeshProUGUI propeller_torque_text;
 
     IA_AircraftControls aircraft_controls;
 
@@ -85,7 +117,7 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] AnimationCurve vertical_stabiliser_sideslip_correction_curve;
     [SerializeField] AnimationCurve vertical_stabiliser_sideslip_induced_drag_curve;
 
-    [SerializeField] float flaps_lift_power;
+    [SerializeField] float flaps_lift_multiplier;
     [SerializeField] float flaps_angle_of_attack_increase;
 
     [Header("Drag/Friction Settings")]
@@ -106,10 +138,13 @@ public class AeroplaneController : MonoBehaviour
     [SerializeField] PhysicMaterial normal_gear_physics_material;
     [SerializeField] PhysicMaterial braking_gear_physics_material;
 
-    [Header("Steering Settings")]
+    [Header("Handling Settings")]
     [SerializeField] float ground_steering_multiplier;
     [SerializeField] float max_taxi_steering_speed; //so turn rate while on the ground is limited, this is in m/s
     [SerializeField] float ground_angular_drag;
+    [SerializeField] float propeller_torque_multiplier;
+    [SerializeField] float g_limit;
+
     [SerializeField] Vector3 turn_multiplier;
     [SerializeField] Vector3 max_turn_acceleration;
     [SerializeField] AnimationCurve steering_curve;
@@ -119,20 +154,20 @@ public class AeroplaneController : MonoBehaviour
     [Header("Gear Settings")]
     [SerializeField] bool retractable_gear;  
     [SerializeField] float ground_check_distance;
+
     [SerializeField] Transform nose_or_tail_wheel;
     [SerializeField] RetractableGear[] landing_gear;
 
     [Header("Control Surface Settings")]
     [SerializeField] bool has_airbrakes;
-
     [SerializeField] float aileron_deflection;
     [SerializeField] float elevator_deflection;
     [SerializeField] float rudder_deflection;
     [SerializeField] float flaps_deflection;
     [SerializeField] float airbrakes_deflection;
-
     [SerializeField] float airbrakes_deploy_rate;
     [SerializeField] float flaps_deploy_rate;
+
     [SerializeField] AudioClip flaps_transition_sound;
     [SerializeField] AudioClip wind_sound;
 
@@ -146,35 +181,10 @@ public class AeroplaneController : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] float speed_for_wind_sound;
+
     [SerializeField] AudioSource engine_audio_source;
     [SerializeField] AudioSource flaps_audio_source;
     [SerializeField] AudioSource wind_audio_source;
-
-    [Header("UI objects")]
-    //main ui
-    TextMeshProUGUI engine_text;
-    TextMeshProUGUI brakes_text;
-    TextMeshProUGUI landing_gear_text;
-    TextMeshProUGUI throttle_text;
-    TextMeshProUGUI flaps_text;
-    TextMeshProUGUI spoilers_text;   
-    TextMeshProUGUI airspeed_text;
-    TextMeshProUGUI altitude_text;
-    TextMeshProUGUI rate_of_climb_text;
-    TextMeshProUGUI g_force_text;
-    Image stick_indicator;
-    Image pedals_indicator;
-    Image throttle_indicator;
-
-    //extra ui
-    TextMeshProUGUI thrust_text;
-    TextMeshProUGUI drag_text;
-    TextMeshProUGUI wing_lift_text;
-    TextMeshProUGUI vertical_stabiliser_lift_text;
-    TextMeshProUGUI weight_text;
-    TextMeshProUGUI angle_of_attack_text;
-    TextMeshProUGUI sideslip_text;
-    TextMeshProUGUI propeller_torque_text;
 
     //initialisation
     void Awake()
@@ -208,7 +218,7 @@ public class AeroplaneController : MonoBehaviour
         aircraft_controls.Flight.Enable();
         
         //get references to ui objects
-        //main ui
+        //left side
         engine_text = GameObject.Find("engine_text").GetComponent<TextMeshProUGUI>();
         brakes_text = GameObject.Find("brakes_text").GetComponent<TextMeshProUGUI>();
         landing_gear_text = GameObject.Find("landing_gear_text").GetComponent<TextMeshProUGUI>();
@@ -223,9 +233,11 @@ public class AeroplaneController : MonoBehaviour
         pedals_indicator = GameObject.Find("pedals_indicator").GetComponent<Image>();
         throttle_indicator = GameObject.Find("throttle_indicator").GetComponent<Image>();
 
-        //extra
+        //right side
         thrust_text = GameObject.Find("thrust_text").GetComponent<TextMeshProUGUI>();
-        drag_text = GameObject.Find("drag_text").GetComponent<TextMeshProUGUI>();
+        parasitic_drag_text = GameObject.Find("parasitic_drag_text").GetComponent<TextMeshProUGUI>();
+        wing_induced_drag_text = GameObject.Find("wing_induced_drag_text").GetComponent<TextMeshProUGUI>();
+        vertical_stabiliser_induced_drag_text = GameObject.Find("vertical_stabiliser_induced_drag_text").GetComponent<TextMeshProUGUI>();
         wing_lift_text = GameObject.Find("wing_lift_text").GetComponent<TextMeshProUGUI>();
         vertical_stabiliser_lift_text = GameObject.Find("vertical_stabiliser_lift_text").GetComponent<TextMeshProUGUI>();
         weight_text = GameObject.Find("weight_text").GetComponent<TextMeshProUGUI>();
@@ -440,14 +452,6 @@ public class AeroplaneController : MonoBehaviour
     }
 
     //calculations (some calculations are also done directly in the updates)
-    void calculateLocalVelocities(float dt)
-    {
-        Quaternion inverted_rotation = Quaternion.Inverse(rb.rotation);
-        velocity = rb.velocity;
-        local_velocity = inverted_rotation * velocity; //transform world velocity into local space 
-        local_angular_velocity = inverted_rotation * rb.angularVelocity; // transform angular velocity into local space
-    }
-
     void calculateAngleOfAttackAndSideslip()
     {
         //set 0 angle of attack and sideslip if very slow or stationary
@@ -469,16 +473,17 @@ public class AeroplaneController : MonoBehaviour
 
     void calculateGForce(float dt)
     {
-        var inverted_rotation = Quaternion.Inverse(rb.rotation);
-        var acceleration = (velocity - last_velocity) / dt;
-        g_force = inverted_rotation * acceleration;   
-        last_velocity = velocity;
+        Vector3 acceleration = (rb.velocity - last_velocity) / dt;
+        g_force = transform.InverseTransformDirection(acceleration).y / Physics.gravity.y;   
+        last_velocity = rb.velocity;
     }
 
-    Vector3 calculateLiftAndInducedDrag(float local_angle_of_attack, Vector3 right_axis, float local_lift_multiplier,
+    LiftResults calculateLiftAndInducedDrag(float local_angle_of_attack, Vector3 right_axis, float local_lift_multiplier,
         AnimationCurve local_angle_of_attack_lift_curve, AnimationCurve local_angle_of_attack_induced_drag_curve, float air_density,
         float local_oswald_efficiency, float local_surface_aspect_ratio, float local_surface_area, float local_induced_drag_multiplier)
     {
+        LiftResults lift_results;// = new LiftResults();
+
         //convert aoa from radians to degrees
         float angle_of_attack_degrees = local_angle_of_attack * Mathf.Rad2Deg;
 
@@ -495,7 +500,7 @@ public class AeroplaneController : MonoBehaviour
 
         //lift is perpendicular to velocity and right axis
         Vector3 lift_direction = Vector3.Cross(lift_velocity.normalized, right_axis);
-        Vector3 lift = lift_direction * lift_force;
+        lift_results.lift = lift_direction * lift_force;
 
         //calculate induced drag coefficient
         float induced_drag_coefficient = Mathf.Pow(lift_coefficient, 2) / (Mathf.PI * local_oswald_efficiency * local_surface_aspect_ratio);
@@ -503,12 +508,12 @@ public class AeroplaneController : MonoBehaviour
         //calculate induced drag force       
         float induced_drag_force = 0.5f * air_density * lift_velocity_square_magnitude * local_surface_area * induced_drag_coefficient * local_angle_of_attack_induced_drag_curve.Evaluate(angle_of_attack_degrees) * local_induced_drag_multiplier;
         Vector3 drag_direction = -lift_velocity.normalized;
-        Vector3 induced_drag = drag_direction * induced_drag_force;
+        lift_results.induced_drag = drag_direction * induced_drag_force;
 
-        return lift + induced_drag;
+        return lift_results;
     }
 
-    float calculateControlSurfaceRotation(float dt, float current_angular_velocity, float target_angular_velocity, float max_angular_acceleration)
+    float calculateManoeuvring(float dt, float current_angular_velocity, float target_angular_velocity, float max_angular_acceleration)
     {
         float angular_velocity_error = target_angular_velocity - current_angular_velocity;
         float dt_max_angular_acceleration = max_angular_acceleration * dt;
@@ -528,7 +533,7 @@ public class AeroplaneController : MonoBehaviour
         float propeller_torque_coefficient = propeller_torque_coefficient_curve.Evaluate(propeller_revolutions_per_minute);
 
         //use the equation to calculate propeller torque
-        float propeller_torque = propeller_torque_coefficient * air_density * Mathf.Pow(propeller_revolutions_per_second, 2) * Mathf.Pow(propeller_diameter, 5);
+        float propeller_torque = propeller_torque_coefficient * air_density * Mathf.Pow(propeller_revolutions_per_second, 2) * Mathf.Pow(propeller_diameter, 5) * propeller_torque_multiplier;
 
         return propeller_torque;
     }
@@ -618,7 +623,17 @@ public class AeroplaneController : MonoBehaviour
         airspeed_text.text = "IAS: " + Mathf.Max(Mathf.FloorToInt(transform.InverseTransformDirection(rb.velocity).z * 1.944f), 0.0f).ToString() + " kt";
         altitude_text.text = "ALT: " + Mathf.Max(Mathf.FloorToInt(transform.position.y * 3.281f), 0.0f).ToString() + " ft";
         rate_of_climb_text.text = "ROC: " + Mathf.RoundToInt(rb.velocity.y * 196.9f).ToString() + " fpm";
+       
         g_force_text.text = "G:   " + g_force.ToString("F1");
+
+        if (g_force >= g_limit)
+        {
+            g_force_text.color = Color.red;
+        }
+        else
+        {
+            g_force_text.color = Color.white;
+        }
     }
 
     void updateBrakesText()
@@ -743,16 +758,16 @@ public class AeroplaneController : MonoBehaviour
     void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
+        local_velocity = transform.InverseTransformDirection(rb.velocity);
         float air_density = calculateAirDensity(transform.position.y);
 
-        calculateLocalVelocities(dt);
         calculateAngleOfAttackAndSideslip();
         calculateGForce(dt);
         updateThrust(air_density);
         updatePropellerTorque(air_density);
         updateDrag(air_density);
         updateLift(air_density);
-        updateControlSurfaceRotation(dt);
+        updateManoeuvring(dt);
     }
 
     void updateThrust(float air_density)
@@ -809,7 +824,7 @@ public class AeroplaneController : MonoBehaviour
         //use the drag equation to calculate drag: Drag = 0.5 * Air density * Velocity^2 * Coefficient of drag * Reference area
         Vector3 drag = 0.5f * air_density * local_velocity.sqrMagnitude * drag_coefficient.magnitude * drag_multiplier * -local_velocity.normalized; //drag is opposite to direction of velocity
 
-        drag_text.text = "DRAG: " + (int) drag.magnitude + "N";
+        parasitic_drag_text.text = "DRAG: " + (int) drag.magnitude + "N";
 
         rb.AddRelativeForce(drag);
     }
@@ -822,34 +837,39 @@ public class AeroplaneController : MonoBehaviour
         }
 
         //extra lift provided by flaps
-        float local_flaps_lift_multiplier = flaps_lift_power * flaps_state;
+        float local_flaps_lift_multiplier = 1.0f + (flaps_state * flaps_lift_multiplier);
 
         //with flaps deployed, wings behave as if they are at a higher angle of attack
         float local_flaps_angle_of_attack_increase = flaps_angle_of_attack_increase * flaps_state;
 
         //vertical lift from wings
-        Vector3 lift_force = calculateLiftAndInducedDrag
+        LiftResults wing_lift_results = calculateLiftAndInducedDrag
             (
             angle_of_attack + (local_flaps_angle_of_attack_increase * Mathf.Deg2Rad), Vector3.right,
             wing_lift_multiplier * local_flaps_lift_multiplier, wing_angle_of_attack_lift_curve, wing_angle_of_attack_induced_drag_curve, air_density,
             wing_oswald_efficiency, wing_aspect_ratio, wing_surface_area, wing_induced_drag_multiplier);
 
         //lateral lift from vertical stabiliser
-        Vector3 vertical_stabiliser_force = calculateLiftAndInducedDrag
+        LiftResults vertical_stabiliser_lift_results = calculateLiftAndInducedDrag
             (
             sideslip, Vector3.up, vertical_stabiliser_lift_multiplier, vertical_stabiliser_sideslip_correction_curve,
             vertical_stabiliser_sideslip_induced_drag_curve, air_density, vertical_stabiliser_oswald_efficiency, vertical_stabiliser_aspect_ratio,
             vertical_stabiliser_surface_area, vertical_stabiliser_induced_drag_multiplier);
 
-        wing_lift_text.text = "WING: " + (int) lift_force.magnitude + "N";
-        vertical_stabiliser_lift_text.text = "VSTAB: " + (int) vertical_stabiliser_force.magnitude + "N";
+        //set UI text
+        wing_lift_text.text = "WING: " + (int) wing_lift_results.lift.magnitude + "N";
+        wing_induced_drag_text.text = "W-INDC: " + (int) wing_lift_results.induced_drag.magnitude + "N";
+
+        vertical_stabiliser_lift_text.text = "VSTAB: " + (int) vertical_stabiliser_lift_results.lift.magnitude + "N";
+        vertical_stabiliser_induced_drag_text.text = "V-INDC: " + (int) vertical_stabiliser_lift_results.induced_drag.magnitude + "N";
+
         weight_text.text = "WGHT: " + (int) (-Physics.gravity.y * rb.mass) + "N";
 
-        rb.AddRelativeForce(lift_force);
-        rb.AddRelativeForce(vertical_stabiliser_force); 
+        rb.AddRelativeForce(wing_lift_results.lift + wing_lift_results.induced_drag);
+        rb.AddRelativeForce(vertical_stabiliser_lift_results.lift + vertical_stabiliser_lift_results.induced_drag); 
     }
 
-    void updateControlSurfaceRotation(float dt)
+    void updateManoeuvring(float dt)
     {
         //aerodynamic steering from control surfaces
         float airspeed = Mathf.Max(0.0f, local_velocity.z);
@@ -857,17 +877,15 @@ public class AeroplaneController : MonoBehaviour
 
         Vector3 control_surface_input = new Vector3(stick_input.y, -pedals_input, -stick_input.x);
 
-        Vector3 current_angular_velocity = local_angular_velocity * Mathf.Rad2Deg;
+        Vector3 current_angular_velocity = transform.InverseTransformDirection(rb.angularVelocity) * Mathf.Rad2Deg;
         Vector3 target_angular_velocity = Vector3.Scale(control_surface_input, turn_multiplier * control_surface_effectiveness);        
 
         Vector3 angular_velocity_correction = new Vector3
             (
-            calculateControlSurfaceRotation(dt, current_angular_velocity.x, target_angular_velocity.x, max_turn_acceleration.x * control_surface_effectiveness),
-            calculateControlSurfaceRotation(dt, current_angular_velocity.y, target_angular_velocity.y, max_turn_acceleration.y * control_surface_effectiveness),
-            calculateControlSurfaceRotation(dt, current_angular_velocity.z, target_angular_velocity.z, max_turn_acceleration.z * control_surface_effectiveness)
+            calculateManoeuvring(dt, current_angular_velocity.x, target_angular_velocity.x, max_turn_acceleration.x * control_surface_effectiveness),
+            calculateManoeuvring(dt, current_angular_velocity.y, target_angular_velocity.y, max_turn_acceleration.y * control_surface_effectiveness),
+            calculateManoeuvring(dt, current_angular_velocity.z, target_angular_velocity.z, max_turn_acceleration.z * control_surface_effectiveness)
             );
-
-        Debug.Log(angular_velocity_correction);
 
         rb.AddRelativeTorque(angular_velocity_correction * Mathf.Deg2Rad, ForceMode.VelocityChange);
 

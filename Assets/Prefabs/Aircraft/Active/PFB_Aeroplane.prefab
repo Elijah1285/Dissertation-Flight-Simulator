@@ -715,7 +715,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  flaps_lift_power: 0
+  flaps_lift_multiplier: 0
   flaps_angle_of_attack_increase: 0
   drag_multiplier: 0
   airbrake_drag: 0
@@ -765,6 +765,8 @@ MonoBehaviour:
   ground_steering_multiplier: 0
   max_taxi_steering_speed: 0
   ground_angular_drag: 0
+  propeller_torque_multiplier: 0
+  g_limit: 0
   turn_multiplier: {x: 0, y: 0, z: 0}
   max_turn_acceleration: {x: 0, y: 0, z: 0}
   steering_curve:
@@ -806,6 +808,7 @@ MonoBehaviour:
   - {fileID: 1214519464104402324}
   - {fileID: 8952088541494374548}
   airbrakes_pivots: []
+  speed_for_wind_sound: 0
   engine_audio_source: {fileID: 891589073615511056}
   flaps_audio_source: {fileID: 4609713540394182488}
   wind_audio_source: {fileID: 5017379804088180627}

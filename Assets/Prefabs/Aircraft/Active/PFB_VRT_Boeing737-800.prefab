@@ -6048,6 +6048,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: f7515eca57a137e448802e522e697eb9, type: 3}
     - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
+      propertyPath: speed_for_wind_sound
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879585496088604213, guid: f984281b582ce154bbe32afab001f48e, type: 3}
       propertyPath: airbrakes_deploy_rate
       value: 60
       objectReference: {fileID: 0}
@@ -10557,6 +10561,8 @@ MonoBehaviour:
   - {fileID: 5282668788444110090}
   - {fileID: 651435712856884068}
   - {fileID: 5049909406944114364}
+  audio_source: {fileID: 0}
+  thump_sound: {fileID: 0}
 --- !u!23 &1226681491478751564 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2262808527700189246, guid: f984281b582ce154bbe32afab001f48e, type: 3}
@@ -10608,6 +10614,8 @@ MonoBehaviour:
   - {fileID: 1626725511549940359}
   - {fileID: 7812830822171859595}
   - {fileID: 3901201722292783531}
+  audio_source: {fileID: 0}
+  thump_sound: {fileID: 0}
 --- !u!23 &3921964112740298813 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4038758649850460495, guid: f984281b582ce154bbe32afab001f48e, type: 3}
@@ -10654,6 +10662,8 @@ MonoBehaviour:
   - {fileID: 6270325185953829277}
   - {fileID: 7010175939930340074}
   - {fileID: 2853583032395632890}
+  audio_source: {fileID: 0}
+  thump_sound: {fileID: 0}
 --- !u!23 &7250373202725418282 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7710039482340080728, guid: f984281b582ce154bbe32afab001f48e, type: 3}
