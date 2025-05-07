@@ -477,7 +477,7 @@ public class AeroplaneController : MonoBehaviour
     void calculateGForce(float dt)
     {
         Vector3 acceleration = (rb.velocity - last_velocity) / dt;
-        g_force = transform.InverseTransformDirection(acceleration).y / -Physics.gravity.y;   
+        g_force = 1.0f + transform.InverseTransformDirection(acceleration).y / -Physics.gravity.y;   
         last_velocity = rb.velocity;
     }
 
@@ -906,7 +906,7 @@ public class AeroplaneController : MonoBehaviour
         }
         else
         {
-            rb.angularDrag = 0.2f;
+            rb.angularDrag = 0.0f;
         }
     }
 

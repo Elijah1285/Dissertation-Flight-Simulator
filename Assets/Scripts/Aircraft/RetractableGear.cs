@@ -77,12 +77,19 @@ public class RetractableGear : MonoBehaviour
 
         transform.localRotation = target_rotation;
 
-        audio_source.Stop();
+        if (audio_source != null)
+        {
+            audio_source.Stop();
+        }
 
         if (target_rotation == retracted_rotation)
         {
             toggleMesh(false);
-            audio_source.PlayOneShot(thump_sound);
+
+            if (audio_source != null)
+            {
+                audio_source.PlayOneShot(thump_sound);
+            }
         }
         
         gear_coroutine = null;
