@@ -901,12 +901,25 @@ public class AeroplaneController : MonoBehaviour
         //steering from nose/tail wheel when on the ground
         //raycast to check if wheel is on the ground
         bool nose_or_tail_wheel_on_ground = Physics.Raycast(nose_or_tail_wheel.position, Vector3.down, ground_check_distance, ground_layer);
-        
+
         //apply ground steering when wheel is on ground
         if (nose_or_tail_wheel_on_ground)
         {
             rb.angularDrag = ground_angular_drag;
             rb.AddRelativeTorque(-pedals_input * Mathf.Min(local_velocity.z, max_taxi_steering_speed) * ground_steering_multiplier * Vector3.up, ForceMode.Acceleration);
+
+            //resist lateral movement when on the ground to stop drifting
+
+            // Zero out the lateral (sideways) velocity — typically the x-axis
+            local_velocity.x = 0f;
+
+            // Convert it back to world velocity with lateral motion removed
+            Vector3 corrected_velocity = transform.TransformDirection(local_velocity);
+
+            // Apply the correction as a force to counteract the lateral motion
+            Vector3 counter_force = (corrected_velocity - rb.velocity) * rb.mass / Time.fixedDeltaTime;
+
+            rb.AddForce(counter_force, ForceMode.Force);
         }
         else
         {
