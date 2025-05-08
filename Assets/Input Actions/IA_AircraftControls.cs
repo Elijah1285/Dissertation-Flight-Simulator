@@ -116,6 +116,15 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TogglePerspective"",
+                    ""type"": ""Button"",
+                    ""id"": ""7450b9cf-26a3-4573-b4db-0c9363e73112"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -228,6 +237,17 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleGear"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0406e045-b636-4d22-a5e3-b94bee3aaa5c"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePerspective"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -246,6 +266,7 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
         m_Flight_ThrottleDown = m_Flight.FindAction("ThrottleDown", throwIfNotFound: true);
         m_Flight_ToggleGear = m_Flight.FindAction("ToggleGear", throwIfNotFound: true);
         m_Flight_ToggleBrakes = m_Flight.FindAction("ToggleBrakes", throwIfNotFound: true);
+        m_Flight_TogglePerspective = m_Flight.FindAction("TogglePerspective", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +338,7 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Flight_ThrottleDown;
     private readonly InputAction m_Flight_ToggleGear;
     private readonly InputAction m_Flight_ToggleBrakes;
+    private readonly InputAction m_Flight_TogglePerspective;
     public struct FlightActions
     {
         private @IA_AircraftControls m_Wrapper;
@@ -331,6 +353,7 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
         public InputAction @ThrottleDown => m_Wrapper.m_Flight_ThrottleDown;
         public InputAction @ToggleGear => m_Wrapper.m_Flight_ToggleGear;
         public InputAction @ToggleBrakes => m_Wrapper.m_Flight_ToggleBrakes;
+        public InputAction @TogglePerspective => m_Wrapper.m_Flight_TogglePerspective;
         public InputActionMap Get() { return m_Wrapper.m_Flight; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -370,6 +393,9 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
             @ToggleBrakes.started += instance.OnToggleBrakes;
             @ToggleBrakes.performed += instance.OnToggleBrakes;
             @ToggleBrakes.canceled += instance.OnToggleBrakes;
+            @TogglePerspective.started += instance.OnTogglePerspective;
+            @TogglePerspective.performed += instance.OnTogglePerspective;
+            @TogglePerspective.canceled += instance.OnTogglePerspective;
         }
 
         private void UnregisterCallbacks(IFlightActions instance)
@@ -404,6 +430,9 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
             @ToggleBrakes.started -= instance.OnToggleBrakes;
             @ToggleBrakes.performed -= instance.OnToggleBrakes;
             @ToggleBrakes.canceled -= instance.OnToggleBrakes;
+            @TogglePerspective.started -= instance.OnTogglePerspective;
+            @TogglePerspective.performed -= instance.OnTogglePerspective;
+            @TogglePerspective.canceled -= instance.OnTogglePerspective;
         }
 
         public void RemoveCallbacks(IFlightActions instance)
@@ -433,5 +462,6 @@ public partial class @IA_AircraftControls: IInputActionCollection2, IDisposable
         void OnThrottleDown(InputAction.CallbackContext context);
         void OnToggleGear(InputAction.CallbackContext context);
         void OnToggleBrakes(InputAction.CallbackContext context);
+        void OnTogglePerspective(InputAction.CallbackContext context);
     }
 }

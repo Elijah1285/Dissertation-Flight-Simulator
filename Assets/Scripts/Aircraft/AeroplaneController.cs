@@ -89,6 +89,8 @@ public class AeroplaneController : MonoBehaviour
 
     IA_AircraftControls aircraft_controls;
 
+    [SerializeField] CamController cam_controller;
+
     [Header("Engine, Thrust & Propeller Settings")]
     [SerializeField] float thrust_multiplier;
     [SerializeField] float engine_throttle_pitch_increase_multiplier;
@@ -206,6 +208,8 @@ public class AeroplaneController : MonoBehaviour
         aircraft_controls.Flight.RetractFlaps.performed += context => retractFlaps();
         
         aircraft_controls.Flight.ToggleAirbrakes.performed += context => toggleAirbrakes();
+
+        aircraft_controls.Flight.TogglePerspective.performed += context => cam_controller.togglePerspective();
 
         //axis
         aircraft_controls.Flight.Stick.performed += context => stick_input = context.ReadValue<Vector2>();
